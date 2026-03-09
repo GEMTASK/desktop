@@ -6,6 +6,7 @@
   border: none;
   outline: none;
   appearance: none;
+  user-select: none;
 }
 
 .horizontal {

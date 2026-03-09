@@ -12,10 +12,15 @@ import "./App.css";
 // App
 //
 
+const applications = [
+  { title: "Styleguide", position: { x: 16, y: 16 }, size: { width: 400, height: 300 }, client: <Styleguide /> },
+  { title: "Calculator", position: { x: 288, y: 16 }, size: { width: 300, height: 200 }, client: <Calculator /> },
+];
+
 function App() {
   const [windows, setWindows] = useState([
-    { id: crypto.randomUUID(), title: "Styleguide", position: { x: 50, y: 50 }, size: { width: 400, height: 300 }, client: <Styleguide /> },
-    { id: crypto.randomUUID(), title: "Calculator", position: { x: 150, y: 150 }, size: { width: 300, height: 200 }, client: <Calculator /> },
+    { id: crypto.randomUUID(), ...applications[0] },
+    { id: crypto.randomUUID(), ...applications[1] },
   ]);
   const [windowOrder, setWindowOrder] = useState<string[]>([windows[0].id, windows[1].id]);
 

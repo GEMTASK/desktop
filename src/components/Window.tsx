@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 
 import type { Delegate } from "../shared/types/Delegate";
 
-import { View, Text, Button } from "../shared/components";
+import { View, Text } from "../shared/components";
 
 type PointerData = {
   clientX: number;

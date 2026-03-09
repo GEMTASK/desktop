@@ -1,4 +1,5 @@
 import { View, Text } from "..";
+import type { Delegate } from "../../types/Delegate";
 
 import styles from "./Button.module.scss";
 
@@ -25,12 +26,16 @@ const getTextColor = ({ primary }: { primary?: boolean; hover?: boolean; }) => {
 function Button({
   primary,
   hover,
+  bold,
+  fontWeight,
   children,
   ...props
-}: {
+}: Delegate<{
   primary?: boolean;
   hover?: boolean;
-} & React.ComponentProps<typeof View<"button">>) {
+  bold?: boolean;
+  fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
+}, typeof View<"button">>) {
   const buttonClassName = [
     styles.Button,
     hover && styles.hover,
@@ -47,7 +52,7 @@ function Button({
       className={buttonClassName}
       {...props}
     >
-      <Text textColor={getTextColor({ primary, hover })}>
+      <Text bold={bold} fontWeight={fontWeight} textColor={getTextColor({ primary, hover })}>
         {children}
       </Text>
     </View>

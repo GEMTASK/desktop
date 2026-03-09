@@ -4,6 +4,10 @@
   font-family: "Open Sans";
 }
 
+.select {
+  user-select: text;
+}
+
 .light {
   opacity: 0.6;
 }
