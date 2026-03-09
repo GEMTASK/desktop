@@ -1,5 +1,11 @@
 .Button {
-  border: none;
-  padding: 10px 16px;
   cursor: pointer;
+
+  &.hover:hover {
+    background: hsl(210, 15%, 90%);
+  }
+
+  &:active {
+    filter: brightness(0.90);
+  }
 }

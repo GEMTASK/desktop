@@ -6,6 +6,7 @@ import type { Delegate } from "../../types/Delegate";
 import styles from "./View.module.css";
 import fillColorStyles from "../../styles/fillColor.module.scss";
 import paddingStyles from "../../styles/padding.module.scss";
+import spacingStyles from "../../styles/spacing.module.scss";
 import borderStyles from "../../styles/border.module.scss";
 import cornerRadiusStyles from "../../styles/conerRadius.module.scss";
 import alignHorizontalStyles from "../../styles/alignHorizontal.module.scss";
@@ -20,6 +21,7 @@ function View<TDelegate extends React.ElementType = "div">({
   horizontal,
   shadow,
   padding,
+  spacing,
   border,
   align,
   fillColor,
@@ -36,6 +38,7 @@ function View<TDelegate extends React.ElementType = "div">({
   horizontal?: boolean;
   shadow?: boolean;
   padding?: Padding;
+  spacing?: Padding;
   border?: true | "bottom";
   align?: Align;
   fillColor?: Color;
@@ -51,6 +54,7 @@ function View<TDelegate extends React.ElementType = "div">({
     horizontal && styles.horizontal,
     shadow && styles.shadow,
     padding && paddingStyles[`_${padding.replace(/ /, "_")}`],
+    spacing && spacingStyles[`_${spacing.replace(/ /, "_")}`],
     border && borderStyles[border === true ? "top right bottom left" : border],
     align && (
       horizontal

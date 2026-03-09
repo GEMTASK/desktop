@@ -3,3 +3,7 @@
 .Text {
   font-family: "Open Sans";
 }
+
+.light {
+  opacity: 0.6;
+}

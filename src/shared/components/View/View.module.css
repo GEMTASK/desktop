@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  background: none;
+  border: none;
+  outline: none;
+  appearance: none;
 }
 
 .horizontal {

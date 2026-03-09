@@ -1,3 +1,9 @@
+import { useRef, useState } from "react";
+
+import type { Delegate } from "../shared/types/Delegate";
+
+import { View, Text, Button } from "../shared/components";
+
 type PointerData = {
   clientX: number;
   clientY: number;
@@ -9,26 +15,24 @@ type PointerData = {
 // Window
 //
 
-import { useRef, useState } from "react";
-import { View, Text, Button } from "../shared/components";
-
 function Window({
   id,
   title,
+  children,
   x,
   y,
   order,
   onUpdate,
   onFocus
-}: {
+}: Delegate<{
   id: string;
   title: string;
   x: number;
   y: number;
   order: number;
   onUpdate: (id: string, x: number, y: number) => void;
-  onFocus: (id: string) => void
-}) {
+  onFocus: (id: string) => void;
+}, typeof View<"div">>) {
   const [initialEvent, setInitialEvent] = useState<PointerData | null>(null);
 
   const windowElementRef = useRef<HTMLDivElement>(null);
@@ -72,7 +76,7 @@ function Window({
 
   return (
     <View ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
-      left: x, top: y, width: 400, height: 300, zIndex: order
+      left: x, top: y, width: 256, height: undefined, zIndex: order
     }}
     >
       <View absolute style={{ inset: -16, cursor: "ew-resize" }} />
@@ -87,29 +91,8 @@ function Window({
           {title}
         </Text>
       </View>
-      <View flex fillColor="white" padding="16px" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4 }}>
-        <Text border="bottom" padding="16px" fillColor="gray-0">
-          Content
-        </Text>
-        <Text as="a" href="/" padding="16px">
-          Content
-        </Text>
-        <View horizontal padding="16px">
-          <Button>
-            Hello
-          </Button>
-          <Button primary>
-            Hello
-          </Button>
-        </View>
-        <View horizontal padding="16px" spacing="8px" fillColor="black">
-          <Button>
-            Hello
-          </Button>
-          <Button primary>
-            Hello
-          </Button>
-        </View>
+      <View fillColor="white" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
+        {children}
       </View>
     </View>
   );

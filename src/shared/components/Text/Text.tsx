@@ -1,5 +1,7 @@
 import View from "../View/View";
 
+import type { Color } from "../../types/Color";
+
 import styles from "./Text.module.css";
 import fontSizeStyles from "../../styles/fontSize.module.scss";
 import fontWeightStyles from "../../styles/fontWeight.module.scss";
@@ -8,19 +10,24 @@ import textColorStyles from "../../styles/textColor.module.scss";
 function Text<TDelegate extends React.ElementType = "div">({
   as,
   children,
+  light,
   fontSize,
   fontWeight,
+  textColor,
   ...props
 }: {
   as?: TDelegate;
-  fontSize?: "14px",
-  fontWeight?: "500" | "600" | "700"
+  light?: boolean;
+  fontSize?: "12px" | "14px" | "32px";
+  fontWeight?: "500" | "600" | "700";
+  textColor?: Color;
 } & React.ComponentProps<typeof View<TDelegate>>) {
   const textClassName = [
     styles.Text,
-    fontSize && fontSizeStyles[fontSize] || fontSizeStyles._14px,
+    light && styles.light,
+    fontSize && fontSizeStyles[`_${fontSize}`] || fontSizeStyles._14px,
     fontWeight && fontWeightStyles[`_${fontWeight}`],
-    textColorStyles["gray-7"]
+    textColor && textColorStyles[textColor] || textColorStyles["gray-7"]
   ].filter(className => className).join(" ");
 
   return (

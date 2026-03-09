@@ -12,10 +12,12 @@
 
 .gray-1 {
   background: hsl(210, 15%, 90%);
+  background: hsl(210, 15%, 88%);
 }
 
 .gray-2 {
   background: hsl(210, 15%, 85%);
+  background: hsl(210, 15%, 83%);
 }
 
 .blue-5 {
@@ -31,3 +33,11 @@ $hues: green;
 //     }
 //   }
 // }
+
+/*
+
+#f1f3f5 hsl(210, 16.67%, 95.29%)
+#dee2e6 hsl(210, 13.79%, 88.63%)
+#ced4da hsl(210, 13.95%, 83.14%)
+
+*/
