@@ -3,43 +3,59 @@ import type { Delegate } from "../../types/Delegate";
 
 import styles from "./Button.module.scss";
 
-const getFillColor = ({ primary, hover }: { primary?: boolean; hover?: boolean; }) => {
+type ButtonStyle = {
+  solid?: boolean;
+  primary?: boolean;
+  hover?: boolean;
+};
+
+const getFillColor = ({ solid, primary, hover }: ButtonStyle) => {
   switch (true) {
-    case primary:
+    case !hover && solid && primary:
       return "blue-5";
+    case solid:
+      return "gray-1";
     case hover:
       return undefined;
   }
 
-  return "gray-1";
+  return undefined;
 };
 
-const getTextColor = ({ primary }: { primary?: boolean; hover?: boolean; }) => {
+const getTextColor = ({ primary, solid }: ButtonStyle) => {
   switch (true) {
-    case primary:
+    case solid && primary:
       return "white";
+    case primary:
+      return "blue-5";
   }
 
   return undefined;
 };
 
 function Button({
+  solid,
   primary,
   hover,
-  bold,
+  round,
+  bold = true,
   fontWeight,
   children,
   ...props
 }: Delegate<{
-  primary?: boolean;
-  hover?: boolean;
+  round?: boolean;
   bold?: boolean;
   fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
-}, typeof View<"button">>) {
+} & ButtonStyle, typeof View<"button">>) {
   const buttonClassName = [
     styles.Button,
+    solid && styles.solid,
+    primary && styles.primary,
     hover && styles.hover,
   ].filter(className => className).join(" ");
+
+  const fillColor = getFillColor({ solid, primary, hover });
+  const textColor = getTextColor({ solid, primary, hover });
 
   return (
     <View
@@ -47,12 +63,12 @@ function Button({
       type="button"
       padding="8px 16px"
       align="middle center"
-      cornerRadius="2px"
-      fillColor={getFillColor({ primary, hover })}
+      cornerRadius={round ? "max" : "2px"}
+      fillColor={fillColor}
       className={buttonClassName}
       {...props}
     >
-      <Text bold={bold} fontWeight={fontWeight} textColor={getTextColor({ primary, hover })}>
+      <Text bold={bold} fontWeight={fontWeight} textColor={textColor}>
         {children}
       </Text>
     </View>

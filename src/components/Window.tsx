@@ -76,7 +76,7 @@ function Window({
 
   return (
     <View ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
-      left: x, top: y, width: 256, height: undefined, zIndex: order
+      left: x, top: y, width: undefined, height: undefined, zIndex: order
     }}
     >
       <View absolute style={{ inset: -16, cursor: "ew-resize" }} />

@@ -1,8 +1,16 @@
 .Button {
   cursor: pointer;
 
+  &:not(.solid):not(.hover) {
+    box-shadow: inset 0 0 0 1px hsl(210, 15%, 88%);
+  }
+
+  &.primary:not(.solid):not(.hover) {
+    box-shadow: inset 0 0 0 1px hsl(210, 85%, 60%);
+  }
+
   &.hover:hover {
-    background: hsl(210, 15%, 90%);
+    background: hsl(210, 15%, 88%);
   }
 
   &:active {
