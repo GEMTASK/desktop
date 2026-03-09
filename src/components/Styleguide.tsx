@@ -5,9 +5,18 @@ function Styleguide() {
     <View flex fillColor="white" padding="16px" spacing="16px"
       style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4 }}
     >
-      <Text border="bottom" padding="16px" fillColor="gray-0">
-        Content
-      </Text>
+      <View>
+        <Text fontSize="32px">32px</Text>
+        <View padding="4px" fillColor="gray-1" />
+        <Text fontSize="24px">24px</Text>
+        <View padding="4px" fillColor="gray-1" />
+        <Text fontSize="18px">18px</Text>
+        <View padding="4px" fillColor="gray-1" />
+        <Text fontSize="14px">14px</Text>
+        <View padding="4px" fillColor="gray-1" />
+        <Text fontSize="12px">12px</Text>
+      </View>
+
       <Text as="a" href="/">
         Content
       </Text>
@@ -22,7 +31,6 @@ function Styleguide() {
           Hello
         </Button>
       </View>
-
       <View horizontal spacing="8px" align="middle justify">
         <View spacing="8px">
           <Text>

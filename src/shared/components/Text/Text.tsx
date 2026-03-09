@@ -22,7 +22,7 @@ function Text<TDelegate extends React.ElementType = "div">({
   light?: boolean;
   bold?: boolean;
   select?: boolean;
-  fontSize?: "12px" | "14px" | "32px";
+  fontSize?: "12px" | "14px" | "18px" | "24px" | "32px";
   fontWeight?: "500" | "600" | "700";
   textColor?: Color;
 } & React.ComponentProps<typeof View<TDelegate>>) {
