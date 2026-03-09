@@ -1,0 +1,33 @@
+.black {
+  background: black
+}
+
+.white {
+  background: white;
+}
+
+.gray-0 {
+  background: hsl(210, 15%, 95%);
+}
+
+.gray-1 {
+  background: hsl(210, 15%, 90%);
+}
+
+.gray-2 {
+  background: hsl(210, 15%, 85%);
+}
+
+.blue-5 {
+  background: hsl(210, 85%, 60%);
+}
+
+$hues: green;
+
+// @each $colors, $hue in open-color.$oc-color-list {
+//   @each $level, $color in $colors {
+//     .#{$hue}-#{$level} {
+//       background: $color;
+//     }
+//   }
+// }
