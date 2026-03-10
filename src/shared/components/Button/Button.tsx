@@ -67,7 +67,7 @@ function Button({
       horizontal
       as="button"
       type="button"
-      padding={children ? "8px 16px" : "8px 8px"}
+      padding={children ? "8px 16px" : "8px"}
       spacing="8px"
       align="middle center"
       cornerRadius={round ? "max" : "2px"}

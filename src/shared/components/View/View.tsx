@@ -43,7 +43,7 @@ function View<TDelegate extends React.ElementType = "div">({
   align?: Align;
   fillColor?: Color;
   borderColor?: Color;
-  cornerRadius?: "2px" | "4px" | "max";
+  cornerRadius?: "0px" | "2px" | "4px" | "max";
 }, TDelegate>) {
   const Component = as ?? "div";
 

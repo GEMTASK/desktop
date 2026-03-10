@@ -31,7 +31,7 @@ function MenuItem({
   };
 
   return (
-    <Button hover align="middle left" {...props} onClick={handleClick}>
+    <Button hover align="middle left" cornerRadius="0px" {...props} onClick={handleClick}>
       {title}
     </Button>
   );

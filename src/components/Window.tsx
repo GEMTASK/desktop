@@ -75,10 +75,9 @@ function Window({
   };
 
   return (
-    <View ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
+    <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
       left: x, top: y, width: undefined, height: undefined, zIndex: order
-    }}
-    >
+    }}>
       <View absolute style={{ inset: -16, cursor: "ew-resize" }} />
       <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
         height: 30, borderTopLeftRadius: 4, borderTopRightRadius: 4
@@ -91,7 +90,8 @@ function Window({
           {title}
         </Text>
       </View>
-      <View fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
+      <View id="overlay" absolute style={{ inset: 0, pointerEvents: "none", zIndex: 100 }} />
+      <View id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
     </View>

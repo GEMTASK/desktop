@@ -19,22 +19,22 @@ function Popover({
     className?: string;
   }> | boolean;
 }, typeof View<"div">>) {
-  // const [isVisible, setIsVisible] = useState(false);
-
   const childElementRef = useRef<HTMLDivElement>(null);
   const popoverElementRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    const overlayElement = childElementRef.current?.closest("#window") as HTMLElement;
+
     if (isVisible && childElementRef.current && popoverElementRef.current) {
       const childClientRect = childElementRef.current.getBoundingClientRect();
       // const popoverClientRect = popoverElementRef.current.getBoundingClientRect();
 
-      popoverElementRef.current.style.left = `${childClientRect.left}px`;
-      popoverElementRef.current.style.top = `${childClientRect.top + childClientRect.height + 4}px`;
+      popoverElementRef.current.style.left = `${childClientRect.left - overlayElement.offsetLeft}px`;
+      popoverElementRef.current.style.top = `${childClientRect.top + childClientRect.height + 4 - overlayElement.offsetTop - 30}px`;
     }
   }, [isVisible]);
 
-  const overlayElement = document.getElementById("overlay");
+  const overlayElement = childElementRef.current?.closest("#window")?.querySelector("#overlay");
   const onlyChild = React.Children.only(children);
 
   return (

@@ -39,7 +39,6 @@ function App() {
 
   return (
     <View style={{ height: "100vh" }}>
-      <div id="overlay" style={{ position: "absolute", inset: 0, zIndex: 1000, pointerEvents: "none" }}></div>
       <View horizontal shadow padding="0px 16px" align="middle left" fillColor="content" style={{ height: 30, zIndex: 2 }}>
         <Text fontWeight="700">
           Desktop
