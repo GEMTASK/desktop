@@ -1,3 +1,23 @@
+.primary {
+  background: var(--primary-color);
+}
+
+.content {
+  background: var(--content-color);
+}
+
+.panel {
+  background: var(--panel-color);
+}
+
+.divider {
+  background: var(--divider-color);
+}
+
+.gutter {
+  background: var(--gutter-color);
+}
+
 .black {
   background: black
 }

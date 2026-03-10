@@ -33,7 +33,7 @@ function Text<TDelegate extends React.ElementType = "div">({
     bold && fontWeightStyles._600,
     fontSize && fontSizeStyles[`_${fontSize}`] || fontSizeStyles._14px,
     fontWeight && fontWeightStyles[`_${fontWeight}`],
-    textColor && textColorStyles[textColor] || textColorStyles["gray-7"]
+    textColor && textColorStyles[textColor] || textColorStyles["text"]
   ].filter(className => className).join(" ");
 
   return (

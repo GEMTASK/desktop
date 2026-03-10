@@ -12,7 +12,7 @@ type ButtonStyle = {
 const getFillColor = ({ solid, primary, hover }: ButtonStyle) => {
   switch (true) {
     case !hover && solid && primary:
-      return "blue-5";
+      return "primary";
     case solid:
       return "gray-1";
     case hover:
@@ -25,9 +25,9 @@ const getFillColor = ({ solid, primary, hover }: ButtonStyle) => {
 const getTextColor = ({ primary, solid }: ButtonStyle) => {
   switch (true) {
     case solid && primary:
-      return "white";
+      return "content";
     case primary:
-      return "blue-5";
+      return "primary";
   }
 
   return undefined;

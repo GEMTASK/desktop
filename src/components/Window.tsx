@@ -80,7 +80,7 @@ function Window({
     }}
     >
       <View absolute style={{ inset: -16, cursor: "ew-resize" }} />
-      <View border="bottom" borderColor="gray-2" fillColor="gray-1" align="middle center" style={{
+      <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
         height: 30, borderTopLeftRadius: 4, borderTopRightRadius: 4
       }}
         onPointerDown={handlePointerDown}
@@ -91,7 +91,7 @@ function Window({
           {title}
         </Text>
       </View>
-      <View fillColor="white" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
+      <View fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
     </View>

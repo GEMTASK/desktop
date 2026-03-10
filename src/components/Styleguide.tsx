@@ -2,7 +2,7 @@ import { Button, Divider, Text, View } from "../shared/components";
 
 function Styleguide() {
   return (
-    <View flex fillColor="white" padding="16px" spacing="16px"
+    <View flex fillColor="content" padding="16px" spacing="16px"
       style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4 }}
     >
       <View horizontal spacing="16px" align="middle justify">
@@ -12,17 +12,17 @@ function Styleguide() {
       <Divider />
       <View horizontal spacing="16px">
         <View>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
           <Text fontSize="32px">32px</Text>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
           <Text fontSize="24px">24px</Text>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
           <Text fontSize="18px">18px</Text>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
           <Text fontSize="14px">14px</Text>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
           <Text fontSize="12px">12px</Text>
-          <View padding="4px" fillColor="gray-1" />
+          <View padding="4px" fillColor="divider" />
         </View>
         <Divider />
         <View spacing="8px" align="middle center">
@@ -31,32 +31,28 @@ function Styleguide() {
             <Button>Default</Button>
             <Button solid>Solid</Button>
             <Button primary>Primary</Button>
-            <Button solid primary>Primary</Button>
+            <Button solid primary>Primary Solid</Button>
           </View>
           <View horizontal spacing="8px">
             <Button round hover>Hover</Button>
             <Button round>Default</Button>
             <Button round solid>Solid</Button>
             <Button round primary>Primary</Button>
-            <Button round solid primary>Primary</Button>
+            <Button round solid primary>Primary Solid</Button>
+          </View>
+          <View horizontal spacing="8px">
+            <Button hover>Mutiline<br />Hover</Button>
+            <Button >Mutiline<br />Default</Button>
+            <Button solid>Mutiline<br />Solid</Button>
+            <Button primary>Mutiline<br />Primary</Button>
+            <Button solid primary>Mutiline<br />Primary Solid</Button>
           </View>
         </View>
       </View>
 
-      <Text as="a" href="/">
+      <Text as="a" href="/" textColor="primary" style={{ textDecoration: "none" }}>
         Content
       </Text>
-      <View horizontal spacing="8px">
-        <Button>
-          Hello
-        </Button>
-        <Button primary>
-          Hello
-        </Button>
-        <Button hover>
-          Hello
-        </Button>
-      </View>
       <View horizontal spacing="8px" align="middle justify">
         <View spacing="8px">
           <Text>

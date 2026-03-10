@@ -39,12 +39,12 @@ function App() {
 
   return (
     <View style={{ height: "100vh" }}>
-      <View horizontal shadow padding="0px 16px" align="middle left" fillColor="white" style={{ height: 30, zIndex: 2 }}>
-        <Text fontWeight="700" fillColor="gray-0">
+      <View horizontal shadow padding="0px 16px" align="middle left" fillColor="content" style={{ height: 30, zIndex: 2 }}>
+        <Text fontWeight="700">
           Desktop
         </Text>
       </View>
-      <View flex fillColor="gray-0" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
+      <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
         {windows.map(({ id, title, position, client }) => (
           <Window
             key={id}

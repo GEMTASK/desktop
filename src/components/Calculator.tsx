@@ -6,7 +6,7 @@ const CalcButton = ({
   ...props
 }: Delegate<object, typeof Button>) => {
   return (
-    <Button style={{ minWidth: 50, minHeight: 40 }} {...props}>
+    <Button solid style={{ minWidth: 50, minHeight: 40 }} {...props}>
       {children}
     </Button>
   );
@@ -18,7 +18,7 @@ function Calculator() {
       <Text select border="bottom" fontSize="32px" padding="16px" align="middle right">
         16,777,216
       </Text>
-      <View horizontal padding="8px" spacing="8px" fillColor="gray-0" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+      <View horizontal padding="8px" spacing="8px" fillColor="panel" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
         <CalcButton>C</CalcButton>
         <CalcButton>÷</CalcButton>
         <CalcButton>×</CalcButton>
