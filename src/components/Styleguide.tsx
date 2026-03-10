@@ -1,4 +1,5 @@
-import { Button, Divider, Text, View } from "../shared/components";
+import { Button, Divider, Icon, Text, View } from "../shared/components";
+import { Home as HomeIcon } from "lucide-react";
 
 function Styleguide() {
   return (
@@ -41,6 +42,10 @@ function Styleguide() {
             <Button round solid primary>Primary Solid</Button>
           </View>
           <View horizontal spacing="8px">
+            <Button round solid icon={HomeIcon}>Left Icon</Button>
+            <Button round solid icon={HomeIcon} />
+          </View>
+          <View horizontal spacing="8px">
             <Button hover>Mutiline<br />Hover</Button>
             <Button >Mutiline<br />Default</Button>
             <Button solid>Mutiline<br />Solid</Button>
@@ -53,6 +58,9 @@ function Styleguide() {
       <Text as="a" href="/" textColor="primary" style={{ textDecoration: "none" }}>
         Content
       </Text>
+
+      <Icon icon={HomeIcon} color="primary" />
+
       <View horizontal spacing="8px" align="middle justify">
         <View spacing="8px">
           <Text>

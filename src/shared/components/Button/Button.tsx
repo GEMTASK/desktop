@@ -1,5 +1,6 @@
-import { View, Text } from "..";
 import type { Delegate } from "../../types/Delegate";
+
+import { View, Text, Icon } from "..";
 
 import styles from "./Button.module.scss";
 
@@ -37,12 +38,14 @@ function Button({
   solid,
   primary,
   hover,
+  icon,
   round,
   bold = true,
   fontWeight,
   children,
   ...props
 }: Delegate<{
+  icon?: React.ComponentProps<typeof Icon>["icon"];
   round?: boolean;
   bold?: boolean;
   fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
@@ -59,18 +62,25 @@ function Button({
 
   return (
     <View
+      horizontal
       as="button"
       type="button"
-      padding="8px 16px"
+      padding={children ? "8px 16px" : "8px 8px"}
+      spacing="8px"
       align="middle center"
       cornerRadius={round ? "max" : "2px"}
       fillColor={fillColor}
       className={buttonClassName}
       {...props}
     >
-      <Text bold={bold} fontWeight={fontWeight} textColor={textColor}>
-        {children}
-      </Text>
+      {icon && (
+        <Icon icon={icon} size={16} color={textColor} style={{ marginLeft: children ? -3 : 0 }} />
+      )}
+      {children && (
+        <Text bold={bold} fontWeight={fontWeight} textColor={textColor}>
+          {children}
+        </Text>
+      )}
     </View>
   );
 }

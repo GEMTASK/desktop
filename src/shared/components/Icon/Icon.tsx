@@ -1,8 +1,23 @@
-import { Camera } from "lucide-react";
+import { Camera as CameraIcon } from "lucide-react";
 
-function Icon() {
+import textColorStyles from "../../styles/textColor.module.scss";
+
+function Icon({
+  icon: Component = CameraIcon,
+  color = "gray-7",
+  size,
+  ...props
+}: {
+  icon: typeof CameraIcon,
+  color?: React.ComponentProps<typeof CameraIcon>["color"]
+  size?: React.ComponentProps<typeof CameraIcon>["size"]
+} & React.ComponentProps<typeof CameraIcon>) {
+  const iconClassName = [
+    color && textColorStyles[color]
+  ].filter(className => className).join(" ");
+
   return (
-    <Camera color="red" size={48} />
+    <Component size={size} className={iconClassName} {...props} />
   );
 }
 
