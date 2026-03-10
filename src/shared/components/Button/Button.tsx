@@ -39,6 +39,7 @@ function Button({
   primary,
   hover,
   icon,
+  rightIcon,
   round,
   bold = true,
   fontWeight,
@@ -46,6 +47,7 @@ function Button({
   ...props
 }: Delegate<{
   icon?: React.ComponentProps<typeof Icon>["icon"];
+  rightIcon?: React.ComponentProps<typeof Icon>["icon"];
   round?: boolean;
   bold?: boolean;
   fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
@@ -74,12 +76,15 @@ function Button({
       {...props}
     >
       {icon && (
-        <Icon icon={icon} size={16} color={textColor} style={{ marginLeft: children ? -3 : 0 }} />
+        <Icon icon={icon} size={16} color={textColor} style={{ strokeWidth: 2.5, marginTop: -2, marginBottom: -2, marginLeft: children ? -3 : 0 }} />
       )}
       {children && (
         <Text bold={bold} fontWeight={fontWeight} textColor={textColor}>
           {children}
         </Text>
+      )}
+      {rightIcon && (
+        <Icon icon={rightIcon} size={16} color={textColor} style={{ strokeWidth: 2.5, marginTop: -2, marginBottom: -2, marginRight: children ? -3 : 0 }} />
       )}
     </View>
   );

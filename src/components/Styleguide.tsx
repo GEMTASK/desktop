@@ -1,5 +1,5 @@
 import { Button, Divider, Icon, Text, View } from "../shared/components";
-import { Home as HomeIcon } from "lucide-react";
+import { ChevronDown as ChevronDownIcon, Home as HomeIcon } from "lucide-react";
 
 function Styleguide() {
   return (
@@ -44,6 +44,7 @@ function Styleguide() {
           <View horizontal spacing="8px">
             <Button round solid icon={HomeIcon}>Left Icon</Button>
             <Button round solid icon={HomeIcon} />
+            <Button round solid rightIcon={ChevronDownIcon}>Right Icon</Button>
           </View>
           <View horizontal spacing="8px">
             <Button hover>Mutiline<br />Hover</Button>
