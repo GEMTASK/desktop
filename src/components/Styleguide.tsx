@@ -1,4 +1,4 @@
-import { Button, Divider, Icon, Text, View } from "../shared/components";
+import { Button, Divider, Icon, Text, View, Popover } from "../shared/components";
 import { ChevronDown as ChevronDownIcon, Home as HomeIcon } from "lucide-react";
 
 function Styleguide() {
@@ -74,6 +74,12 @@ function Styleguide() {
         <Button>
           Button
         </Button>
+      </View>
+
+      <View horizontal>
+        <Popover content={<Text>Hello</Text>}>
+          <Button solid rightIcon={ChevronDownIcon}>Popover</Button>
+        </Popover>
       </View>
     </View>
   );
