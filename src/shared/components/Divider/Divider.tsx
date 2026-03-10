@@ -1,8 +1,13 @@
+import type { Delegate } from "../../types/Delegate";
+
 import View from "../View";
 
-function Divider() {
+function Divider({
+  style,
+  ...props
+}: Delegate<object, typeof View<"div">>) {
   return (
-    <View fillColor="divider" style={{ minWidth: 1, minHeight: 1 }} />
+    <View fillColor="divider" style={{ ...style, minWidth: 1, minHeight: 1 }} {...props} />
   );
 }
 

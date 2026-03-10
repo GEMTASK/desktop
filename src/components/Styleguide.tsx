@@ -1,5 +1,5 @@
-import { Button, Divider, Icon, Text, View, Popover } from "../shared/components";
-import { ChevronDown as ChevronDownIcon, Home as HomeIcon } from "lucide-react";
+import { Button, Divider, Icon, Text, View, Popover, Menu } from "../shared/components";
+import { Bookmark as BookmarkIcon, ChevronDown as ChevronDownIcon, Copy as CopyIcon, Home as HomeIcon } from "lucide-react";
 
 function Styleguide() {
   return (
@@ -76,10 +76,26 @@ function Styleguide() {
         </Button>
       </View>
 
-      <View horizontal>
-        <Popover content={<Text>Hello</Text>}>
+      <View horizontal spacing="8px">
+        <Popover isVisible content={
+          <View padding="8px 0px">
+            <Button hover>
+              Hello
+            </Button>
+          </View>
+        }>
           <Button solid rightIcon={ChevronDownIcon}>Popover</Button>
         </Popover>
+
+        <Menu items={[
+          <Menu.Item icon={CopyIcon} title="Clone Item" />,
+          <Menu.Divider />,
+          <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
+        ]}>
+          <Button solid rightIcon={ChevronDownIcon}>
+            Menu
+          </Button>
+        </Menu>
       </View>
     </View>
   );
