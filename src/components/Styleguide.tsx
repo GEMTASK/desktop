@@ -35,13 +35,6 @@ function Styleguide() {
             <Button solid primary>Primary Solid</Button>
           </View>
           <View horizontal spacing="8px">
-            <Button round hover>Hover</Button>
-            <Button round>Default</Button>
-            <Button round solid>Solid</Button>
-            <Button round primary>Primary</Button>
-            <Button round solid primary>Primary Solid</Button>
-          </View>
-          <View horizontal spacing="8px">
             <Button round solid icon={HomeIcon}>Left Icon</Button>
             <Button round solid icon={HomeIcon} />
             <Button round solid rightIcon={ChevronDownIcon}>Right Icon</Button>
