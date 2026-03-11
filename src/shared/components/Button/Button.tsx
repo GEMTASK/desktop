@@ -18,7 +18,7 @@ const getFillColor = ({ solid, primary, hover, selected }: ButtonStyle) => {
     case !hover && solid && primary:
       return "primary";
     case solid:
-      return "gray-1";
+      return "divider";
     case hover:
       return undefined;
   }
