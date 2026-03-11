@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Button, Divider, Icon, Text, View, Popover, Menu, Select } from "../shared/components";
+import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../shared/components";
 import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, SquareIcon, TrashIcon } from "lucide-react";
+import type { FieldValue } from "../shared/components/Form/Form";
 
 function Styleguide() {
   const [storyTypeFilter, setStoryTypeFilter] = useState<string | undefined>("TO_DO");
@@ -101,6 +102,15 @@ function Styleguide() {
             ]
           }
         ]} />
+
+        <Form fields={{ status: undefined }} onFieldChange={(name: string, value: FieldValue) => console.log(name, value)}>
+          <Form.Field name="status">
+            <Select options={[
+              { label: "Any", value: undefined },
+              { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+            ]} />
+          </Form.Field>
+        </Form>
       </View>
     </View>
   );
