@@ -7,7 +7,7 @@ import { Icon, Menu, Text, View } from "..";
 type OptionValueBase = {
   icon?: React.ComponentProps<typeof Menu.Item>["icon"];
   label: React.ComponentProps<typeof Menu.Item>["title"];
-  value: string;
+  value: string | undefined;
 };
 
 type OptionValue = OptionValueBase & {
@@ -22,8 +22,8 @@ function Option({
   ...props
 }: Delegate<{
   label: React.ComponentProps<typeof Menu.Item>["title"];
-  value: string;
-  onSelect: (value: string) => void;
+  value: string | undefined;
+  onSelect: (value: string | undefined) => void;
 }, typeof Menu.Item, "title">) {
   const handleItemClick = () => {
     onSelect?.(value);
@@ -46,9 +46,9 @@ function Select({
 }: Delegate<{
   value?: string;
   options: OptionValue[];
-  onValueChange?: (value: string) => void;
+  onValueChange?: (value: string | undefined) => void;
 }, typeof Menu, "items" | "children">) {
-  const handleOptionSelect = (value: string) => {
+  const handleOptionSelect = (value: string | undefined) => {
     onValueChange?.(value);
   };
 
@@ -77,7 +77,7 @@ function Select({
           <Text light caps fontSize="12px" innerStyle={{ fontSize: 11, lineHeight: "17px" }}>
             Status
           </Text>
-          <Icon icon={ChevronDownIcon} size={16} style={{ opacity: 0.6, margin: "-4px 0" }} />
+          <Icon icon={ChevronDownIcon} size={16} style={{ opacity: 0.6, margin: "-4px 0", strokeWidth: 1 }} />
         </View>
         <Text>
           {options.reduce((acc, option) => (

@@ -3,7 +3,7 @@ import { Button, Divider, Icon, Text, View, Popover, Menu, Select } from "../sha
 import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, SquareIcon, TrashIcon } from "lucide-react";
 
 function Styleguide() {
-  const [storyTypeFilter, setStoryTypeFilter] = useState("TO_DO");
+  const [storyTypeFilter, setStoryTypeFilter] = useState<string | undefined>("TO_DO");
 
   return (
     <View flex fillColor="content" padding="16px" spacing="16px"
@@ -41,13 +41,6 @@ function Styleguide() {
             <Button round solid icon={HomeIcon}>Left Icon</Button>
             <Button round solid icon={HomeIcon} />
             <Button round solid rightIcon={ChevronDownIcon}>Right Icon</Button>
-          </View>
-          <View horizontal spacing="8px">
-            <Button hover>Mutiline<br />Hover</Button>
-            <Button >Mutiline<br />Default</Button>
-            <Button solid>Mutiline<br />Solid</Button>
-            <Button primary>Mutiline<br />Primary</Button>
-            <Button solid primary>Mutiline<br />Primary Solid</Button>
           </View>
         </View>
       </View>
@@ -99,7 +92,7 @@ function Styleguide() {
         </Menu>
 
         <Select value={storyTypeFilter} onValueChange={value => setStoryTypeFilter(value)} options={[
-          { label: "Any", value: "" },
+          { label: "Any", value: undefined },
           {
             label: "", value: "group", options: [
               { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
