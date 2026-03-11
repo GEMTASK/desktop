@@ -21,7 +21,7 @@ function MenuItem({
   onSelect,
   ...props
 }: Delegate<{
-  title: string,
+  title: React.ComponentProps<typeof Button>["children"],
   value?: string;
   onSelect?: (value: string | undefined) => void;
 }, typeof Button>) {
@@ -70,7 +70,7 @@ function Menu({
     <View padding="8px 0px">
       {items.map((item, index) => isValidElement(item) && cloneElement(item, {
         key: index,
-        onSelect: handleItemSelect
+        onSelect: (...args) => { handleItemSelect(...args); item.props.onSelect?.(...args); }
       }))}
     </View>
   );

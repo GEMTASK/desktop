@@ -1,7 +1,10 @@
-import { Button, Divider, Icon, Text, View, Popover, Menu } from "../shared/components";
-import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, TrashIcon } from "lucide-react";
+import { useState } from "react";
+import { Button, Divider, Icon, Text, View, Popover, Menu, Select } from "../shared/components";
+import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, SquareIcon, TrashIcon } from "lucide-react";
 
 function Styleguide() {
+  const [storyTypeFilter, setStoryTypeFilter] = useState("TO_DO");
+
   return (
     <View flex fillColor="content" padding="16px" spacing="16px"
       style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4 }}
@@ -93,6 +96,17 @@ function Styleguide() {
             Menu
           </Button>
         </Menu>
+
+        <Select value={storyTypeFilter} onValueChange={value => setStoryTypeFilter(value)} options={[
+          { label: "Any", value: "" },
+          {
+            label: "Group", value: "group", options: [
+              { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
+              { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+              { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
+            ]
+          }
+        ]} />
       </View>
     </View>
   );

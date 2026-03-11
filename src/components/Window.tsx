@@ -22,8 +22,6 @@ function Frame({ onUpdate }) {
     const localX = event.clientX - clientRect.left;
     const localY = event.clientY - clientRect.top;
 
-    console.log(localX);
-
     if (localX < 48 && localY < 48) {
       event.currentTarget.style.cursor = "nwse-resize";
     } else if (localX > clientRect.width - 48) {

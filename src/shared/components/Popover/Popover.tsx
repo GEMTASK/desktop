@@ -32,7 +32,6 @@ function Popover({
       // const popoverClientRect = popoverElementRef.current.getBoundingClientRect();
 
       if (anchor === "top right") {
-        console.log("here");
         popoverElementRef.current.style.left = `${childClientRect.right - overlayElement.offsetLeft}px`;
         popoverElementRef.current.style.top = `${childClientRect.top - 8 - overlayElement.offsetTop - 30}px`;
       } else {

@@ -8,10 +8,13 @@ type ButtonStyle = {
   solid?: boolean;
   primary?: boolean;
   hover?: boolean;
+  selected?: boolean;
 };
 
-const getFillColor = ({ solid, primary, hover }: ButtonStyle) => {
+const getFillColor = ({ solid, primary, hover, selected }: ButtonStyle) => {
   switch (true) {
+    case selected:
+      return "selected";
     case !hover && solid && primary:
       return "primary";
     case solid:
@@ -38,11 +41,14 @@ function Button({
   solid,
   primary,
   hover,
+  //
   icon,
   rightIcon,
   round,
   bold = true,
   fontWeight,
+  selected,
+  //
   children,
   ...props
 }: Delegate<{
@@ -51,6 +57,7 @@ function Button({
   round?: boolean;
   bold?: boolean;
   fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
+  selected?: boolean;
 } & ButtonStyle, typeof View<"button">>) {
   const buttonClassName = [
     styles.Button,
@@ -59,8 +66,8 @@ function Button({
     hover && styles.hover,
   ].filter(className => className).join(" ");
 
-  const fillColor = getFillColor({ solid, primary, hover });
-  const textColor = getTextColor({ solid, primary, hover });
+  const fillColor = getFillColor({ solid, primary, hover, selected });
+  const textColor = getTextColor({ solid, primary, hover, selected });
 
   return (
     <View

@@ -11,25 +11,30 @@ function Text<TDelegate extends React.ElementType = "div">({
   as,
   select,
   light,
+  caps,
   bold,
   fontSize,
   fontWeight,
   textColor,
+  innerStyle,
   children,
   ...props
 }: {
   as?: TDelegate;
   light?: boolean;
+  caps?: boolean;
   bold?: boolean;
   select?: boolean;
   fontSize?: "12px" | "14px" | "18px" | "24px" | "32px";
   fontWeight?: "500" | "600" | "700";
   textColor?: Color;
+  innerStyle?: React.ComponentProps<"span">["style"];
 } & React.ComponentProps<typeof View<TDelegate>>) {
   const textClassName = [
     styles.Text,
     select && styles.select,
     light && styles.light,
+    caps && styles.caps,
     bold && fontWeightStyles._600,
     fontSize && fontSizeStyles[`_${fontSize}`] || fontSizeStyles._14px,
     fontWeight && fontWeightStyles[`_${fontWeight}`],
@@ -38,7 +43,7 @@ function Text<TDelegate extends React.ElementType = "div">({
 
   return (
     <View as={as as React.ElementType} {...props}>
-      <span className={textClassName}>
+      <span className={textClassName} style={innerStyle}>
         {children}
       </span>
     </View>
