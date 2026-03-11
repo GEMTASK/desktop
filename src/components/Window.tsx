@@ -117,14 +117,14 @@ function Window({
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
       >
-        <Text fontWeight="700" style={{ userSelect: "none", paddingTop: 1 }}>
+        <Text fontWeight="700" padding="8px 16px" style={{ marginTop: 1 }}>
           {title}
         </Text>
       </View>
-      <View id="overlay" absolute style={{ inset: 0, pointerEvents: "none", zIndex: 100 }} />
       <View id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
+      <View id="overlay" absolute style={{ inset: 0, pointerEvents: "none" }} />
     </View>
   );
 }
