@@ -4,11 +4,14 @@ import type { Delegate } from "../../types/Delegate";
 
 import { Icon, Menu, Text, View } from "..";
 
-type OptionValue = {
+type OptionValueBase = {
   icon?: React.ComponentProps<typeof Menu.Item>["icon"];
   label: React.ComponentProps<typeof Menu.Item>["title"];
   value: string;
-  options?: OptionValue[];
+};
+
+type OptionValue = OptionValueBase & {
+  options?: OptionValueBase[];
 };
 
 function Option({
@@ -52,11 +55,13 @@ function Select({
   const menuItems = options.flatMap(({ icon, label, value: _value, options }) => {
     switch (true) {
       case options !== undefined:
-        return (
-          [<Menu.Divider />, ...options.map(({ icon, label, value: _value }) => (
+        return [
+          <Menu.Divider />,
+          ...(label ? [<Menu.Group label={label as string} />] : []),
+          ...options.map(({ icon, label, value: _value }) => (
             <Option selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />
-          ))]
-        );
+          ))
+        ];
       default: {
         return (
           <Option selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />

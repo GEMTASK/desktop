@@ -90,6 +90,7 @@ function Styleguide() {
             <Menu.Item icon={ArrowRightLeftIcon} title="Related To" rightIcon={ChevronRightIcon} />
           </Menu>,
           <Menu.Divider />,
+          <Menu.Group label="Group" />,
           <Menu.Item icon={TrashIcon} title="Delete Item" />,
         ]}>
           <Button solid rightIcon={ChevronDownIcon}>
@@ -100,7 +101,7 @@ function Styleguide() {
         <Select value={storyTypeFilter} onValueChange={value => setStoryTypeFilter(value)} options={[
           { label: "Any", value: "" },
           {
-            label: "Group", value: "group", options: [
+            label: "", value: "group", options: [
               { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
               { icon: SquareIcon, label: "To Do", value: "TO_DO" },
               { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
