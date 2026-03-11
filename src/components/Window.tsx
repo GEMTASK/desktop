@@ -12,6 +12,31 @@ type PointerData = {
 };
 
 //
+// Frame
+//
+
+function Frame({ onUpdate }) {
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const clientRect = event.currentTarget.getBoundingClientRect();
+
+    const localX = event.clientX - clientRect.left;
+    const localY = event.clientY - clientRect.top;
+
+    console.log(localX);
+
+    if (localX < 48 && localY < 48) {
+      event.currentTarget.style.cursor = "nwse-resize";
+    } else {
+      event.currentTarget.style.cursor = "";
+    }
+  };
+
+  return (
+    <View absolute style={{ inset: -16, cursor: "nw" }} onPointerMove={handlePointerMove} />
+  );
+}
+
+//
 // Window
 //
 
@@ -74,11 +99,15 @@ function Window({
     }
   };
 
+  const handleFrameUpdate = () => {
+
+  };
+
   return (
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
       left: x, top: y, width: undefined, height: undefined, zIndex: order
     }}>
-      <View absolute style={{ inset: -16, cursor: "ew-resize" }} />
+      <Frame onUpdate={handleFrameUpdate} />
       <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
         height: 30, borderTopLeftRadius: 4, borderTopRightRadius: 4
       }}
