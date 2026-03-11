@@ -27,6 +27,7 @@ function MenuItem({
 }, typeof Button>) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(event);
+
     onSelect?.(value);
   };
 
@@ -43,7 +44,9 @@ function MenuItem({
 
 function Menu({
   items,
-  children
+  children,
+  onSelect,
+  ...props
 }: Delegate<{
   items: (React.ReactElement<{
     onSelect?: (value: string | undefined) => void;
@@ -53,11 +56,14 @@ function Menu({
     // cursor: "pointer";
     onClick: React.PointerEventHandler;
   }>;
+  onSelect?: (value: string | undefined) => void;
 }, typeof Popover, "isVisible" | "content">) {
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
 
-  const handleItemSelect = () => {
+  const handleItemSelect = (value: string | undefined) => {
     setIsPopoverVisible(false);
+
+    onSelect?.(value);
   };
 
   const popoverContent = (
@@ -72,7 +78,7 @@ function Menu({
   const onlyChild = React.Children.only(children);
 
   return (
-    <Popover isVisible={isPopoverVisible} content={popoverContent}>
+    <Popover isVisible={isPopoverVisible} content={popoverContent} {...props}>
       {React.isValidElement(onlyChild) && React.cloneElement(onlyChild, {
         onClick: () => {
           setIsPopoverVisible(isPopoverVisible => !isPopoverVisible);

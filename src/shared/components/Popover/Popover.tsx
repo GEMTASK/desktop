@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/refs */
 
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 
 import type { Delegate } from "../../types/Delegate";
@@ -10,10 +10,12 @@ import { View } from "..";
 function Popover({
   content,
   isVisible,
+  anchor,
   children
 }: Delegate<{
   content: React.ReactNode;
   isVisible: boolean;
+  anchor?: "bottom left" | "top right",
   children: React.ReactElement<{
     ref: React.RefObject<HTMLElement | null>;
     className?: string;
@@ -29,10 +31,16 @@ function Popover({
       const childClientRect = childElementRef.current.getBoundingClientRect();
       // const popoverClientRect = popoverElementRef.current.getBoundingClientRect();
 
-      popoverElementRef.current.style.left = `${childClientRect.left - overlayElement.offsetLeft}px`;
-      popoverElementRef.current.style.top = `${childClientRect.top + childClientRect.height + 4 - overlayElement.offsetTop - 30}px`;
+      if (anchor === "top right") {
+        console.log("here");
+        popoverElementRef.current.style.left = `${childClientRect.right - overlayElement.offsetLeft}px`;
+        popoverElementRef.current.style.top = `${childClientRect.top - 8 - overlayElement.offsetTop - 30}px`;
+      } else {
+        popoverElementRef.current.style.left = `${childClientRect.left - overlayElement.offsetLeft}px`;
+        popoverElementRef.current.style.top = `${childClientRect.top + childClientRect.height + 4 - overlayElement.offsetTop - 30}px`;
+      }
     }
-  }, [isVisible]);
+  }, [anchor, isVisible]);
 
   const overlayElement = childElementRef.current?.closest("#window")?.querySelector("#overlay");
   const onlyChild = React.Children.only(children);

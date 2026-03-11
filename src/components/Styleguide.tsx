@@ -1,5 +1,5 @@
 import { Button, Divider, Icon, Text, View, Popover, Menu } from "../shared/components";
-import { Bookmark as BookmarkIcon, ChevronDown as ChevronDownIcon, Copy as CopyIcon, Home as HomeIcon } from "lucide-react";
+import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, TrashIcon } from "lucide-react";
 
 function Styleguide() {
   return (
@@ -82,8 +82,12 @@ function Styleguide() {
 
         <Menu items={[
           <Menu.Item icon={CopyIcon} title="Clone Item" />,
-          <Menu.Divider />,
           <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
+          <Menu anchor="top right" items={[<Menu.Item icon={ArrowRightFromLineIcon} title="Blocked By" />]}>
+            <Menu.Item icon={ArrowRightLeftIcon} title="Related To" rightIcon={ChevronRightIcon} />
+          </Menu>,
+          <Menu.Divider />,
+          <Menu.Item icon={TrashIcon} title="Delete Item" />,
         ]}>
           <Button solid rightIcon={ChevronDownIcon}>
             Menu

@@ -84,7 +84,9 @@ function Button({
         </Text>
       )}
       {rightIcon && (
-        <Icon icon={rightIcon} size={16} color={textColor} style={{ strokeWidth: 2.5, marginTop: -2, marginBottom: -2, marginRight: children ? -3 : 0 }} />
+        <View flex align="middle right">
+          <Icon icon={rightIcon} size={16} color={textColor} style={{ strokeWidth: 2.5, marginTop: -2, marginBottom: -2, marginRight: children ? -3 : 0, justifySelf: "flex-end" }} />
+        </View>
       )}
     </View>
   );
