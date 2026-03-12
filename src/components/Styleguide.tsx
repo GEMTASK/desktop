@@ -16,6 +16,16 @@ function Styleguide() {
     itemType: "TO_DO"
   });
 
+  const handleItemFilterUpdate = (name: string, value: FieldValue) => setItemFilters(filters => ({
+    ...filters,
+    [name]: value
+  }));
+
+  const itemTypeSelectOptions = [
+    { label: "Any", value: undefined },
+    { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+  ];
+
   return (
     <View flex fillColor="content" padding="16px" spacing="16px"
       style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4 }}
@@ -102,32 +112,14 @@ function Styleguide() {
           </Button>
         </Menu>
 
-        <Select value={storyTypeFilter} onValueChange={value => setStoryTypeFilter(value)} options={[
-          { label: "Any", value: undefined },
-          {
-            label: "", value: "group", options: [
-              { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
-              { icon: SquareIcon, label: "To Do", value: "TO_DO" },
-              { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
-            ]
-          }
-        ]} />
-
-        <Form
-          horizontal
-          fields={itemFilters}
-          onFieldChange={(name: string, value: FieldValue) => setItemFilters(filters => ({ ...filters, [name]: value }))}
-        >
+        <Form horizontal fields={itemFilters} spacing="8px" onFieldChange={handleItemFilterUpdate}>
           <Form.Field name="status">
             <Select options={[
               { label: "Any", value: undefined },
               { icon: SquareIcon, label: "To Do", value: "TO_DO" },
             ]} />
           </Form.Field>
-          <SelectField name="status" options={[
-            { label: "Any", value: undefined },
-            { icon: SquareIcon, label: "To Do", value: "TO_DO" },
-          ]} />
+          <SelectField name="status" options={itemTypeSelectOptions} />
         </Form>
       </View>
     </View>
