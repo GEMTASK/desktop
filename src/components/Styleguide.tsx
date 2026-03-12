@@ -1,10 +1,20 @@
 import { useState } from "react";
-import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../shared/components";
 import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, SquareIcon, TrashIcon } from "lucide-react";
+
+import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../shared/components";
+
 import type { FieldValue } from "../shared/components/Form/Form";
+
+const SelectField = Form.Field.withComponent(Select);
 
 function Styleguide() {
   const [storyTypeFilter, setStoryTypeFilter] = useState<string | undefined>("TO_DO");
+
+  const [itemFilters, setItemFilters] = useState<{
+    itemType: undefined | "TO_DO"
+  }>({
+    itemType: "TO_DO"
+  });
 
   return (
     <View flex fillColor="content" padding="16px" spacing="16px"
@@ -103,13 +113,21 @@ function Styleguide() {
           }
         ]} />
 
-        <Form fields={{ status: undefined }} onFieldChange={(name: string, value: FieldValue) => console.log(name, value)}>
+        <Form
+          horizontal
+          fields={itemFilters}
+          onFieldChange={(name: string, value: FieldValue) => setItemFilters(filters => ({ ...filters, [name]: value }))}
+        >
           <Form.Field name="status">
             <Select options={[
               { label: "Any", value: undefined },
               { icon: SquareIcon, label: "To Do", value: "TO_DO" },
             ]} />
           </Form.Field>
+          <SelectField name="status" options={[
+            { label: "Any", value: undefined },
+            { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+          ]} />
         </Form>
       </View>
     </View>
