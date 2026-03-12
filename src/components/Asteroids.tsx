@@ -38,7 +38,7 @@ function Asteroids() {
     }
   };
 
-  const handleAnimationFrame = useCallback((timestamp: number) => {
+  const handleAnimationFrame = useRef((timestamp: number) => {
     const timestampDelta = timestamp - lastTimestamp.current;
 
     if (keymapRef.current.ArrowRight) {
@@ -57,11 +57,11 @@ function Asteroids() {
 
     lastTimestamp.current = timestamp;
 
-    animationFrameRef.current = requestAnimationFrame(handleAnimationFrame);
-  }, []);
+    animationFrameRef.current = requestAnimationFrame(handleAnimationFrame.current);
+  });
 
   useEffect(() => {
-    animationFrameRef.current = requestAnimationFrame(handleAnimationFrame);
+    animationFrameRef.current = requestAnimationFrame(handleAnimationFrame.current);
 
     return () => {
       cancelAnimationFrame(animationFrameRef.current);
