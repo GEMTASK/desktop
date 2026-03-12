@@ -117,6 +117,7 @@ function Styleguide() {
           <Form.Field name="status">
             <Select options={[
               { label: "Any", value: undefined },
+              { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
               { icon: SquareIcon, label: "To Do", value: "TO_DO" },
             ]} />
           </Form.Field>

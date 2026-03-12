@@ -72,7 +72,7 @@ function Select({
 
   return (
     <Menu items={menuItems} {...props}>
-      <Label label="Status">
+      <Label chevron label="Status">
         <Text>
           {options.reduce((acc, option) => (
             option.value === value ? option : option.options?.find(option => option?.value === value) ?? acc
