@@ -2,7 +2,7 @@ import { ChevronDownIcon } from "lucide-react";
 
 import type { Delegate } from "../../types/Delegate";
 
-import { Icon, Menu, Text, View } from "..";
+import { Icon, Label, Menu, Text, View } from "..";
 
 type OptionValueBase = {
   icon?: React.ComponentProps<typeof Menu.Item>["icon"];
@@ -72,19 +72,13 @@ function Select({
 
   return (
     <Menu items={menuItems} {...props}>
-      <View spacing="8px">
-        <View horizontal align="middle left">
-          <Text light caps fontSize="12px" innerStyle={{ fontSize: 11, lineHeight: "17px" }}>
-            Status
-          </Text>
-          <Icon icon={ChevronDownIcon} size={16} style={{ opacity: 0.6, margin: "-4px 0", strokeWidth: 1 }} />
-        </View>
+      <Label label="Status">
         <Text>
           {options.reduce((acc, option) => (
             option.value === value ? option : option.options?.find(option => option?.value === value) ?? acc
           )).label}
         </Text>
-      </View>
+      </Label>
     </Menu>
   );
 }

@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon, HomeIcon, SquareIcon, TrashIcon } from "lucide-react";
+import {
+  ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon,
+  HomeIcon, SquareIcon, TrashIcon
+} from "lucide-react";
 
 import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../shared/components";
 
@@ -8,15 +11,13 @@ import type { FieldValue } from "../shared/components/Form/Form";
 const SelectField = Form.Field.withComponent(Select);
 
 function Styleguide() {
-  const [storyTypeFilter, setStoryTypeFilter] = useState<string | undefined>("TO_DO");
-
   const [itemFilters, setItemFilters] = useState<{
     itemType: undefined | "TO_DO"
   }>({
     itemType: "TO_DO"
   });
 
-  const handleItemFilterUpdate = (name: string, value: FieldValue) => setItemFilters(filters => ({
+  const handleItemFiltersUpdate = (name: string, value: FieldValue) => setItemFilters(filters => ({
     ...filters,
     [name]: value
   }));
@@ -112,7 +113,7 @@ function Styleguide() {
           </Button>
         </Menu>
 
-        <Form horizontal fields={itemFilters} spacing="8px" onFieldChange={handleItemFilterUpdate}>
+        <Form horizontal fields={itemFilters} spacing="8px" onFieldChange={handleItemFiltersUpdate}>
           <Form.Field name="status">
             <Select options={[
               { label: "Any", value: undefined },
