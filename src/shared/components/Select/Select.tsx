@@ -14,7 +14,7 @@ type OptionValue = OptionValueBase & {
   options?: OptionValueBase[];
 };
 
-function Option({
+function SelectOption({
   label,
   value,
   onClick,
@@ -59,12 +59,12 @@ function Select({
           <Menu.Divider />,
           ...(label ? [<Menu.Group label={label as string} />] : []),
           ...options.map(({ icon, label, value: _value }) => (
-            <Option selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />
+            <SelectOption selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />
           ))
         ];
       default: {
         return (
-          <Option selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />
+          <SelectOption selected={_value === value} icon={icon} label={label} value={_value} onSelect={handleOptionSelect} />
         );
       }
     }
