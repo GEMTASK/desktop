@@ -1,8 +1,6 @@
-import { ChevronDownIcon } from "lucide-react";
-
 import type { Delegate } from "../../types/Delegate";
 
-import { Icon, Label, Menu, Text, View } from "..";
+import { Label, Menu, Text } from "..";
 
 type OptionValueBase = {
   icon?: React.ComponentProps<typeof Menu.Item>["icon"];
