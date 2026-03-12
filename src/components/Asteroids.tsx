@@ -11,10 +11,14 @@ import ShipSvg from "./Ship.svg?react";
 // }
 
 function Asteroids() {
-  const [frame, setFrame] = useState(0);
+  const [state, setState] = useState({
+    ship: {
+      rotation: 0
+    }
+  });
 
   const animationFrameRef = useRef(0);
-  const rotatationRef = useRef(0);
+  const lastTimestamp = useRef(0);
   const keymapRef = useRef<Record<string, boolean>>({
     "ArrowUp": false,
     "ArrowDown": false,
@@ -34,14 +38,24 @@ function Asteroids() {
     }
   };
 
-  const handleAnimationFrame = useCallback(() => {
+  const handleAnimationFrame = useCallback((timestamp: number) => {
+    const timestampDelta = timestamp - lastTimestamp.current;
+
     if (keymapRef.current.ArrowRight) {
-      rotatationRef.current += 1;
+      setState(state => ({
+        ship: {
+          rotation: state.ship.rotation + timestampDelta * 0.5
+        }
+      }));
     } else if (keymapRef.current.ArrowLeft) {
-      rotatationRef.current -= 1;
+      setState(state => ({
+        ship: {
+          rotation: state.ship.rotation - timestampDelta * 0.5
+        }
+      }));
     }
 
-    setFrame(frame => frame + 1);
+    lastTimestamp.current = timestamp;
 
     animationFrameRef.current = requestAnimationFrame(handleAnimationFrame);
   }, []);
@@ -56,7 +70,7 @@ function Asteroids() {
 
   return (
     <View as="svg" tabIndex={0} style={{ width: 500, height: 500 }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}>
-      <ShipSvg width={25} height={25} transform={`rotate(${rotatationRef.current}, 12.5, 15.25)`} />
+      <ShipSvg width={25} height={25} transform={`rotate(${state.ship.rotation}, 12.5, 15.25)`} />
     </View>
   );
 }
