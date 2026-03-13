@@ -1,4 +1,4 @@
-import View from "../View/View";
+import { View } from "..";
 
 import type { Color } from "../../types/Color";
 

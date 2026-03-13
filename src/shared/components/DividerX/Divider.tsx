@@ -1,6 +1,6 @@
 import type { Delegate } from "../../types/Delegate";
 
-import View from "../View";
+import { View } from "..";
 
 function Divider({
   style,

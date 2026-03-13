@@ -15,7 +15,7 @@ type PointerData = {
 // Frame
 //
 
-function Frame({ onUpdate }) {
+function Frame({ onUpdate }: { onUpdate: () => void; }) {
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
     const clientRect = event.currentTarget.getBoundingClientRect();
 
