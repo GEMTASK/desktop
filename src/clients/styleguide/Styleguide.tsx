@@ -4,17 +4,20 @@ import {
   HomeIcon, SquareIcon, TrashIcon
 } from "lucide-react";
 
-import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../../shared/components";
+import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form, Checkbox } from "../../shared/components";
 
-import type { FieldValue } from "../../shared/components/Form/Form";
+import type { FieldValue } from "../../shared/components/form/Form";
 
 const SelectField = Form.Field.withComponent(Select);
+const CheckboxField = Form.Field.withComponent(Checkbox);
 
 function Styleguide() {
   const [itemFilters, setItemFilters] = useState<{
     itemType: undefined | "TO_DO";
+    sendSpam: boolean;
   }>({
-    itemType: "TO_DO"
+    itemType: "TO_DO",
+    sendSpam: true
   });
 
   const handleItemFiltersUpdate = (name: string, value: FieldValue) => setItemFilters(filters => ({
@@ -24,7 +27,16 @@ function Styleguide() {
 
   const itemTypeSelectOptions = [
     { label: "Any", value: undefined },
-    { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+    {
+      label: "", value: "", options: [
+        { icon: SquareIcon, label: "Conceptual", value: "CONCEPT" },
+        { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
+        { icon: SquareIcon, label: "To Do", value: "TO_DO" },
+        { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
+        { icon: SquareIcon, label: "In Review", value: "IN_REVIEW" },
+        { icon: SquareIcon, label: "Done", value: "DONE" },
+      ]
+    },
   ];
 
   return (
@@ -112,16 +124,19 @@ function Styleguide() {
             Menu
           </Button>
         </Menu>
+      </View>
+      <View>
+        <Form fields={itemFilters} spacing="8px" onFieldChange={handleItemFiltersUpdate}>
+          <View horizontal spacing="8px">
+            <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
+            <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
+          </View>
 
-        <Form horizontal fields={itemFilters} spacing="8px" onFieldChange={handleItemFiltersUpdate}>
-          <Form.Field name="status">
-            <Select options={[
-              { label: "Any", value: undefined },
-              { icon: SquareIcon, label: "Backlog", value: "BACKLOG" },
-              { icon: SquareIcon, label: "To Do", value: "TO_DO" },
-            ]} />
+          <Form.Field name="sendSpam">
+            <Checkbox label="Yes, send me spam" />
           </Form.Field>
-          <SelectField name="status" options={itemTypeSelectOptions} />
+
+          <CheckboxField label="Yes, send me spam" name="sendSpam" />
         </Form>
       </View>
     </View>
