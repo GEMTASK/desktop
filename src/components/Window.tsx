@@ -122,7 +122,7 @@ function Window({
       <View id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
-      <View id="overlay" absolute style={{ inset: 0, pointerEvents: "none" }} />
+      <View id="overlay" absolute style={{ inset: 0, top: 30, pointerEvents: "none" }} />
     </View>
   );
 }

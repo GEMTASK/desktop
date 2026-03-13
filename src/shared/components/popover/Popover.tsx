@@ -25,18 +25,19 @@ function Popover({
   const popoverElementRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const overlayElement = childElementRef.current?.closest("#window") as HTMLElement;
+    const overlayElement = childElementRef.current?.closest("#window")?.querySelector("#overlay") as HTMLElement;
 
     if (isVisible && childElementRef.current && popoverElementRef.current) {
       const childClientRect = childElementRef.current.getBoundingClientRect();
       // const popoverClientRect = popoverElementRef.current.getBoundingClientRect();
+      const overlayClientRect = overlayElement.getBoundingClientRect();
 
       if (anchor === "top right") {
-        popoverElementRef.current.style.left = `${childClientRect.right - overlayElement.offsetLeft}px`;
-        popoverElementRef.current.style.top = `${childClientRect.top - 7 - overlayElement.offsetTop - 28}px`;
+        popoverElementRef.current.style.left = `${childClientRect.right - overlayClientRect.left}px`;
+        popoverElementRef.current.style.top = `${childClientRect.top - 7 - overlayClientRect.top}px`;
       } else {
-        popoverElementRef.current.style.left = `${childClientRect.left + 1 - overlayElement.offsetLeft}px`;
-        popoverElementRef.current.style.top = `${childClientRect.top + childClientRect.height + 5 - overlayElement.offsetTop - 28}px`;
+        popoverElementRef.current.style.left = `${childClientRect.left + 1 - overlayClientRect.left}px`;
+        popoverElementRef.current.style.top = `${childClientRect.bottom + 5 - overlayClientRect.top}px`;
       }
     }
   }, [anchor, isVisible]);
