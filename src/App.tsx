@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-import { View, Text } from "./shared/components";
+import { View, Text, Button } from "./shared/components";
 
 import Window from "./components/Window";
-import Calculator from "./components/Calculator";
-import Styleguide from "./components/Styleguide";
-import Asteroids from "./components/Asteroids";
+import Calculator from "./clients/calculator/Calculator";
+import Styleguide from "./clients/styleguide/Styleguide";
+import Asteroids from "./clients/asteroids/Asteroids";
 
 import "./App.css";
 
@@ -42,10 +42,13 @@ function App() {
 
   return (
     <View style={{ height: "100vh" }}>
-      <View horizontal shadow padding="0px 16px" align="middle left" fillColor="content" style={{ height: 30, zIndex: 2 }}>
-        <Text fontWeight="700">
+      <View horizontal shadow padding="0px 8px" align="middle left" fillColor="content" style={{ zIndex: 2 }}>
+        <Button hover fontWeight="700" padding="8px">
           Desktop
-        </Text>
+        </Button>
+        <Button hover padding="8px">
+          Utilities
+        </Button>
       </View>
       <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
         {windows.map(({ id, title, position, client }) => (

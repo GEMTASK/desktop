@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { View } from "../shared/components";
+import { View } from "../../shared/components";
 
 import ShipSvg from "./Ship.svg?react";
 
@@ -105,7 +105,7 @@ function Asteroids() {
   // rotate(${state.ship.rotation}, 12.5, 15.25)
 
   return (
-    <View as="svg" tabIndex={0} style={{ width: 500, height: 500 }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}>
+    <View as="svg" tabIndex={0} fillColor="black" style={{ width: 500, height: 500 }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}>
       {/* <svg
         transform={`
         translate(${state.ship.position.x}, ${state.ship.position.y})
@@ -116,7 +116,6 @@ function Asteroids() {
           <path d="M100,50 L50,180 L100,170 L150,180 L100,50Z" style={{ fill: "none", stroke: "black", strokeWidth: 10 }} />
         </g>
       </svg> */}
-
       <ShipSvg
         width={25}
         height={25}

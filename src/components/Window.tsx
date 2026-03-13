@@ -109,7 +109,7 @@ function Window({
     }}>
       <Frame onUpdate={handleFrameUpdate} />
       <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
-        height: 30, borderTopLeftRadius: 4, borderTopRightRadius: 4
+        borderTopLeftRadius: 4, borderTopRightRadius: 4
       }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}

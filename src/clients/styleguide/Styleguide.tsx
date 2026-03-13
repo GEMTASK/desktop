@@ -4,15 +4,15 @@ import {
   HomeIcon, SquareIcon, TrashIcon
 } from "lucide-react";
 
-import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../shared/components";
+import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form } from "../../shared/components";
 
-import type { FieldValue } from "../shared/components/Form/Form";
+import type { FieldValue } from "../../shared/components/Form/Form";
 
 const SelectField = Form.Field.withComponent(Select);
 
 function Styleguide() {
   const [itemFilters, setItemFilters] = useState<{
-    itemType: undefined | "TO_DO"
+    itemType: undefined | "TO_DO";
   }>({
     itemType: "TO_DO"
   });
