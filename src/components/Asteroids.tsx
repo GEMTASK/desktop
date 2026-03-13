@@ -27,7 +27,7 @@ function Asteroids() {
 
   const animationFrameRef = useRef(0);
   const lastTimestamp = useRef(0);
-  const keymapRef = useRef<Record<string, boolean>>({
+  const keymapRef = useRef({
     "ArrowUp": false,
     "ArrowDown": false,
     "ArrowLeft": false,
@@ -36,13 +36,13 @@ function Asteroids() {
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (keymapRef.current) {
-      keymapRef.current[event.key] = true;
+      keymapRef.current[event.key as keyof typeof keymapRef["current"]] = true;
     }
   };
 
   const handleKeyUp = (event: React.KeyboardEvent) => {
-    if (keymapRef.current) {
-      keymapRef.current[event.key] = false;
+    if (keymapRef.current && event.key in keymapRef.current) {
+      keymapRef.current[event.key as keyof typeof keymapRef["current"]] = false;
     }
   };
 
@@ -68,19 +68,15 @@ function Asteroids() {
     }
 
     if (keymapRef.current.ArrowUp) {
-      setState(({ ship }) => {
-        const angle = (Math.PI / 180) * (ship.rotation - (90 + 45));
-
-        return ({
-          ship: {
-            ...ship,
-            velocity: {
-              x: ship.velocity.x + (Math.cos(angle) - Math.sin(angle)) * 0.05,
-              y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05,
-            },
-          }
-        });
-      });
+      setState(({ ship }, angle = (Math.PI / 180) * (ship.rotation - (90 + 45))) => ({
+        ship: {
+          ...ship,
+          velocity: {
+            x: ship.velocity.x + (Math.cos(angle) - Math.sin(angle)) * 0.05,
+            y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05,
+          },
+        }
+      }));
     }
 
     setState(({ ship }) => ({
