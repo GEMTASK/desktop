@@ -10,23 +10,36 @@ import Explorer from "./clients/explorer/Explorer";
 
 import "./App.css";
 
+function MusicPlayer() {
+  return (
+    <View as="iframe" src="https://mike-austin.com/music-player" style={{ width: 1500, height: 870 }} />
+  );
+}
+
+function BestestMoviesEver() {
+  return (
+    <View as="iframe" src="https://bestestmoviesever.com" style={{ width: 1500, height: 870 }} />
+  );
+}
+
 //
 // App
 //
 
 const applications = [
+  // { title: "Stereo", position: { x: 16, y: 32 }, size: { width: 400, height: 300 }, client: <MusicPlayer /> },
+  // { title: "Bestest Movies Ever", position: { x: 16, y: 32 }, size: { width: 400, height: 300 }, client: <BestestMoviesEver /> },  { title: "Calculator", position: { x: 16, y: 16 }, size: { width: 300, height: 200 }, client: <Calculator /> },
+  // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { title: "Calculator", position: { x: 16, y: 16 }, size: { width: 300, height: 200 }, client: <Calculator /> },
   { title: "Styleguide", position: { x: 272, y: 16 }, size: { width: 400, height: 300 }, client: <Styleguide /> },
-  // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { title: "Explorer", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Explorer /> },
 ];
 
 function App() {
-  const [windows, setWindows] = useState([
-    { id: crypto.randomUUID(), ...applications[0] },
-    { id: crypto.randomUUID(), ...applications[1] },
-    { id: crypto.randomUUID(), ...applications[2] },
-  ]);
+  const [windows, setWindows] = useState(applications.map(application => ({
+    id: crypto.randomUUID(),
+    ...application
+  })));
   const [windowOrder, setWindowOrder] = useState<string[]>(windows.map(window => window.id));
 
   const handleWindowUpdate = (id: string, x: number, y: number) => {
