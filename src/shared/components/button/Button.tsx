@@ -3,6 +3,8 @@ import type { Delegate } from "../../types/Delegate";
 import { View, Text, Icon } from "..";
 
 import styles from "./Button.module.scss";
+import { useContext } from "react";
+import { ViewContext } from "../view/View";
 
 type ButtonStyle = {
   solid?: boolean;
@@ -11,14 +13,14 @@ type ButtonStyle = {
   selected?: boolean;
 };
 
-const getFillColor = ({ solid, primary, hover, selected }: ButtonStyle) => {
+const getFillColor = ({ parentFillColor, solid, primary, hover, selected }: ButtonStyle & ViewContext) => {
   switch (true) {
     case selected:
       return "selected";
     case !hover && solid && primary:
       return "primary";
     case solid:
-      return "divider";
+      return parentFillColor === "panel" ? "divider" : "panel";
     case hover:
       return undefined;
   }
@@ -66,8 +68,12 @@ function Button({
     hover && styles.hover,
   ].filter(className => className).join(" ");
 
-  const fillColor = getFillColor({ solid, primary, hover, selected });
+  const { parentFillColor } = useContext(ViewContext);
+
+  const fillColor = getFillColor({ parentFillColor, solid, primary, hover, selected });
   const textColor = getTextColor({ solid, primary, hover, selected });
+
+  console.log(parentFillColor);
 
   return (
     <View

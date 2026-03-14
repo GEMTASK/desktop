@@ -13,6 +13,15 @@ import cornerRadiusStyles from "../../styles/conerRadius.module.scss";
 import alignHorizontalStyles from "../../styles/alignHorizontal.module.scss";
 import alignVerticalStyles from "../../styles/alignVertical.module.scss";
 import borderColorStyles from "../../styles/borderColor.module.scss";
+import React from "react";
+
+type ViewContext = {
+  parentFillColor?: Color;
+};
+
+const ViewContext = React.createContext<ViewContext>({
+  parentFillColor: undefined
+});
 
 function View<TDelegate extends React.ElementType = "div">({
   as,
@@ -71,11 +80,21 @@ function View<TDelegate extends React.ElementType = "div">({
     ...style,
   };
 
+  const viewContextValue = {
+    parentFillColor: fillColor
+  };
+
   return (
-    <Component className={viewClassName} style={viewStyle} {...props}>
-      {children}
-    </Component>
+    <ViewContext value={viewContextValue}>
+      <Component className={viewClassName} style={viewStyle} {...props}>
+        {children}
+      </Component>
+    </ViewContext>
   );
 }
+
+export {
+  ViewContext
+};
 
 export default View;
