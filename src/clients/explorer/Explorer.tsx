@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { S3Client, ListObjectsV2Command, type ListObjectsV2CommandOutput } from "@aws-sdk/client-s3";
+import { useEffect, useLayoutEffect, useState } from "react";
+import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon } from "lucide-react";
 
 import { Button, Divider, Icon, Text, View } from "../../shared/components";
@@ -40,8 +40,8 @@ function Folder({
         </Button>
       </View>
       <View>
-        {children.map(folder => (
-          <Folder key={folder.name} level={level + 1} name={folder.name.slice(0, -1)} path={`${path}${folder.name}`} selectedPath={selectedPath} children={[]} onSelect={onSelect} />
+        {children.filter(file => file.type === "folder").map(folder => (
+          <Folder key={folder.path} level={level + 1} name={folder.name} path={folder.path} selectedPath={selectedPath} children={folder.children} onSelect={onSelect} />
         ))}
       </View>
     </View>
@@ -70,6 +70,7 @@ function File({
 
 type Branch = {
   name: string;
+  path: string;
   type: "file" | "folder";
   children: Branch[];
 };
@@ -77,8 +78,8 @@ type Branch = {
 function Tree() {
   const data = useState<Branch[]>([
     {
-      name: "Folder", type: "folder", children: [
-        { name: "file", type: "file", children: [] }
+      name: "Folder", path: "Folder", type: "folder", children: [
+        { name: "file", path: "File", type: "file", children: [] }
       ]
     }
   ]);
@@ -102,11 +103,16 @@ function Explorer() {
 
       const data = await client.send(command);
 
-      setRootData(data?.CommonPrefixes?.map(prefix => ({ name: prefix.Prefix as string, type: "folder", children: [] })) ?? []);
+      setRootData(data.CommonPrefixes?.map(prefix => ({
+        name: prefix.Prefix?.slice(0, -1) as string,
+        path: prefix.Prefix as string,
+        type: "folder",
+        children: []
+      })) ?? []);
     })();
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     (async () => {
       const command = new ListObjectsV2Command({
         Bucket: "mike-austin",
@@ -118,12 +124,14 @@ function Explorer() {
 
       const files = [
         ...data.CommonPrefixes?.map(({ Prefix }) => ({
-          name: Prefix?.split("/")[1] as string || Prefix?.split("/")[0] as string,
+          name: Prefix?.split("/").at(-2) as string,
+          path: Prefix as string,
           type: "folder" as const,
           children: []
         })) ?? [],
-        ...data?.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key }) => ({
-          name: Key?.split("/")[1] as string || Key?.split("/")[0] as string,
+        ...data.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key }) => ({
+          name: Key?.split("/").at(-1) as string,
+          path: Key as string,
           type: "file" as const,
           children: []
         })) ?? []
@@ -131,27 +139,20 @@ function Explorer() {
 
       setData(files);
 
-      console.log(selectedPath);
-
-      const recurse = (children: Branch[], path: string): Branch[] => {
+      const updateItem = (children: Branch[], selectedPath: string, files: Branch[]): Branch[] => {
         return children.map(child => ({
           ...child,
-          children: recurse(child.children, path + child.name)
+          children: child.path === selectedPath
+            ? files
+            : updateItem(child.children, selectedPath, files)
         }));
       };
 
       setRootData(rootData => {
-        const updatedData = recurse(rootData ?? [], selectedPath);
+        const updatedData = updateItem(rootData ?? [], selectedPath, files);
 
-        console.log(">>>", updatedData);
-
-        return rootData;
+        return updatedData;
       });
-
-      // setRootData(rootData => [
-      //   ...rootData ?? [],
-      //   // rootData[""]
-      // ]);
     })();
   }, [selectedPath]);
 
@@ -160,7 +161,7 @@ function Explorer() {
   }
 
   return (
-    <View style={{ width: 500, height: 300 }}>
+    <View style={{ width: 500, height: 400 }}>
       <View horizontal border="bottom" padding="16px" spacing="16px" fillColor="panel">
         <Button solid icon={HomeIcon} />
         <View spacing="8px">
@@ -174,8 +175,8 @@ function Explorer() {
         </View>
         <Divider />
         <View padding="8px">
-          {data?.map(({ name, type }) => (
-            <File key={name} name={name} type={type} path={name} />
+          {data?.map(({ name, path, type }) => (
+            <File key={path} name={name} type={type} path={name} />
           ))}
         </View>
       </View>
