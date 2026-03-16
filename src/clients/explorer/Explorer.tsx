@@ -15,16 +15,16 @@ const client = new S3Client({
 function Folder({
   name,
   path,
-  selectedPath,
   level = 0,
   children,
+  selectedPath,
   onSelect
 }: {
   name: string;
   path: string;
-  selectedPath: string;
   level?: number;
   children: Branch[];
+  selectedPath: string;
   onSelect?: (path: string) => void;
 }) {
   const handleButtonClick = () => {
@@ -41,7 +41,15 @@ function Folder({
       </View>
       <View>
         {children.filter(file => file.type === "folder").map(folder => (
-          <Folder key={folder.path} level={level + 1} name={folder.name} path={folder.path} selectedPath={selectedPath} children={folder.children} onSelect={onSelect} />
+          <Folder
+            key={folder.path}
+            level={level + 1}
+            name={folder.name}
+            path={folder.path}
+            children={folder.children}
+            selectedPath={selectedPath}
+            onSelect={onSelect}
+          />
         ))}
       </View>
     </View>
@@ -49,9 +57,9 @@ function Folder({
 }
 
 function File({
+  type,
   name,
   path,
-  type
 }: {
   name: string;
   path: string;
@@ -69,48 +77,20 @@ function File({
 // };
 
 type Branch = {
+  type: "file" | "folder";
   name: string;
   path: string;
-  type: "file" | "folder";
   children: Branch[];
 };
 
-function Tree() {
-  const data = useState<Branch[]>([
-    {
-      name: "Folder", path: "Folder", type: "folder", children: [
-        { name: "file", path: "File", type: "file", children: [] }
-      ]
-    }
-  ]);
-}
-
 function Explorer() {
-  const [data, setData] = useState<Branch[]>();
-  const [rootData, setRootData] = useState<Branch[]>();
+  const [foldersData, setRootData] = useState<Branch[]>();
+  const [filesData, setData] = useState<Branch[]>();
   const [selectedPath, setSelectedPath] = useState("");
 
   const handleItemSelect = (path: string) => {
     setSelectedPath(path);
   };
-
-  useEffect(() => {
-    (async () => {
-      const command = new ListObjectsV2Command({
-        Bucket: "mike-austin",
-        Delimiter: "/"
-      });
-
-      const data = await client.send(command);
-
-      setRootData(data.CommonPrefixes?.map(prefix => ({
-        name: prefix.Prefix?.slice(0, -1) as string,
-        path: prefix.Prefix as string,
-        type: "folder",
-        children: []
-      })) ?? []);
-    })();
-  }, []);
 
   useLayoutEffect(() => {
     (async () => {
@@ -148,17 +128,13 @@ function Explorer() {
         }));
       };
 
-      setRootData(rootData => {
-        const updatedData = updateItem(rootData ?? [], selectedPath, files);
+      setRootData(foldersData => {
+        const updatedData = selectedPath === "" ? files : updateItem(foldersData ?? [], selectedPath, files);
 
         return updatedData;
       });
     })();
   }, [selectedPath]);
-
-  if (!rootData) {
-    return null;
-  }
 
   return (
     <View style={{ width: 500, height: 400 }}>
@@ -170,14 +146,18 @@ function Explorer() {
         </View>
       </View>
       <View flex horizontal>
-        <View padding="8px">
-          <Folder name="/" path="" selectedPath={selectedPath} children={rootData} onSelect={handleItemSelect} />
+        <View padding="8px" style={{ width: 160 }}>
+          {foldersData && (
+            <Folder name="/" path="" children={foldersData} selectedPath={selectedPath} onSelect={handleItemSelect} />
+          )}
         </View>
         <Divider />
         <View padding="8px">
-          {data?.map(({ name, path, type }) => (
-            <File key={path} name={name} type={type} path={name} />
-          ))}
+          {filesData && (
+            filesData.map(({ name, path, type }) => (
+              <File key={path} type={type} name={name} path={name} />
+            ))
+          )}
         </View>
       </View>
     </View>
