@@ -32,7 +32,7 @@ const applications = [
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { title: "Calculator", position: { x: 16, y: 16 }, size: { width: 300, height: 200 }, client: <Calculator /> },
   { title: "Styleguide", position: { x: 272, y: 16 }, size: { width: 400, height: 300 }, client: <Styleguide /> },
-  { title: "Explorer", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Explorer /> },
+  { title: "S3 Explorer", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Explorer /> },
 ];
 
 function App() {

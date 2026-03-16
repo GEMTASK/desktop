@@ -73,8 +73,6 @@ function Button({
   const fillColor = getFillColor({ parentFillColor, solid, primary, hover, selected });
   const textColor = getTextColor({ solid, primary, hover, selected });
 
-  console.log(parentFillColor);
-
   return (
     <View
       horizontal
