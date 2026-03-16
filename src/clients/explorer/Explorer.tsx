@@ -23,7 +23,7 @@ function Folder({
   name: string;
   path: string;
   level?: number;
-  children: Branch[];
+  children: Branch[] | undefined;
   selectedPath: string;
   onSelect?: (path: string) => void;
 }) {
@@ -40,7 +40,7 @@ function Folder({
         </Button>
       </View>
       <View>
-        {children.filter(file => file.type === "folder").map(folder => (
+        {children?.filter(file => file.type === "folder").map(folder => (
           <Folder
             key={folder.path}
             level={level + 1}
@@ -80,8 +80,12 @@ type Branch = {
   type: "file" | "folder";
   name: string;
   path: string;
-  children: Branch[];
+  children: Branch[] | undefined;
 };
+
+//
+// Explorer
+//
 
 function Explorer() {
   const [foldersData, setRootData] = useState<Branch[]>();
@@ -107,29 +111,33 @@ function Explorer() {
           name: Prefix?.split("/").at(-2) as string,
           path: Prefix as string,
           type: "folder" as const,
-          children: []
+          children: undefined
         })) ?? [],
         ...data.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key }) => ({
           name: Key?.split("/").at(-1) as string,
           path: Key as string,
           type: "file" as const,
-          children: []
+          children: undefined
         })) ?? []
       ];
 
       setData(files);
 
-      const updateItem = (children: Branch[], selectedPath: string, files: Branch[]): Branch[] => {
-        return children.map(child => ({
+      const updateItem = (children: Branch[] | undefined, selectedPath: string, files: Branch[]): Branch[] | undefined => {
+        return children?.map(child => ({
           ...child,
-          children: child.path === selectedPath
+          children: child.path === selectedPath && child.children === undefined
             ? files
             : updateItem(child.children, selectedPath, files)
         }));
       };
 
+      // Merge / remove
+
       setRootData(foldersData => {
-        const updatedData = selectedPath === "" ? files : updateItem(foldersData ?? [], selectedPath, files);
+        const updatedData = selectedPath === "" && foldersData === undefined
+          ? files
+          : updateItem(foldersData, selectedPath, files);
 
         return updatedData;
       });
