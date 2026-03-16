@@ -89,7 +89,7 @@ function Button({
       {icon && (
         <Icon icon={icon} size={16} color={textColor} style={{ strokeWidth: 2.5, marginTop: -2, marginBottom: -2, marginLeft: children ? -3 : -2, marginRight: -2 }} />
       )}
-      {children && (
+      {typeof children !== "string" ? children : (
         <Text bold={bold} fontWeight={fontWeight} textColor={textColor}>
           {children}
         </Text>

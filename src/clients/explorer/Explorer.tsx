@@ -84,6 +84,26 @@ type Branch = {
 };
 
 //
+// List
+//
+
+function List({ items }: { items: Branch[] | undefined; }) {
+  return (
+    <View padding="8px" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", alignItems: "flex-start", gridAutoRows: "min-content" }}>
+      {items && (
+        items.map(({ name, path, type }) => (
+          <File key={path} type={type} name={name} path={name} />
+        ))
+      )}
+    </View>
+  );
+}
+
+const Views = {
+  "list": List
+};
+
+//
 // Explorer
 //
 
@@ -145,7 +165,7 @@ function Explorer() {
   }, [selectedPath]);
 
   return (
-    <View style={{ width: 500, height: 400 }}>
+    <View style={{ width: 600, height: 400 }}>
       <View horizontal border="bottom" padding="16px" spacing="16px" fillColor="panel">
         <Button solid icon={HomeIcon} />
         <View spacing="8px">
@@ -160,12 +180,8 @@ function Explorer() {
           )}
         </View>
         <Divider />
-        <View padding="8px">
-          {filesData && (
-            filesData.map(({ name, path, type }) => (
-              <File key={path} type={type} name={name} path={name} />
-            ))
-          )}
+        <View flex>
+          <List items={filesData} />
         </View>
       </View>
     </View>
