@@ -24,15 +24,23 @@ function Frame({ onUpdate }: { onUpdate: () => void; }) {
 
     if (localX < 48 && localY < 48) {
       event.currentTarget.style.cursor = "nwse-resize";
-    } else if (localX > clientRect.width - 48) {
+    } else if (localX > clientRect.width - 48 && localY < 48) {
       event.currentTarget.style.cursor = "nesw-resize";
+    } else if (localX < 48 && localY > clientRect.height - 48) {
+      event.currentTarget.style.cursor = "nesw-resize";
+    } else if (localX > clientRect.width - 48 && localY > clientRect.height - 48) {
+      event.currentTarget.style.cursor = "nwse-resize";
+    } else if (localX >= 48 && localX <= clientRect.width - 48) {
+      event.currentTarget.style.cursor = "ns-resize";
+    } else if (localY >= 48 && localY <= clientRect.height - 48) {
+      event.currentTarget.style.cursor = "ew-resize";
     } else {
       event.currentTarget.style.cursor = "";
     }
   };
 
   return (
-    <View absolute style={{ inset: -16, cursor: "nw" }} onPointerMove={handlePointerMove} />
+    <View absolute style={{ inset: -16, xcursor: "nw" }} onPointerMove={handlePointerMove} />
   );
 }
 
