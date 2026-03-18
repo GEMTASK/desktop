@@ -7,10 +7,8 @@ import { View, Text } from "onyx-ui";
 import Frame from "./Frame";
 
 type PointerData = {
-  clientX: number,
-  clientY: number,
-  offsetLeft: number,
-  offsetTop: number
+  left: number,
+  top: number
 };
 
 //
@@ -35,24 +33,21 @@ function Window({
   onUpdate: (id: string, x: number, y: number) => void,
   onFocus: (id: string) => void
 }, typeof View<"div">>) {
-  const [initialEvent, setInitialEvent] = useState<PointerData | null>(null);
+  const initialMoveEventRef = useRef<PointerData | null>(null);
   const initialResizeDOMRectRef = useRef<DOMRect | null>(null);
 
   const windowElementRef = useRef<HTMLDivElement>(null);
+
+  //
 
   const handlePointerDown = (event: React.PointerEvent) => {
     event.currentTarget.setPointerCapture(event.pointerId);
 
     if (windowElementRef.current) {
-      const { clientX, clientY } = event;
-      const { offsetLeft, offsetTop } = windowElementRef.current;
-
-      setInitialEvent({
-        clientX,
-        clientY,
-        offsetLeft,
-        offsetTop
-      });
+      initialMoveEventRef.current = {
+        left: windowElementRef.current.offsetLeft - event.clientX,
+        top: windowElementRef.current.offsetTop - event.clientY
+      };
 
       windowElementRef.current.style.willChange = "left, top";
     }
@@ -61,21 +56,23 @@ function Window({
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
-    if (initialEvent) {
-      if (windowElementRef.current) {
-        windowElementRef.current.style.left = `${initialEvent.offsetLeft + event.clientX - initialEvent.clientX}px`;
-        windowElementRef.current.style.top = `${initialEvent.offsetTop + event.clientY - initialEvent.clientY}px`;
-      }
+    if (windowElementRef.current && initialMoveEventRef.current) {
+      windowElementRef.current.style.left = `${initialMoveEventRef.current.left + event.clientX}px`;
+      windowElementRef.current.style.top = `${initialMoveEventRef.current.top + event.clientY}px`;
     }
   };
 
   const handlePointerUp = () => {
-    setInitialEvent(null);
+    initialMoveEventRef.current = null;
 
     if (windowElementRef.current) {
       onUpdate(id, windowElementRef.current.offsetLeft, windowElementRef.current.offsetTop);
+
+      windowElementRef.current.style.willChange = "left, top";
     }
   };
+
+  //
 
   const handleFrameResizeStart = () => {
     if (windowElementRef.current) {
