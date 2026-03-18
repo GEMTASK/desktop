@@ -90,6 +90,9 @@ function Frame({
       const { clientX, clientY } = event;
       const { offsetLeft, offsetTop } = windowElementRef.current;
 
+      // console.log(windowElementRef.current.offsetLeft)
+      console.log(windowElementRef.current.parentElement?.offsetLeft);
+
       initialEventRef.current = {
         clientX,
         clientY,
@@ -116,16 +119,21 @@ function Frame({
         event.clientX - initialEventRef.current.clientX,
         event.clientY - initialEventRef.current.clientY
       );
+    } else {
+      const clientRect = event.currentTarget.getBoundingClientRect();
+
+      const localX = event.clientX - clientRect.left;
+      const localY = event.clientY - clientRect.top;
+
+      console.log(clientRect.top, windowElementRef.current!.parentElement!.clientTop - windowElementRef.current!.clientTop);
+
+      //       const localX = event.clientX - windowElementRef.current!.parentElement!.offsetLeft - windowElementRef.current!.offsetLeft;
+      // const localY = event.clientY - windowElementRef.current!.parentElement!.offsetTop + windowElementRef.current!.offsetTop;
+
+      const [vertical, horizontal] = getResizeState(localX, localY, clientRect.width, clientRect.height);
+
+      event.currentTarget.style.cursor = getCursor(vertical, horizontal);
     }
-
-    const clientRect = event.currentTarget.getBoundingClientRect();
-
-    const localX = event.clientX - clientRect.left;
-    const localY = event.clientY - clientRect.top;
-
-    const [vertical, horizontal] = getResizeState(localX, localY, clientRect.width, clientRect.height);
-
-    event.currentTarget.style.cursor = getCursor(vertical, horizontal);
   };
 
   const handlePointerUp = () => {
