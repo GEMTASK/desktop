@@ -1,3 +1,5 @@
+@import url('onyx-ui/dist/main.css');
+
 :root {
   /* font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -19,6 +21,7 @@
   --gutter-color: hsl(210, 15%, 83%);
   --text-color: hsla(210, 0%, 0%, 0.7);
   --selected-color: hsl(210, 100%, 93%);
+  --default-font: 'Open Sans';
 }
 
 body {

@@ -30,8 +30,8 @@ function MenuItem({
   ...props
 }: Delegate<{
   title: React.ComponentProps<typeof Button>["children"],
-  value?: string;
-  onSelect?: (value: string | undefined) => void;
+  value?: string,
+  onSelect?: (value: string | undefined) => void
 }, typeof Button>) {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(event);
@@ -57,14 +57,14 @@ function Menu({
   ...props
 }: Delegate<{
   items: (React.ReactElement<{
-    onSelect?: (value: string | undefined) => void;
+    onSelect?: (value: string | undefined) => void
   }>)[],
   children: React.ReactElement<{
-    ref: React.RefObject<HTMLElement | null>;
-    style: React.CSSProperties;
-    onClick: React.PointerEventHandler;
-  }>;
-  onSelect?: (value: string | undefined) => void;
+    ref: React.RefObject<HTMLElement | null>,
+    style: React.CSSProperties,
+    onClick: React.PointerEventHandler
+  }>,
+  onSelect?: (value: string | undefined) => void
 }, typeof Popover, "isVisible" | "content">) {
   const [isPopoverVisible, setIsPopoverVisible] = useState(false);
 

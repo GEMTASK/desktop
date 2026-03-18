@@ -20,12 +20,12 @@ function Folder({
   selectedPath,
   onSelect
 }: {
-  name: string;
-  path: string;
-  level?: number;
-  children: Branch[] | undefined;
-  selectedPath: string;
-  onSelect?: (path: string) => void;
+  name: string,
+  path: string,
+  level?: number,
+  children: Branch[] | undefined,
+  selectedPath: string,
+  onSelect?: (path: string) => void
 }) {
   const handleButtonClick = () => {
     onSelect?.(path);
@@ -33,7 +33,7 @@ function Folder({
 
   return (
     <View>
-      <View horizontal spacing="4px" align="middle left" onClick={handleButtonClick} xstyle={{ paddingLeft: level * 8 }}>
+      <View horizontal spacing="4px" align="middle left" onClick={handleButtonClick} /* style={{ paddingLeft: level * 8 }} */>
         <Button flex hover icon={FolderIcon} selected={path === selectedPath} padding="8px" align="middle left" style={{ paddingLeft: level * 8 + 16 }}>
           {/* <Icon icon={ChevronRightIcon} size={16} /> */}
           {name}
@@ -59,11 +59,11 @@ function Folder({
 function File({
   type,
   name,
-  path,
+  path
 }: {
-  name: string;
-  path: string;
-  type: "file" | "folder";
+  name: string,
+  path: string,
+  type: "file" | "folder"
 }) {
   return (
     <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="middle left">
@@ -77,17 +77,17 @@ function File({
 // };
 
 type Branch = {
-  type: "file" | "folder";
-  name: string;
-  path: string;
-  children: Branch[] | undefined;
+  type: "file" | "folder",
+  name: string,
+  path: string,
+  children: Branch[] | undefined
 };
 
 //
 // List
 //
 
-function List({ items }: { items: Branch[] | undefined; }) {
+function List({ items }: { items: Branch[] | undefined }) {
   return (
     <View padding="8px" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", alignItems: "flex-start", gridAutoRows: "min-content" }}>
       {items && (

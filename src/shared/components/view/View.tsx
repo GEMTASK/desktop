@@ -16,7 +16,7 @@ import borderColorStyles from "../../styles/borderColor.module.scss";
 import React from "react";
 
 type ViewContext = {
-  parentFillColor?: Color;
+  parentFillColor?: Color
 };
 
 const ViewContext = React.createContext<ViewContext>({
@@ -41,18 +41,18 @@ function View<TDelegate extends React.ElementType = "div">({
   children,
   ...props
 }: Delegate<{
-  as?: TDelegate;
-  flex?: boolean;
-  absolute?: boolean;
-  horizontal?: boolean;
-  shadow?: boolean;
-  padding?: Padding;
-  spacing?: Padding;
-  border?: true | "bottom";
-  align?: Align;
-  fillColor?: Color;
-  borderColor?: Color;
-  cornerRadius?: "0px" | "2px" | "4px" | "max";
+  as?: TDelegate,
+  flex?: boolean,
+  absolute?: boolean,
+  horizontal?: boolean,
+  shadow?: boolean,
+  padding?: Padding,
+  spacing?: Padding,
+  border?: true | "bottom",
+  align?: Align,
+  fillColor?: Color,
+  borderColor?: Color,
+  cornerRadius?: "0px" | "2px" | "4px" | "max"
 }, TDelegate>) {
   const Component = as ?? "div";
 
@@ -77,7 +77,7 @@ function View<TDelegate extends React.ElementType = "div">({
   ].filter(className => className).join(" ");
 
   const viewStyle = {
-    ...style,
+    ...style
   };
 
   const viewContextValue = {

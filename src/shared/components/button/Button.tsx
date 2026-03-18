@@ -7,10 +7,10 @@ import { useContext } from "react";
 import { ViewContext } from "../view/View";
 
 type ButtonStyle = {
-  solid?: boolean;
-  primary?: boolean;
-  hover?: boolean;
-  selected?: boolean;
+  solid?: boolean,
+  primary?: boolean,
+  hover?: boolean,
+  selected?: boolean
 };
 
 const getFillColor = ({ parentFillColor, solid, primary, hover, selected }: ButtonStyle & ViewContext) => {
@@ -54,18 +54,18 @@ function Button({
   children,
   ...props
 }: Delegate<{
-  icon?: React.ComponentProps<typeof Icon>["icon"];
-  rightIcon?: React.ComponentProps<typeof Icon>["icon"];
-  round?: boolean;
-  bold?: boolean;
-  fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"];
-  selected?: boolean;
+  icon?: React.ComponentProps<typeof Icon>["icon"],
+  rightIcon?: React.ComponentProps<typeof Icon>["icon"],
+  round?: boolean,
+  bold?: boolean,
+  fontWeight?: React.ComponentProps<typeof Text<"div">>["fontWeight"],
+  selected?: boolean
 } & ButtonStyle, typeof View<"button">>) {
   const buttonClassName = [
     styles.Button,
     solid && styles.solid,
     primary && styles.primary,
-    hover && styles.hover,
+    hover && styles.hover
   ].filter(className => className).join(" ");
 
   const { parentFillColor } = useContext(ViewContext);

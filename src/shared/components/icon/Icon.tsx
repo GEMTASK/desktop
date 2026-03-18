@@ -9,7 +9,7 @@ function Icon({
   ...props
 }: {
   icon: typeof CameraIcon,
-  color?: React.ComponentProps<typeof CameraIcon>["color"]
+  color?: React.ComponentProps<typeof CameraIcon>["color"],
   size?: React.ComponentProps<typeof CameraIcon>["size"]
 } & React.ComponentProps<typeof CameraIcon>) {
   const iconClassName = [

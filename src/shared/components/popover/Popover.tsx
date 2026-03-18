@@ -13,13 +13,13 @@ function Popover({
   anchor,
   children
 }: Delegate<{
-  content: React.ReactNode;
-  isVisible: boolean;
+  content: React.ReactNode,
+  isVisible: boolean,
   anchor?: "bottom left" | "top right",
   children: React.ReactElement<{
-    ref: React.RefObject<HTMLElement | null>;
-    className?: string;
-  }> | boolean;
+    ref: React.RefObject<HTMLElement | null>,
+    className?: string
+  }> | boolean
 }, typeof View<"div">>) {
   const childElementRef = useRef<HTMLDivElement>(null);
   const popoverElementRef = useRef<HTMLDivElement>(null);

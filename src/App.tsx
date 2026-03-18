@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import { View, Text, Button } from "./shared/components";
+import { View, Text, Button } from "onyx-ui";
 
 import Window from "./components/Window";
-import Calculator from "./clients/calculator/Calculator";
-import Styleguide from "./clients/styleguide/Styleguide";
+import Calculator from "./clients/calculator";
+import Styleguide from "./clients/styleguide";
 import Asteroids from "./clients/asteroids/Asteroids";
-import Explorer from "./clients/explorer/Explorer";
+import Explorer from "./clients/explorer";
 
 import "./App.css";
 
@@ -32,7 +32,7 @@ const applications = [
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { title: "Calculator", position: { x: 16, y: 16 }, size: { width: 300, height: 200 }, client: <Calculator /> },
   { title: "Styleguide", position: { x: 272, y: 16 }, size: { width: 400, height: 300 }, client: <Styleguide /> },
-  { title: "S3 Explorer", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Explorer /> },
+  { title: "S3 Explorer", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Explorer /> }
 ];
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
   const handleWindowUpdate = (id: string, x: number, y: number) => {
     setWindows(windows => windows.map(window => window.id !== id ? window : ({
       ...window,
-      position: { x, y },
+      position: { x, y }
     })));
   };
 

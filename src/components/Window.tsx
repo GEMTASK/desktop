@@ -2,13 +2,13 @@ import { useRef, useState } from "react";
 
 import type { Delegate } from "../shared/types/Delegate";
 
-import { View, Text } from "../shared/components";
+import { View, Text } from "onyx-ui";
 
 type PointerData = {
-  clientX: number;
-  clientY: number;
-  offsetLeft: number;
-  offsetTop: number;
+  clientX: number,
+  clientY: number,
+  offsetLeft: number,
+  offsetTop: number
 };
 
 //
@@ -18,13 +18,13 @@ type PointerData = {
 const ResizeVertical = {
   NONE: 0,
   TOP: 1,
-  BOTTOM: 3,
+  BOTTOM: 3
 } as const;
 
 const ResizeHorizontal = {
   NONE: 0,
   LEFT: 4,
-  RIGHT: 2,
+  RIGHT: 2
 } as const;
 
 type ResizeState = [
@@ -74,7 +74,7 @@ const getCursor = (vertical: ResizeState[0], horizontal: ResizeState[1]) => {
   }
 };
 
-function Frame({ onUpdate }: { onUpdate: () => void; }) {
+function Frame({ onUpdate }: { onUpdate: () => void }) {
   const dragState = useRef<ResizeState>([ResizeVertical.NONE, ResizeHorizontal.NONE]);
 
   const handlePointerDown = (event: React.PointerEvent<HTMLElement>) => {
@@ -108,7 +108,7 @@ function Frame({ onUpdate }: { onUpdate: () => void; }) {
       absolute
       style={{
         inset: -16,
-        borderRadius: 8,
+        borderRadius: 8
         // background: "hsla(0, 0%, 0%, 0.1)"
       }}
       onPointerDown={handlePointerDown}
@@ -132,13 +132,13 @@ function Window({
   onUpdate,
   onFocus
 }: Delegate<{
-  id: string;
-  title: string;
-  x: number;
-  y: number;
-  order: number;
-  onUpdate: (id: string, x: number, y: number) => void;
-  onFocus: (id: string) => void;
+  id: string,
+  title: string,
+  x: number,
+  y: number,
+  order: number,
+  onUpdate: (id: string, x: number, y: number) => void,
+  onFocus: (id: string) => void
 }, typeof View<"div">>) {
   const [initialEvent, setInitialEvent] = useState<PointerData | null>(null);
 

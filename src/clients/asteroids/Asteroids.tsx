@@ -21,7 +21,7 @@ function Asteroids() {
       position: {
         x: 250,
         y: 250
-      },
+      }
     }
   });
 
@@ -73,8 +73,8 @@ function Asteroids() {
           ...ship,
           velocity: {
             x: ship.velocity.x + (Math.cos(angle) - Math.sin(angle)) * 0.05,
-            y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05,
-          },
+            y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05
+          }
         }
       }));
     }
@@ -84,7 +84,7 @@ function Asteroids() {
         ...ship,
         position: {
           x: ship.position.x + ship.velocity.x,
-          y: ship.position.y + ship.velocity.y,
+          y: ship.position.y + ship.velocity.y
         }
       }
     }));

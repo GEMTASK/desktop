@@ -4,18 +4,16 @@ import {
   HomeIcon, SquareIcon, TrashIcon
 } from "lucide-react";
 
-import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form, Checkbox } from "../../shared/components";
-import { Hello } from "onyx-ui";
-
-import type { FieldValue } from "../../shared/components/form/Form";
+import { Button, Checkbox, Divider, Form, Icon, Menu, Popover, Select, Text, View } from "onyx-ui";
+import type { FieldValue } from "onyx-ui";
 
 const SelectField = Form.Field.withComponent(Select);
 const CheckboxField = Form.Field.withComponent(Checkbox);
 
 function Styleguide() {
   const [itemFilters, setItemFilters] = useState<{
-    itemType: undefined | "TO_DO";
-    sendSpam: boolean;
+    itemType: undefined | "TO_DO",
+    sendSpam: boolean
   }>({
     itemType: "TO_DO",
     sendSpam: true
@@ -35,9 +33,9 @@ function Styleguide() {
         { icon: SquareIcon, label: "To Do", value: "TO_DO" },
         { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
         { icon: SquareIcon, label: "In Review", value: "IN_REVIEW" },
-        { icon: SquareIcon, label: "Done", value: "DONE" },
+        { icon: SquareIcon, label: "Done", value: "DONE" }
       ]
-    },
+    }
   ];
 
   return (
@@ -119,7 +117,7 @@ function Styleguide() {
           </Menu>,
           <Menu.Divider />,
           <Menu.Group label="Group" />,
-          <Menu.Item icon={TrashIcon} title="Delete Item" />,
+          <Menu.Item icon={TrashIcon} title="Delete Item" />
         ]}>
           <Button solid rightIcon={ChevronDownIcon}>
             Menu
@@ -140,7 +138,6 @@ function Styleguide() {
           <CheckboxField label="Yes, send me spam" name="sendSpam" />
         </Form>
       </View>
-      <Hello />
     </View>
   );
 }
