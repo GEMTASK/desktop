@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 
 import { Button, Divider, Icon, Text, View, Popover, Menu, Select, Form, Checkbox } from "../../shared/components";
+import { Hello } from "onyx-ui";
 
 import type { FieldValue } from "../../shared/components/form/Form";
 
@@ -139,6 +140,7 @@ function Styleguide() {
           <CheckboxField label="Yes, send me spam" name="sendSpam" />
         </Form>
       </View>
+      <Hello />
     </View>
   );
 }
