@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 
-import type { Delegate } from "../shared/types/Delegate";
+import type { Delegate } from "onyx-ui";
 
 import { View, Text } from "onyx-ui";
 

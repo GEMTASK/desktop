@@ -1,6 +1,6 @@
-import { Button, Text, View } from "../../shared/components";
+import { Button, Text, View } from "onyx-ui";
 
-import type { Delegate } from "../../shared/types/Delegate";
+import type { Delegate } from "onyx-ui";
 
 const CalcButton = ({
   children,

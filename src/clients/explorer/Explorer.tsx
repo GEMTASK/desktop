@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon } from "lucide-react";
 
-import { Button, Divider, Icon, Text, View } from "../../shared/components";
+import { Button, Divider, Icon, Text, View } from "onyx-ui";
 
 const client = new S3Client({
   region: "us-east-1",

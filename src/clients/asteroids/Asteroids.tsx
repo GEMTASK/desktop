@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { View } from "../../shared/components";
+import { View } from "onyx-ui";
 
 import ShipSvg from "./Ship.svg?react";
 
