@@ -80,6 +80,8 @@ function Styleguide() {
         </View>
       </View>
 
+      <Divider />
+
       <Text as="a" href="/" textColor="primary" style={{ textDecoration: "none" }}>
         Content
       </Text>
@@ -99,6 +101,8 @@ function Styleguide() {
           Button
         </Button>
       </View>
+
+      <Divider />
 
       <View horizontal spacing="8px">
         <Popover isVisible content={
@@ -126,6 +130,7 @@ function Styleguide() {
           </Button>
         </Menu>
       </View>
+
       <View>
         <Form fields={itemFilters} spacing="8px" onFieldChange={handleItemFiltersUpdate}>
           <View horizontal spacing="8px">
