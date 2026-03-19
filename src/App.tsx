@@ -162,7 +162,7 @@ function App() {
   };
 
   return (
-    <View id="window" style={{ height: "100vh" }}>
+    <View id="window" style={{ height: "100vh", overflow: "hidden" }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
         <Button hover fontWeight="700" padding="8px">
