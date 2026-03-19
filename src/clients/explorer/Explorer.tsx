@@ -165,7 +165,7 @@ function Explorer() {
   }, [selectedPath]);
 
   return (
-    <View style={{ width: 600, height: 400 }}>
+    <View flex>
       <View horizontal border="bottom" padding="16px" spacing="16px" fillColor="panel">
         <Button solid icon={HomeIcon} />
         <View spacing="8px">

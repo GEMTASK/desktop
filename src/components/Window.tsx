@@ -2,9 +2,10 @@ import { useRef, useState } from "react";
 
 import type { Delegate } from "onyx-ui";
 
-import { View, Text } from "onyx-ui";
+import { View, Text, Button } from "onyx-ui";
 
 import Frame from "./Frame";
+import { XIcon } from "lucide-react";
 
 type PointerData = {
   left: number,
@@ -21,17 +22,24 @@ function Window({
   children,
   x,
   y,
+  size,
   order,
   onUpdate,
-  onFocus
+  onFocus,
+  onRequestClose
 }: Delegate<{
   id: string,
   title: string,
   x: number,
   y: number,
+  size: {
+    width?: number,
+    height?: number
+  },
   order: number,
   onUpdate: (id: string, x: number, y: number) => void,
-  onFocus: (id: string) => void
+  onFocus: (id: string) => void,
+  onRequestClose?: (id: string) => void
 }, typeof View<"div">>) {
   const initialMoveEventRef = useRef<PointerData | null>(null);
   const initialResizeDOMRectRef = useRef<DOMRect | null>(null);
@@ -72,6 +80,14 @@ function Window({
     }
   };
 
+  const handleCloseButtonPointerDown = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
+
+  const handleCloseButtonClick = (event: React.MouseEvent) => {
+    onRequestClose?.(id);
+  };
+
   //
 
   const handleFrameResizeStart = () => {
@@ -88,22 +104,24 @@ function Window({
 
   return (
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
-      left: x, top: y, width: undefined, height: undefined, zIndex: order
+      left: x, top: y, width: size.width, height: size.height, zIndex: order
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
-      <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
+      <View horizontal border="bottom" borderColor="gutter" fillColor="gray-1" align="middle justify" style={{
         borderTopLeftRadius: 4, borderTopRightRadius: 4
       }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
       >
+        <Button hover icon={XIcon} onPointerDown={handleCloseButtonPointerDown} onClick={handleCloseButtonClick} />
         <Text fontWeight="700" padding="8px 16px" style={{ marginTop: 1 }}>
           {title}
         </Text>
+        <View style={{ width: 28 }} />
       </View>
-      <View id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
+      <View flex id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
     </View>
