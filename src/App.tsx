@@ -48,13 +48,13 @@ type Application = {
 
 const applicationsMap: Record<string, Application> = {
   "clock": {
-    title: "Clock", size: { width: 300, height: 335 }, client: <AnalogClock />
+    title: "Clock", size: { width: 300, height: 345 }, client: <AnalogClock />
   },
   "calculator": {
-    title: "Calculator", size: { width: undefined, height: undefined }, client: <Calculator />
+    title: "Calculator", size: { width: undefined, height: 345 }, client: <Calculator />
   },
   "styleguide": {
-    title: "Styleguide", size: { width: undefined, height: undefined }, client: <Styleguide />
+    title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
   },
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <BestestMoviesEver />
@@ -81,8 +81,8 @@ const applications: Application[] = [
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { ...applicationsMap["clock"]!, position: { x: 15, y: 15 } },
   { ...applicationsMap["calculator"]!, position: { x: 332, y: 15 } },
-  { ...applicationsMap["styleguide"]!, position: { x: 15, y: 370 } },
-  { ...applicationsMap["s3-explorer"]!, position: { x: 630, y: 370 } }
+  { ...applicationsMap["styleguide"]!, position: { x: 15, y: 375 } },
+  { ...applicationsMap["s3-explorer"]!, position: { x: 675, y: 375 } }
 ];
 
 //

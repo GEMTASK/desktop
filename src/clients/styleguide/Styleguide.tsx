@@ -47,6 +47,7 @@ function Styleguide() {
         <Button>Action Button</Button>
       </View>
       <Divider />
+
       <View horizontal spacing="16px">
         <View>
           <View padding="4px" fillColor="divider" />
@@ -62,7 +63,8 @@ function Styleguide() {
           <View padding="4px" fillColor="divider" />
         </View>
         <Divider />
-        <View spacing="8px" align="middle center">
+
+        <View flex spacing="8px" align="middle center">
           <View horizontal spacing="8px">
             <Button hover>Hover</Button>
             <Button>Default</Button>

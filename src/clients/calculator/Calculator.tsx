@@ -15,11 +15,11 @@ const CalcButton = ({
 
 function Calculator() {
   return (
-    <View>
+    <View flex>
       <Text select border="bottom" fontSize="32px" padding="16px" align="middle right">
         16,777,216
       </Text>
-      <View horizontal padding="8px" spacing="8px" fillColor="panel" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
+      <View flex horizontal padding="8px" spacing="8px" fillColor="panel" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
         <CalcButton>C</CalcButton>
         <CalcButton>÷</CalcButton>
         <CalcButton>×</CalcButton>

@@ -8,8 +8,10 @@ import Frame from "./Frame";
 import { XIcon } from "lucide-react";
 
 type PointerData = {
-  left: number,
-  top: number
+  clientX: number,
+  clientY: number,
+  offsetLeft: number,
+  offsetTop: number
 };
 
 //
@@ -56,8 +58,10 @@ function Window({
 
     if (windowElementRef.current) {
       initialMoveEventRef.current = {
-        left: windowElementRef.current.offsetLeft - event.clientX,
-        top: windowElementRef.current.offsetTop - event.clientY
+        clientX: event.clientX,
+        clientY: event.clientY,
+        offsetLeft: event.clientX - windowElementRef.current.offsetLeft,
+        offsetTop: event.clientY - windowElementRef.current.offsetTop
       };
 
       windowElementRef.current.style.willChange = "left, top";
@@ -68,10 +72,13 @@ function Window({
 
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (windowElementRef.current && initialMoveEventRef.current) {
-      console.log(initialMoveEventRef.current.left, event.clientX - initialMoveEventRef.current.left);
-
-      windowElementRef.current.style.left = `${initialMoveEventRef.current.left + event.clientX}px`;
-      windowElementRef.current.style.top = `${initialMoveEventRef.current.top + event.clientY}px`;
+      if (
+        Math.abs(event.clientX - initialMoveEventRef.current.clientX) > 1
+        || Math.abs(event.clientY - initialMoveEventRef.current.clientY) > 1
+      ) {
+        windowElementRef.current.style.left = `${event.clientX - initialMoveEventRef.current.offsetLeft}px`;
+        windowElementRef.current.style.top = `${event.clientY - initialMoveEventRef.current.offsetTop}px`;
+      }
     }
   };
 
@@ -79,7 +86,13 @@ function Window({
     initialMoveEventRef.current = null;
 
     if (windowElementRef.current) {
-      onUpdate(id, windowElementRef.current.offsetLeft, windowElementRef.current.offsetTop);
+      windowElementRef.current.style.left = `${Math.round(windowElementRef.current.offsetLeft / 15) * 15}px`;
+      windowElementRef.current.style.top = `${Math.round(windowElementRef.current.offsetTop / 15) * 15}px`;
+
+      onUpdate(id,
+        windowElementRef.current.offsetLeft,
+        windowElementRef.current.offsetTop
+      );
 
       windowElementRef.current.style.willChange = "left, top";
     }
