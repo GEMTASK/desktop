@@ -167,19 +167,19 @@ function Explorer() {
   return (
     <View flex>
       <View horizontal border="bottom" padding="8px" spacing="16px" fillColor="panel">
-        <View flex align="left">
-          <Button solid icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        <View flex align="left" fillColor="panel">
+          <Button hover icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
-        <View horizontal>
-          <Button solid icon={SquareIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        <View horizontal fillColor="panel">
+          <Button hover icon={SquareIcon} style={{ minWidth: 32, minHeight: 32 }} />
           {/* <Button solid icon={LayoutGridIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
           {/* <Button solid icon={ListIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
-          <Button solid icon={TextAlignJustifyIcon} style={{ minWidth: 32, minHeight: 32 }} />
-          <Button solid icon={LayoutListIcon} style={{ minWidth: 32, minHeight: 32 }} />
-          <Button solid icon={TableIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={TextAlignJustifyIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={LayoutListIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={TableIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
-        <View flex align="right">
-          <Button solid icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        <View flex align="right" fillColor="panel">
+          <Button hover icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
         {/* <View spacing="8px">
           <Text light fontSize="12px" innerStyle={{ marginBottom: -6 }}>mike-austin.s3.amazonaws.com</Text>
