@@ -125,7 +125,7 @@ function Frame({
       const localX = event.clientX - clientRect.left;
       const localY = event.clientY - clientRect.top;
 
-      console.log(clientRect.top, windowElementRef.current!.parentElement!.clientTop - windowElementRef.current!.clientTop);
+      // console.log(clientRect.top, windowElementRef.current!.parentElement!.clientTop - windowElementRef.current!.clientTop);
 
       //       const localX = event.clientX - windowElementRef.current!.parentElement!.offsetLeft - windowElementRef.current!.offsetLeft;
       // const localY = event.clientY - windowElementRef.current!.parentElement!.offsetTop + windowElementRef.current!.offsetTop;

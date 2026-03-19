@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 import type { Delegate } from "onyx-ui";
 
@@ -25,11 +25,12 @@ function Window({
   order,
   onUpdate,
   onFocus,
-  onRequestClose
+  onRequestClose,
+  onLayout
 }: Delegate<{
   id: string,
   title: string,
-  position: {
+  position?: {
     x: number,
     y: number
   },
@@ -40,7 +41,8 @@ function Window({
   order: number,
   onUpdate: (id: string, x: number, y: number) => void,
   onFocus: (id: string) => void,
-  onRequestClose?: (id: string) => void
+  onRequestClose?: (id: string) => void,
+  onLayout?: (id: string, element: HTMLElement) => void
 }, typeof View<"div">>) {
   const initialMoveEventRef = useRef<PointerData | null>(null);
   const initialResizeDOMRectRef = useRef<DOMRect | null>(null);
@@ -66,6 +68,8 @@ function Window({
 
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (windowElementRef.current && initialMoveEventRef.current) {
+      console.log(initialMoveEventRef.current.left, event.clientX - initialMoveEventRef.current.left);
+
       windowElementRef.current.style.left = `${initialMoveEventRef.current.left + event.clientX}px`;
       windowElementRef.current.style.top = `${initialMoveEventRef.current.top + event.clientY}px`;
     }
@@ -103,9 +107,15 @@ function Window({
     }
   };
 
+  // x   
+
+  useLayoutEffect(() => {
+    onLayout?.(id, windowElementRef.current!);
+  }, [id, onLayout]);
+
   return (
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
-      left: position.x, top: position.y, width: size.width, height: size.height, zIndex: order
+      left: position?.x, top: position?.y, width: size.width, height: size.height, zIndex: order
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />

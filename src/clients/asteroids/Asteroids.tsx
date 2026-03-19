@@ -105,7 +105,7 @@ function Asteroids() {
   // rotate(${state.ship.rotation}, 12.5, 15.25)
 
   return (
-    <View as="svg" tabIndex={0} fillColor="black" style={{ width: 500, height: 500 }} onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}>
+    <View flex as="svg" tabIndex={0} fillColor="black" onKeyDown={handleKeyDown} onKeyUp={handleKeyUp}>
       {/* <svg
         transform={`
         translate(${state.ship.position.x}, ${state.ship.position.y})
