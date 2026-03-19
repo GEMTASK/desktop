@@ -132,7 +132,7 @@ function Window({
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
-      <View horizontal border="bottom" borderColor="gutter" fillColor="gray-1" align="middle justify" style={{
+      <View horizontal border="bottom" borderColor="gutter" fillColor="divider" align="middle justify" style={{
         borderTopLeftRadius: 4, borderTopRightRadius: 4
       }}
         onPointerDown={handlePointerDown}

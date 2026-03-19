@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon } from "lucide-react";
+import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon, SquareIcon, ListIcon, TableIcon, LayoutGridIcon, LayoutListIcon, TextAlignJustifyIcon } from "lucide-react";
 
 import { Button, Divider, Icon, Text, View } from "onyx-ui";
 
@@ -66,7 +66,7 @@ function File({
   type: "file" | "folder"
 }) {
   return (
-    <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="middle left">
+    <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="top left">
       {name}
     </Button>
   );
@@ -166,12 +166,25 @@ function Explorer() {
 
   return (
     <View flex>
-      <View horizontal border="bottom" padding="16px" spacing="16px" fillColor="panel">
-        <Button solid icon={HomeIcon} />
-        <View spacing="8px">
+      <View horizontal border="bottom" padding="8px" spacing="16px" fillColor="panel">
+        <View flex align="left">
+          <Button solid icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        </View>
+        <View horizontal>
+          <Button solid icon={SquareIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          {/* <Button solid icon={LayoutGridIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
+          {/* <Button solid icon={ListIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
+          <Button solid icon={TextAlignJustifyIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button solid icon={LayoutListIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button solid icon={TableIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        </View>
+        <View flex align="right">
+          <Button solid icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
+        </View>
+        {/* <View spacing="8px">
           <Text light fontSize="12px" innerStyle={{ marginBottom: -6 }}>mike-austin.s3.amazonaws.com</Text>
           <Text>/{selectedPath}</Text>
-        </View>
+        </View> */}
       </View>
       <View flex horizontal>
         <View padding="8px" style={{ width: 160 }}>
@@ -183,6 +196,11 @@ function Explorer() {
         <View flex>
           <List items={filesData} />
         </View>
+      </View>
+      <View border="top" padding="8px" fillColor="panel">
+        <Text light fontSize="12px" innerStyle={{ marginBottom: -6 }}>
+          mike-austin.s3.amazonaws.com/{selectedPath}
+        </Text>
       </View>
     </View>
   );
