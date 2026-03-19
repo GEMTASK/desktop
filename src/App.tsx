@@ -61,7 +61,7 @@ function App() {
     id: crypto.randomUUID(),
     ...application
   })));
-  const [windowIdOrder, setWindowIdOrder] = useState<string[]>(windows.map(window => window.id));
+  const [orderedWindowIds, setOrderedWindowIds] = useState<string[]>(windows.map(window => window.id));
 
   const handleWindowUpdate = (id: string, x: number, y: number) => {
     setWindows(windows => windows.map(window => window.id !== id ? window : ({
@@ -71,9 +71,10 @@ function App() {
   };
 
   const handleWindowFocus = (id: string) => {
-    const updatedWindowOrder = [...windowIdOrder.filter(windowId => windowId !== id), id];
-
-    setWindowIdOrder(updatedWindowOrder);
+    setOrderedWindowIds(orderedWindowIds => [
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+      id
+    ]);
   };
 
   const handleMenuSelect = (value: string | undefined) => {
@@ -91,13 +92,16 @@ function App() {
         { id, ...application }
       ]);
 
-      setWindowIdOrder(windowIdOrder => [...windowIdOrder, id]);
+      setOrderedWindowIds(orderedWindowIds => [
+        ...orderedWindowIds,
+        id
+      ]);
     }
   };
 
   const handleWindowRequestClose = (id: string) => {
     setWindows(windows => windows.filter(window => window.id !== id));
-    setWindowIdOrder(windowIds => windowIds.filter(windowId => windowId !== id));
+    setOrderedWindowIds(windowIds => windowIds.filter(windowId => windowId !== id));
   };
 
   return (
@@ -132,10 +136,9 @@ function App() {
             key={id}
             id={id}
             title={title}
-            x={position.x}
-            y={position.y}
+            position={position}
             size={size}
-            order={windowIdOrder.indexOf(id)}
+            order={orderedWindowIds.indexOf(id)}
             onUpdate={handleWindowUpdate}
             onFocus={handleWindowFocus}
             onRequestClose={handleWindowRequestClose}

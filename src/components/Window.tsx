@@ -20,8 +20,7 @@ function Window({
   id,
   title,
   children,
-  x,
-  y,
+  position,
   size,
   order,
   onUpdate,
@@ -30,8 +29,10 @@ function Window({
 }: Delegate<{
   id: string,
   title: string,
-  x: number,
-  y: number,
+  position: {
+    x: number,
+    y: number
+  },
   size: {
     width?: number,
     height?: number
@@ -104,7 +105,7 @@ function Window({
 
   return (
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
-      left: x, top: y, width: size.width, height: size.height, zIndex: order
+      left: position.x, top: position.y, width: size.width, height: size.height, zIndex: order
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
