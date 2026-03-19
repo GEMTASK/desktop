@@ -90,6 +90,7 @@ function Window({
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
       left: x, top: y, width: undefined, height: undefined, zIndex: order
     }}>
+      <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
       <View border="bottom" borderColor="gutter" fillColor="gray-1" align="middle center" style={{
         borderTopLeftRadius: 4, borderTopRightRadius: 4
@@ -105,7 +106,6 @@ function Window({
       <View id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}
       </View>
-      <View id="overlay" absolute style={{ inset: 0, top: 30, pointerEvents: "none" }} />
     </View>
   );
 }
