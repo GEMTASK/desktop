@@ -13,51 +13,26 @@ import AnalogClock from "./clients/clock";
 
 import "./App.css";
 
-function MusicPlayer() {
-  return (
-    <View flex as="iframe" src="https://mike-austin.com/music-player" />
-  );
-}
-
-function BestestMoviesEver() {
-  return (
-    <View flex as="iframe" src="https://bestestmoviesever.com" />
-  );
-}
-
-function FT86PartPicker() {
-  return (
-    <View flex as="iframe" src="https://wheels.ft86partpicker.com" />
-  );
-}
-
-function VectorDraw() {
-  return (
-    <View flex as="iframe" src="https://mike-austin.com/draw-2" />
-  );
-}
-
-function LetsCode() {
-  return (
-    <View flex as="iframe" src="https://code.mike-austin.com/lets-code" />
-  );
-}
-
-function Fountain() {
-  return (
-    <View flex as="iframe" src="https://code.mike-austin.com/fountain" />
-  );
-}
-
 function Asteroids() {
   return (
     <View flex as="iframe" src="https://editor.p5js.org/mike_ekim1024/full/q8nWdZV0U" />
   );
 }
 
-function P5Asteroids() {
+const IframeClients = {
+  "music-player": "https://mike-austin.com/music-player",
+  "bestest-movies-ever": "https://bestestmoviesever.com",
+  "ft86-part-picker": "https://wheels.ft86partpicker.com",
+  "vector-draw": "https://mike-austin.com/draw-2",
+  "react-asteroids": "https://codepen.io/mikeaustin/embed/mdpYMym?default-tab=js%2Cresult",
+  "strategic-asteroids": "https://code.mike-austin.com/asteroids",
+  "lets-code": "https://code.mike-austin.com/lets-code",
+  "fountain": "https://code.mike-austin.com/fountain"
+};
+
+function IFrame({ name }: { name: keyof typeof IframeClients }) {
   return (
-    <View flex as="iframe" src="https://code.mike-austin.com/asteroids" />
+    <View flex as="iframe" src={IframeClients[name]} />
   );
 }
 
@@ -83,34 +58,37 @@ const clients: Record<string, Client> = {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
   },
   "bestest-movies-ever": {
-    title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <BestestMoviesEver />
+    title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />
   },
   "music-player": {
-    title: "Music Player", size: { width: 1500, height: 900 }, client: <MusicPlayer />
+    title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />
   },
   "s3-explorer": {
     title: "S3 Explorer", size: { width: 600, height: 400 }, client: <Explorer />
   },
   "ft86-part-picker": {
-    title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <FT86PartPicker />
+    title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />
   },
-  "asteroids": {
+  "strategic-asteroids": {
     title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <Asteroids />
+  },
+  "react-asteroids": {
+    title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />
   },
   "browser": {
     title: "Browser", size: { width: 500, height: 500 }, client: <Browser />
   },
   "p5-lets-code": {
-    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <LetsCode />
+    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />
   },
   "p5-fountain": {
-    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <Fountain />
+    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <IFrame name="fountain" />
   },
   "p5-asteroids": {
-    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <P5Asteroids />
+    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />
   },
   "vector-draw": {
-    title: "Vector Draw", size: { width: 1200, height: 900 }, client: <VectorDraw />
+    title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />
   }
 } as const;
 
@@ -223,7 +201,14 @@ function App() {
           <Menu.Item title="Vector Draw" value="vector-draw" />,
           <Menu.Divider />,
           <Menu.Group label="Games" />,
-          <Menu.Item title="Strategic Asteroids" value="asteroids" />,
+          <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
+          <Menu.Item title="React Asteroids" value="react-asteroids" />,
+
+          <Menu.Divider />,
+          <Menu.Group label="Visuals" />,
+          <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
+
+
           <Menu.Divider />,
           <Menu anchor="top right" items={[
             <Menu.Group label="Coding Lessons" />,
