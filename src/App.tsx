@@ -27,7 +27,8 @@ const IframeClients = {
   "react-asteroids": "https://codepen.io/mikeaustin/embed/mdpYMym?default-tab=js%2Cresult",
   "strategic-asteroids": "https://code.mike-austin.com/asteroids",
   "lets-code": "https://code.mike-austin.com/lets-code",
-  "fountain": "https://code.mike-austin.com/fountain"
+  "fountain": "https://code.mike-austin.com/fountain",
+  "imploding-sphere": "https://editor.p5js.org/mike_ekim1024/full/shcbRaIS8"
 };
 
 function IFrame({ name }: { name: keyof typeof IframeClients }) {
@@ -89,6 +90,9 @@ const clients: Record<string, Client> = {
   },
   "vector-draw": {
     title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />
+  },
+  "imploding-sphere": {
+    title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />
   }
 } as const;
 
