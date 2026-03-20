@@ -7,6 +7,7 @@ import Calculator from "./clients/calculator";
 import Styleguide from "./clients/styleguide";
 import Asteroids from "./clients/asteroids/Asteroids";
 import Explorer from "./clients/explorer";
+import Browser from "./clients/browser";
 
 import "./App.css";
 import AnalogClock from "./clients/clock";
@@ -32,6 +33,18 @@ function FT86PartPicker() {
 function VectorDraw() {
   return (
     <View flex as="iframe" src="https://mike-austin.com/draw-2" />
+  );
+}
+
+function LetsCode() {
+  return (
+    <View flex as="iframe" src="https://code.mike-austin.com/lets-code" />
+  );
+}
+
+function IFrameClient({ src }: { src: string }) {
+  return (
+    <View flex as="iframe" src={src} />
   );
 }
 
@@ -70,6 +83,12 @@ const applicationsMap: Record<string, Application> = {
   },
   "asteroids": {
     title: "Asteroids", size: { width: 500, height: 500 }, client: <Asteroids />
+  },
+  "browser": {
+    title: "Browser", size: { width: 500, height: 500 }, client: <Browser />
+  },
+  "lets-code": {
+    title: "Let's Code!", size: { width: 1680, height: 1100 }, client: <LetsCode />
   },
   "vector-draw": {
     title: "Vector Draw", size: { width: 1200, height: 900 }, client: <VectorDraw />
@@ -170,7 +189,8 @@ function App() {
         </Button>
         <Menu onSelect={handleMenuSelect} items={[
           <Menu.Item title="Clock" value="clock" />,
-          <Menu.Item title="Calculator" value="calculator" />
+          <Menu.Item title="Calculator" value="calculator" />,
+          <Menu.Item title="Browser" value="browser" />
         ]}>
           <Button hover padding="8px">
             Utilities
@@ -184,7 +204,8 @@ function App() {
           <Menu.Item title="Vector Draw" value="vector-draw" />,
           <Menu.Divider />,
           <Menu.Group label="Games" />,
-          <Menu.Item title="Asteroids" value="asteroids" />
+          <Menu.Item title="Asteroids" value="asteroids" />,
+          <Menu.Item title="Let's Code!" value="lets-code" />
         ]}>
           <Button hover padding="8px">
             Programs
