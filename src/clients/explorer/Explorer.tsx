@@ -34,7 +34,7 @@ function Folder({
   return (
     <View>
       <View horizontal spacing="4px" align="middle left" onClick={handleButtonClick} /* style={{ paddingLeft: level * 8 }} */>
-        <Button flex hover icon={FolderIcon} selected={path === selectedPath} padding="8px" align="middle left" style={{ paddingLeft: level * 8 + 16 }}>
+        <Button flex hover icon={FolderIcon} selected={path === selectedPath} padding="8px" align="middle left" style={{ paddingLeft: level * 8 + 12 }}>
           {/* <Icon icon={ChevronRightIcon} size={16} /> */}
           {name}
         </Button>
@@ -57,16 +57,31 @@ function Folder({
 }
 
 function File({
+  detailsView,
   type,
   name,
+  size,
   path
 }: {
+  detailsView?: boolean,
+  type: "file" | "folder",
   name: string,
   path: string,
-  type: "file" | "folder"
+  size: number
 }) {
+  if (detailsView) {
+    return (
+      <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="top left">
+        <View spacing="8px">
+          <Text style={{ textAlign: "left" }}>{name}</Text>
+          <Text light fontSize="12px" style={{ textAlign: "left" }}>{size.toLocaleString()} Bytes</Text>
+        </View>
+      </Button>
+    );
+  }
+
   return (
-    <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="top left">
+    <Button hover icon={type === "folder" ? FolderIcon : FileIcon} padding="8px 12px" align="top left">
       {name}
     </Button>
   );
@@ -80,6 +95,7 @@ type Branch = {
   type: "file" | "folder",
   name: string,
   path: string,
+  size: number,
   children: Branch[] | undefined
 };
 
@@ -91,8 +107,20 @@ function List({ items }: { items: Branch[] | undefined }) {
   return (
     <View padding="8px" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", alignItems: "flex-start", gridAutoRows: "min-content" }}>
       {items && (
-        items.map(({ name, path, type }) => (
-          <File key={path} type={type} name={name} path={name} />
+        items.map(({ type, name, path, size }) => (
+          <File key={path} type={type} name={name} path={name} size={size} />
+        ))
+      )}
+    </View>
+  );
+}
+
+function Details({ items }: { items: Branch[] | undefined }) {
+  return (
+    <View padding="8px" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", alignItems: "flex-start", gridAutoRows: "min-content" }}>
+      {items && (
+        items.map(({ type, name, path, size }) => (
+          <File detailsView key={path} type={type} name={name} path={name} size={size} />
         ))
       )}
     </View>
@@ -100,7 +128,8 @@ function List({ items }: { items: Branch[] | undefined }) {
 }
 
 const Views = {
-  "list": List
+  list: List,
+  details: Details
 };
 
 //
@@ -111,6 +140,7 @@ function Explorer() {
   const [foldersData, setRootData] = useState<Branch[]>();
   const [filesData, setData] = useState<Branch[]>();
   const [selectedPath, setSelectedPath] = useState("");
+  const [selectedView, setSelectedView] = useState<keyof typeof Views>("list");
 
   const handleItemSelect = (path: string) => {
     setSelectedPath(path);
@@ -128,15 +158,17 @@ function Explorer() {
 
       const files = [
         ...data.CommonPrefixes?.map(({ Prefix }) => ({
+          type: "folder" as const,
           name: Prefix?.split("/").at(-2) as string,
           path: Prefix as string,
-          type: "folder" as const,
+          size: 0,
           children: undefined
         })) ?? [],
-        ...data.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key }) => ({
+        ...data.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key, Size }) => ({
+          type: "file" as const,
           name: Key?.split("/").at(-1) as string,
           path: Key as string,
-          type: "file" as const,
+          size: Size as number,
           children: undefined
         })) ?? []
       ];
@@ -164,6 +196,8 @@ function Explorer() {
     })();
   }, [selectedPath]);
 
+  const ViewComponent = Views[selectedView];
+
   return (
     <View flex>
       <View horizontal border="bottom" padding="8px" spacing="16px" fillColor="panel">
@@ -171,10 +205,10 @@ function Explorer() {
           <Button hover icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
         <View horizontal fillColor="panel">
-          <Button hover icon={SquareIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={SquareIcon} solid={selectedView === "list"} onClick={() => setSelectedView("list")} style={{ minWidth: 32, minHeight: 32 }} />
           {/* <Button solid icon={LayoutGridIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
           {/* <Button solid icon={ListIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
-          <Button hover icon={TextAlignJustifyIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={TextAlignJustifyIcon} solid={selectedView === "details"} onClick={() => setSelectedView("details")} style={{ minWidth: 32, minHeight: 32 }} />
           <Button hover icon={LayoutListIcon} style={{ minWidth: 32, minHeight: 32 }} />
           <Button hover icon={TableIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
@@ -194,7 +228,7 @@ function Explorer() {
         </View>
         <Divider />
         <View flex>
-          <List items={filesData} />
+          <ViewComponent items={filesData} />
         </View>
       </View>
       <View border="top" padding="8px" fillColor="panel">
