@@ -6,7 +6,7 @@ import { View, Button, Menu } from "onyx-ui";
 import Window from "./components/Window";
 import Calculator from "./clients/calculator";
 import Styleguide from "./clients/styleguide";
-import Asteroids from "./clients/asteroids/Asteroids";
+// import Asteroids from "./clients/asteroids/Asteroids";
 import Explorer from "./clients/explorer";
 import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
@@ -40,6 +40,24 @@ function VectorDraw() {
 function LetsCode() {
   return (
     <View flex as="iframe" src="https://code.mike-austin.com/lets-code" />
+  );
+}
+
+function Fountain() {
+  return (
+    <View flex as="iframe" src="https://code.mike-austin.com/fountain" />
+  );
+}
+
+function Asteroids() {
+  return (
+    <View flex as="iframe" src="https://editor.p5js.org/mike_ekim1024/full/q8nWdZV0U" />
+  );
+}
+
+function P5Asteroids() {
+  return (
+    <View flex as="iframe" src="https://code.mike-austin.com/asteroids" />
   );
 }
 
@@ -77,13 +95,19 @@ const clients: Record<string, Client> = {
     title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <FT86PartPicker />
   },
   "asteroids": {
-    title: "Asteroids", size: { width: 500, height: 500 }, client: <Asteroids />
+    title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <Asteroids />
   },
   "browser": {
     title: "Browser", size: { width: 500, height: 500 }, client: <Browser />
   },
-  "lets-code": {
-    title: "Let's Code!", size: { width: 1680, height: 1100 }, client: <LetsCode />
+  "p5-lets-code": {
+    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <LetsCode />
+  },
+  "p5-fountain": {
+    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <Fountain />
+  },
+  "p5-asteroids": {
+    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <P5Asteroids />
   },
   "vector-draw": {
     title: "Vector Draw", size: { width: 1200, height: 900 }, client: <VectorDraw />
@@ -199,12 +223,15 @@ function App() {
           <Menu.Item title="Vector Draw" value="vector-draw" />,
           <Menu.Divider />,
           <Menu.Group label="Games" />,
-          <Menu.Item title="Asteroids" value="asteroids" />,
-          <Menu.Item title="Let's Code!" value="lets-code" />,
+          <Menu.Item title="Strategic Asteroids" value="asteroids" />,
+          <Menu.Divider />,
           <Menu anchor="top right" items={[
-            <Menu.Item title="Let's Code!" value="lets-code" />
+            <Menu.Group label="Coding Lessons" />,
+            <Menu.Item title="Let's Code!" value="p5-lets-code" />,
+            <Menu.Item title="Asteroids" value="p5-asteroids" />,
+            <Menu.Item title="Fountain" value="p5-fountain" />,
           ]}>
-            <Menu.Item title="p5 Coding Lessons" rightIcon={ChevronRightIcon} />
+            <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} />
           </Menu>
         ]}>
           <Button hover padding="8px">
