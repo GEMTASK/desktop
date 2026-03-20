@@ -55,7 +55,7 @@ type Client = {
 
 const clients: Record<string, Client> = {
   "clock": {
-    title: "Clock", size: { width: 300, height: 345 }, client: <AnalogClock />
+    title: "Clock", size: { width: 315, height: 345 }, client: <AnalogClock />
   },
   "calculator": {
     title: "Calculator", size: { width: undefined, height: 345 }, client: <Calculator />
@@ -93,7 +93,7 @@ const startupClients: Client[] = [
   // { title: "Stereo", position: { x: 16, y: 32 }, size: { width: 400, height: 300 }, client: <MusicPlayer /> },
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
   { ...clients["clock"]!, position: { x: 15, y: 15 } },
-  { ...clients["calculator"]!, position: { x: 332, y: 15 } },
+  { ...clients["calculator"]!, position: { x: 345, y: 15 } },
   { ...clients["styleguide"]!, position: { x: 15, y: 375 } },
   { ...clients["s3-explorer"]!, position: { x: 675, y: 375 } }
 ];
