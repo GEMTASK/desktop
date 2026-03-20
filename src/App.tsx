@@ -1,6 +1,6 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useState } from "react";
 
-import { View, Text, Button, Menu } from "onyx-ui";
+import { View, Button, Menu } from "onyx-ui";
 
 import Window from "./components/Window";
 import Calculator from "./clients/calculator";
@@ -8,9 +8,9 @@ import Styleguide from "./clients/styleguide";
 import Asteroids from "./clients/asteroids/Asteroids";
 import Explorer from "./clients/explorer";
 import Browser from "./clients/browser";
+import AnalogClock from "./clients/clock";
 
 import "./App.css";
-import AnalogClock from "./clients/clock";
 
 function MusicPlayer() {
   return (
@@ -42,24 +42,18 @@ function LetsCode() {
   );
 }
 
-function IFrameClient({ src }: { src: string }) {
-  return (
-    <View flex as="iframe" src={src} />
-  );
-}
-
 //
 // App
 //
 
-type Application = {
+type Client = {
   title: string,
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
   client: React.ReactElement
 };
 
-const applicationsMap: Record<string, Application> = {
+const clients: Record<string, Client> = {
   "clock": {
     title: "Clock", size: { width: 300, height: 345 }, client: <AnalogClock />
   },
@@ -95,13 +89,13 @@ const applicationsMap: Record<string, Application> = {
   }
 } as const;
 
-const applications: Application[] = [
+const startupClients: Client[] = [
   // { title: "Stereo", position: { x: 16, y: 32 }, size: { width: 400, height: 300 }, client: <MusicPlayer /> },
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
-  { ...applicationsMap["clock"]!, position: { x: 15, y: 15 } },
-  { ...applicationsMap["calculator"]!, position: { x: 332, y: 15 } },
-  { ...applicationsMap["styleguide"]!, position: { x: 15, y: 375 } },
-  { ...applicationsMap["s3-explorer"]!, position: { x: 675, y: 375 } }
+  { ...clients["clock"]!, position: { x: 15, y: 15 } },
+  { ...clients["calculator"]!, position: { x: 332, y: 15 } },
+  { ...clients["styleguide"]!, position: { x: 15, y: 375 } },
+  { ...clients["s3-explorer"]!, position: { x: 675, y: 375 } }
 ];
 
 //
@@ -109,18 +103,18 @@ const applications: Application[] = [
 //
 
 function App() {
-  const [windows, setWindows] = useState(applications.map(application => ({
+  const [windows, setWindows] = useState(startupClients.map(client => ({
     id: crypto.randomUUID(),
-    ...application
+    ...client
   })));
   const [orderedWindowIds, setOrderedWindowIds] = useState<string[]>(windows.map(window => window.id));
 
-  const addWindow = (application: Application) => {
+  const addWindow = (client: Client) => {
     const id = crypto.randomUUID();
 
     setWindows(windows => [
       ...windows,
-      { id, ...application, position: { x: 0, y: 0 } }
+      { id, ...client, position: { x: 0, y: 0 } }
     ]);
 
     setOrderedWindowIds(orderedWindowIds => [
@@ -148,14 +142,14 @@ function App() {
       return;
     }
 
-    const application = applicationsMap[value];
+    const client = clients[value];
 
-    if (application) {
+    if (client) {
       const id = crypto.randomUUID();
 
       setWindows(windows => [
         ...windows,
-        { id, ...application }
+        { id, ...client }
       ]);
 
       setOrderedWindowIds(orderedWindowIds => [
