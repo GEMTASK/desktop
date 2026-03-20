@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ChevronRightIcon } from "lucide-react";
 
 import { View, Button, Menu } from "onyx-ui";
 
@@ -199,7 +200,12 @@ function App() {
           <Menu.Divider />,
           <Menu.Group label="Games" />,
           <Menu.Item title="Asteroids" value="asteroids" />,
-          <Menu.Item title="Let's Code!" value="lets-code" />
+          <Menu.Item title="Let's Code!" value="lets-code" />,
+          <Menu anchor="top right" items={[
+            <Menu.Item title="Let's Code!" value="lets-code" />
+          ]}>
+            <Menu.Item title="p5 Coding Lessons" rightIcon={ChevronRightIcon} />
+          </Menu>
         ]}>
           <Button hover padding="8px">
             Programs
