@@ -133,14 +133,20 @@ function Window({
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
       <View horizontal border="bottom" borderColor="gutter" fillColor="divider" align="middle justify" style={{
-        borderTopLeftRadius: 4, borderTopRightRadius: 4
+        borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1
       }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
       >
-        <Button hover icon={XIcon} onPointerDown={handleCloseButtonPointerDown} onClick={handleCloseButtonClick} />
-        <Text fontWeight="700" padding="8px 16px" style={{ marginTop: 1 }}>
+        <Button
+          hover
+          icon={XIcon}
+          style={{ padding: 6, marginLeft: 4 }}
+          onPointerDown={handleCloseButtonPointerDown}
+          onClick={handleCloseButtonClick}
+        />
+        <Text fontWeight="700" padding="8px 16px" style={{ marginBottom: -1 }}>
           {title}
         </Text>
         <View style={{ width: 28 }} />
