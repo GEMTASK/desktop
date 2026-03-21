@@ -71,7 +71,7 @@ function File({
 }) {
   if (detailsView) {
     return (
-      <Button hover icon={type === "folder" ? FolderIcon : FileIcon} align="top left">
+      <Button hover icon={type === "folder" ? FolderIcon : FileIcon} padding="8px 12px" align="top left">
         <View spacing="8px">
           <Text style={{ textAlign: "left" }}>{name}</Text>
           <Text light fontSize="12px" style={{ textAlign: "left" }}>{size.toLocaleString()} Bytes</Text>
