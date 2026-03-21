@@ -9,8 +9,8 @@ const calculateHands = (date: Date) => {
 
   return ({
     hour: {
-      x: Math.cos(hourAngle) * 0 - Math.sin(hourAngle) * 50,
-      y: Math.cos(hourAngle) * 50 + Math.sin(hourAngle) * 0
+      x: Math.cos(hourAngle) * 0 - Math.sin(hourAngle) * 85,
+      y: Math.cos(hourAngle) * 85 + Math.sin(hourAngle) * 0
     },
     minute: {
       x: Math.cos(minuteAngle) * 0 - Math.sin(minuteAngle) * 85,
@@ -55,15 +55,15 @@ const AnalogClock = () => {
           key={index}
           cx={Math.cos(angle) * 0 - Math.sin(angle) * 85 + 100}
           cy={Math.cos(angle) * 85 + Math.sin(angle) * 0 + 100}
-          r={index % 3 === 0 ? 3 : 1}
+          r={index % 3 === 0 ? 1 : 1}
           fill="#343a40"
         />
       ))}
       <line
         x1={-(hands.hour.x / 5) + 100}
         y1={-(hands.hour.y / 5) + 100}
-        x2={hands.hour.x + 100}
-        y2={hands.hour.y + 100}
+        x2={(hands.hour.x / 1.5) + 100}
+        y2={(hands.hour.y / 1.5) + 100}
         stroke="#343a40"
         strokeWidth={7}
         style={{ filter: "drop-shadow(0 0 1px hsla(0, 0%, 0%, 0.1))" }}

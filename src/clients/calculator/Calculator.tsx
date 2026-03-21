@@ -7,7 +7,7 @@ const CalcButton = ({
   ...props
 }: Delegate<object, typeof Button>) => {
   return (
-    <Button solid style={{ minWidth: 50, minHeight: 40 }} {...props}>
+    <Button solid style={{ minWidth: 40, minHeight: 32 }} {...props}>
       {children}
     </Button>
   );

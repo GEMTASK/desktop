@@ -10,6 +10,7 @@ import Styleguide from "./clients/styleguide";
 import Explorer from "./clients/explorer";
 import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
+import Calendar from "./clients/calendar";
 
 import "./App.css";
 
@@ -49,11 +50,14 @@ type Client = {
 };
 
 const clients: Record<string, Client> = {
+  "calendar": {
+    title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />
+  },
   "clock": {
-    title: "Clock", size: { width: 315, height: 345 }, client: <AnalogClock />
+    title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />
   },
   "calculator": {
-    title: "Calculator", size: { width: undefined, height: 345 }, client: <Calculator />
+    title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />
   },
   "styleguide": {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
@@ -65,7 +69,7 @@ const clients: Record<string, Client> = {
     title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />
   },
   "s3-explorer": {
-    title: "S3 Explorer", size: { width: 600, height: 400 }, client: <Explorer />
+    title: "S3 Explorer", size: { width: 675, height: 535 }, client: <Explorer />
   },
   "ft86-part-picker": {
     title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />
@@ -99,10 +103,43 @@ const clients: Record<string, Client> = {
 const startupClients: Client[] = [
   // { title: "Stereo", position: { x: 16, y: 32 }, size: { width: 400, height: 300 }, client: <MusicPlayer /> },
   // { title: "Asteroids", position: { x: 900, y: 16 }, size: { width: 400, height: 300 }, client: <Asteroids /> },
-  { ...clients["clock"]!, position: { x: 15, y: 15 } },
-  { ...clients["calculator"]!, position: { x: 345, y: 15 } },
-  { ...clients["styleguide"]!, position: { x: 15, y: 375 } },
-  { ...clients["s3-explorer"]!, position: { x: 675, y: 375 } }
+  { ...clients["calendar"]!, position: { x: 15, y: 15 } },
+  { ...clients["clock"]!, position: { x: 390, y: 15 } },
+  { ...clients["calculator"]!, position: { x: 705, y: 15 } },
+  { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
+  { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } }
+];
+
+const utilitiesMenuItems = [
+  <Menu.Item title="Clock" value="clock" />,
+  <Menu.Item title="Calculator" value="calculator" />,
+  <Menu.Item title="Browser" value="browser" />
+];
+
+const programsMenuItems = [
+  <Menu.Group label="Applications" />,
+  <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" />,
+  <Menu.Item title="Music Player" value="music-player" />,
+  <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" />,
+  <Menu.Item title="Vector Draw" value="vector-draw" />,
+  <Menu.Divider />,
+  <Menu.Group label="Games" />,
+  <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
+  <Menu.Item title="React Asteroids" value="react-asteroids" />,
+
+  <Menu.Divider />,
+  <Menu.Group label="Visuals" />,
+  <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
+
+  <Menu.Divider />,
+  <Menu anchor="top right" items={[
+    <Menu.Group label="Coding Lessons" />,
+    <Menu.Item title="Let's Code!" value="p5-lets-code" />,
+    <Menu.Item title="Asteroids" value="p5-asteroids" />,
+    <Menu.Item title="Fountain" value="p5-fountain" />
+  ]}>
+    <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} />
+  </Menu>
 ];
 
 //
@@ -144,7 +181,7 @@ function App() {
     ]);
   };
 
-  const handleMenuSelect = (value: string | undefined) => {
+  const handleMenuSelect = (value?: string) => {
     if (typeof value !== "string") {
       return;
     }
@@ -164,6 +201,14 @@ function App() {
         id
       ]);
     }
+  };
+
+  const handleLinksMenuSelect = (value?: string) => {
+    if (typeof value !== "string") {
+      return;
+    }
+
+    window.open(value);
   };
 
   const handleWindowRequestClose = (id: string) => {
@@ -188,43 +233,22 @@ function App() {
         <Button hover fontWeight="700" padding="8px">
           Desktop
         </Button>
-        <Menu onSelect={handleMenuSelect} items={[
-          <Menu.Item title="Clock" value="clock" />,
-          <Menu.Item title="Calculator" value="calculator" />,
-          <Menu.Item title="Browser" value="browser" />
-        ]}>
+        <Menu onSelect={handleMenuSelect} items={utilitiesMenuItems}>
           <Button hover padding="8px">
             Utilities
           </Button>
         </Menu>
-        <Menu onSelect={handleMenuSelect} items={[
-          <Menu.Group label="Applications" />,
-          <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" />,
-          <Menu.Item title="Music Player" value="music-player" />,
-          <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" />,
-          <Menu.Item title="Vector Draw" value="vector-draw" />,
-          <Menu.Divider />,
-          <Menu.Group label="Games" />,
-          <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
-          <Menu.Item title="React Asteroids" value="react-asteroids" />,
-
-          <Menu.Divider />,
-          <Menu.Group label="Visuals" />,
-          <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
-
-
-          <Menu.Divider />,
-          <Menu anchor="top right" items={[
-            <Menu.Group label="Coding Lessons" />,
-            <Menu.Item title="Let's Code!" value="p5-lets-code" />,
-            <Menu.Item title="Asteroids" value="p5-asteroids" />,
-            <Menu.Item title="Fountain" value="p5-fountain" />,
-          ]}>
-            <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} />
-          </Menu>
-        ]}>
+        <Menu onSelect={handleMenuSelect} items={programsMenuItems}>
           <Button hover padding="8px">
             Programs
+          </Button>
+        </Menu>
+        <Menu onSelect={handleLinksMenuSelect} items={[
+          <Menu.Item title="My GitHub Repos" value="https://github.com/mikeaustin" />,
+          <Menu.Item title="My Old Resume (2017)" value="https://mike-austin.com" />
+        ]}>
+          <Button hover padding="8px">
+            Links
           </Button>
         </Menu>
       </View>
