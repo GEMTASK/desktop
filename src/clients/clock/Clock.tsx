@@ -55,7 +55,7 @@ const AnalogClock = () => {
           key={index}
           cx={Math.cos(angle) * 0 - Math.sin(angle) * 85 + 100}
           cy={Math.cos(angle) * 85 + Math.sin(angle) * 0 + 100}
-          r={index % 3 === 0 ? 1 : 1}
+          r={index % 3 === 0 ? 1.5 : 1.5}
           fill="#343a40"
         />
       ))}
