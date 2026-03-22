@@ -11,6 +11,7 @@ import Explorer from "./clients/explorer";
 import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
 import Calendar from "./clients/calendar";
+import MarkdownClient from "./clients/markdown/Markdown";
 
 import "./App.css";
 
@@ -62,6 +63,9 @@ const clients: Record<string, Client> = {
   "styleguide": {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
   },
+  "markdown": {
+    title: "Markdown", size: { width: 645, height: 900 }, client: <MarkdownClient />
+  },
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />
   },
@@ -107,7 +111,8 @@ const startupClients: Client[] = [
   { ...clients["clock"]!, position: { x: 390, y: 15 } },
   { ...clients["calculator"]!, position: { x: 705, y: 15 } },
   { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
-  { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } }
+  { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } },
+  { ...clients["markdown"]!, position: { x: 15, y: 360 } }
 ];
 
 const utilitiesMenuItems = [
