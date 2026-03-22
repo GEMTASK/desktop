@@ -1,28 +1,24 @@
 import { View, Text, Button, Divider } from "onyx-ui";
+import { useState } from "react";
 
 // import { ReactComponent as ArrowLeftIcon } from "../../shared/images/arrow-left.svg";
 // import { ReactComponent as ArrowRightIcon } from "../../shared/images/arrow-right.svg";
 
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-const firstDayInMonth = (year = new Date().getFullYear(), month = new Date().getMonth()) => {
-  return new Date(year, month, 1).getDay();
-};
-
-const daysInMonth = (year = new Date().getFullYear(), month = new Date().getMonth()) => {
-  return new Date(year, month + 1, 0).getDate();
-};
-
 const Calendar = () => {
-  const today = new Date();
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+
+  const firstDayInMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), 1).getDay();
+  const daysInMonth = new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1, 0).getDate();
 
   return (
     <View flex>
       <View fillColor="panel" border="bottom">
         <View horizontal padding="16px" fillColor="panel" style={{ paddingBottom: 8 }}>
           <Text fontSize="24px">
-            <Text fontWeight="700">{today.toLocaleDateString(undefined, { month: "long" })}</Text>{" "}
-            <Text>{today.toLocaleDateString(undefined, { year: "numeric" })}</Text>
+            <Text fontWeight="700">{selectedDate.toLocaleDateString(undefined, { month: "long" })}</Text>{" "}
+            <Text>{selectedDate.toLocaleDateString(undefined, { year: "numeric" })}</Text>
           </Text>
         </View>
 
@@ -34,50 +30,14 @@ const Calendar = () => {
           ))}
         </View>
       </View>
-    </View>
-  );
 
-  return (
-    <View flex>
-      <View fillColor="panel">
-        {/* <Spacer size="medium" /> */}
-        <View horizontal horizontalPadding="medium" alignItems="center">
-          <Text fontSize="large">
-            <Text fontWeight="medium">{today.toLocaleDateString(undefined, { month: "long" })}</Text>{" "}
-            <Text fontWeight="light">{today.toLocaleDateString(undefined, { year: "numeric" })}</Text>
-          </Text>
-          <Spacer flex size="medium" />
-          <Button size="xsmall" title={<ArrowLeftIcon style={{ height: 10 }} /> as any} solid rounded />
-          <Spacer size="xsmall" />
-          <Button size="xsmall" title={<ArrowRightIcon style={{ height: 10 }} /> as any} solid rounded />
-        </View>
-        <Spacer size="medium" />
-        <View horizontal horizontalPadding="small">
-          {Array.from({ length: 7 }, (_, index) => (
-            <Text key={index} flex fontSize="tiny" fontWeight="bold" textColor="gray-6" style={{ textAlign: "right", paddingRight: 7 }}>
-              {days[index].toUpperCase()}
-            </Text>
-          ))}
-        </View>
-        <Spacer size="xsmall" />
-        <Divider />
-      </View>
-      <View flex padding="small" style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
-        {Array.from({ length: firstDayInMonth() }, (_, index) => (
-          <View key={index} />
+      <View flex padding="8px" style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)" }}>
+        {Array.from({ length: firstDayInMonth }, (_, index) => (
+          <View key={-index} />
         ))}
-        {Array.from({ length: daysInMonth() }, (_, index) => (
-          <View
-            key={index + 7}
-            borderRadius="tiny"
-            padding="small"
-            background={index + 1 === today.getDate() ? "primary" : undefined}
-          >
-            <Text
-              style={{ textAlign: "right" }}
-              textColor={index + 1 === today.getDate() ? "white" : undefined}
-              fontWeight={index + 1 === today.getDate() ? "bold" : undefined}
-            >
+        {Array.from({ length: daysInMonth }, (_, index, today = index + 1 === selectedDate.getDate()) => (
+          <View key={index + 1} cornerRadius="2px" padding="8px" fillColor={today && "primary"}>
+            <Text style={{ textAlign: "right" }} textColor={today && "white"} fontWeight={today && "700"}>
               {index + 1}
             </Text>
           </View>
