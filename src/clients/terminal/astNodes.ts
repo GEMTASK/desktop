@@ -1,14 +1,16 @@
-import { ASTNode, KopiValue, type BindValues } from "./types.ts";
+import { ASTNode, KopiValue, type BindValues } from "./shared.ts";
 
 import { KopiNumber } from "./kopiTypes.ts";
 
 class NumericLiteral extends ASTNode {
   readonly value: KopiNumber;
 
-  constructor({ value }: any) {
+  constructor({ value }: {
+    value: KopiNumber
+  }) {
     super();
 
-    this.value = new KopiNumber(value);
+    this.value = value;
   }
 
   evaluate(): KopiValue {
@@ -21,7 +23,9 @@ class OperatorExpression extends ASTNode {
   readonly leftExpression: ASTNode;
   readonly rightExpression: ASTNode;
 
-  constructor({ operator, leftExpression, rightExpression }: any) {
+  constructor({ operator, leftExpression, rightExpression }: {
+    operator: "+", leftExpression: ASTNode, rightExpression: ASTNode
+  }) {
     super();
 
     this.operator = operator;
@@ -33,9 +37,9 @@ class OperatorExpression extends ASTNode {
     const leftExpressionValue = this.leftExpression.evaluate(environment, bindValues);
     const rightExpressionValue = this.rightExpression.evaluate(environment, bindValues);
 
-    const method = (leftExpressionValue as any)[this.operator];
+    const method = leftExpressionValue[this.operator];
 
-    if (!method) {
+    if (typeof method !== "function") {
       throw new Error("Error");
     }
 

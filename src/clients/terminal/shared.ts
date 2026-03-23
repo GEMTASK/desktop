@@ -3,6 +3,8 @@ class KopiValue {
     return "";
   }
 
+  [key: string]: unknown
+
   // methods: {
   //   [key: string]: (that: KopiValue) => KopiValue
   // } = {};

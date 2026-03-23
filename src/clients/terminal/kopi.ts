@@ -3,11 +3,12 @@
 // import { KopiNumber } from "./kopiTypes";
 
 import * as astNodes from "./astNodes.ts";
-import type { ASTNode, KopiValue } from "./types.ts";
+import { KopiNumber } from "./kopiTypes.ts";
+import type { ASTNode, KopiValue } from "./shared.ts";
 
 type RawAstNode = {
   type: "OperatorExpression",
-  operator: string,
+  operator: "+",
   leftExpression: RawAstNode,
   rightExpression: RawAstNode
 } | {
@@ -31,7 +32,9 @@ const rawAst = {
 const transformAst = (rawAstNode: RawAstNode): ASTNode => {
   switch (rawAstNode.type) {
     case "NumericLiteral":
-      return new astNodes.NumericLiteral(rawAstNode);
+      return new astNodes.NumericLiteral({
+        value: new KopiNumber(rawAstNode.value)
+      });
     case "OperatorExpression":
       return new astNodes.OperatorExpression({
         operator: rawAstNode.operator,

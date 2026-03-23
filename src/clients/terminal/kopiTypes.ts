@@ -1,4 +1,4 @@
-import { KopiValue } from "./types.ts";
+import { KopiValue } from "./shared.ts";
 
 class KopiNumber extends KopiValue {
   readonly value: number;
