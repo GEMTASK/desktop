@@ -86,6 +86,10 @@ function Styleguide() {
         Content
       </Text>
 
+      <Text>
+        Click <Text as="a" href="/">here</Text>!
+      </Text>
+
       <Icon icon={HomeIcon} color="primary" />
 
       <View horizontal spacing="8px" align="middle justify">
