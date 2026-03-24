@@ -77,11 +77,11 @@ class NumericLiteral extends ASTNode {
   readonly value: KopiNumber;
 
   constructor({ value }: {
-    value: KopiNumber
+    value: number
   }) {
     super();
 
-    this.value = value;
+    this.value = new KopiNumber(value);
   }
 
   override async evaluate(): Promise<KopiValue> {

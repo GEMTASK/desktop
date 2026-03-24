@@ -24,7 +24,7 @@ const transform = (rawAstNode: RawASTNode): ASTNode => {
       });
     case "NumericLiteral":
       return new astNodes.NumericLiteral({
-        value: new KopiNumber(rawAstNode.value)
+        value: rawAstNode.value
       });
     case "Identifier":
       return new astNodes.Identifier({
