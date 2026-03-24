@@ -1,6 +1,6 @@
 import { ASTNode, KopiValue, type EnvBind } from "./shared.ts";
 
-import { KopiNumber } from "./kopiTypes.ts";
+import { KopiNumber, KopiTuple } from "./kopiTypes.ts";
 
 class OperatorExpression extends ASTNode {
   readonly operator: "+" | "-";
@@ -53,6 +53,24 @@ class ApplyExpression extends ASTNode {
   }
 }
 
+class TupleExpression extends ASTNode {
+  expressions: ASTNode[];
+
+  constructor({ expressions }: {
+    expressions: ASTNode[]
+  }) {
+    super();
+
+    this.expressions = expressions;
+  }
+
+  async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
+    return new KopiTuple(
+      this.expressions.map(expression => expression.evaluate(environment, envbind))
+    );
+  }
+}
+
 class NumericLiteral extends ASTNode {
   readonly value: KopiNumber;
 
@@ -94,6 +112,7 @@ class Identifier extends ASTNode {
 export {
   OperatorExpression,
   ApplyExpression,
+  TupleExpression,
   NumericLiteral,
   Identifier
 };

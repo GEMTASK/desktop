@@ -22,8 +22,18 @@ ApplyExpression
     }
 
 PrimaryExpression
-  = "(" head:Expression ")" {
-    return head;
+  = "(" _ head:Expression? _ ")" {
+    return head ? head : {
+      type: "TupleExpression",
+      expressions: []
+    };
+  }
+  / "(" head:Expression tail:(_ "," _ Expression)* ")" {
+    return ({
+      type: "TupleExpression",
+      expressions:  tail.reduce((expressions, [, , , expression]) =>
+        [...expressions, expression], [head])
+    })
   }
   / NumericLiteral
   / Identifier

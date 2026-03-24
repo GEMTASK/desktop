@@ -9,7 +9,7 @@ class KopiNumber extends KopiValue {
     this.value = value;
   }
 
-  override _inspect(): string {
+  override async _inspect(): Promise<string> {
     return this.value.toString();
   }
 
@@ -22,6 +22,25 @@ class KopiNumber extends KopiValue {
   }
 }
 
+class KopiTuple extends KopiValue {
+  readonly elements: Promise<KopiValue>[];
+
+  constructor(elements: Promise<KopiValue>[]) {
+    super();
+
+    this.elements = elements;
+  }
+
+  override async _inspect(): Promise<string> {
+    const elements = await Promise.all(
+      this.elements.map(async (element, index) => (await element)._inspect())
+    );
+
+    return `(${elements.join(", ")})`;
+  }
+}
+
 export {
-  KopiNumber
+  KopiNumber,
+  KopiTuple
 };

@@ -3,7 +3,7 @@ interface RawASTNode {
 }
 
 class KopiValue {
-  _inspect(): string {
+  async _inspect(): Promise<string> {
     return "";
   }
 

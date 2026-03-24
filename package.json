@@ -11,8 +11,8 @@
     "parser": "peggy --output ./src/clients/terminal/lib/parser.js --format es --dts ./src/clients/terminal/parser.peggy"
   },
   "//": {
-    "onyx-ui": "file:../onyx-ui",
-    "onyx-ui": "github:GEMTASK/onyx-ui"
+    "onyx-ui dev": "file:../onyx-ui",
+    "onyx-ui prod": "github:GEMTASK/onyx-ui"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1009.0",

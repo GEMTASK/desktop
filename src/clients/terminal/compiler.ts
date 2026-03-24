@@ -1,9 +1,13 @@
+import util from "node:util";
+
 import * as parser from "./lib/parser.js";
 
 import { KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
 import { KopiNumber } from "./kopiTypes.ts";
 
 import * as astNodes from "./astNodes.ts";
+
+util.inspect.defaultOptions.depth = null;
 
 const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
@@ -17,6 +21,10 @@ const transform = (rawAstNode: RawASTNode): ASTNode => {
       return new astNodes.ApplyExpression({
         expression: transform(rawAstNode.expression),
         argumentExpression: transform(rawAstNode.argumentExpression)
+      });
+    case "TupleExpression":
+      return new astNodes.TupleExpression({
+        expressions: rawAstNode.expressions.map((expression: ASTNode) => transform(expression))
       });
     case "NumericLiteral":
       return new astNodes.NumericLiteral({
@@ -61,10 +69,14 @@ const envbind = (bindings: Record<string, KopiValue>) => {
 };
 
 // const ast = transform(parser.parse("3 - (2 + 1)"));
-const ast = transform(parser.parse("sleep 2 + sleep 3"));
+// const ast = transform(parser.parse("sleep 2 + sleep 3"));
+// const ast = transform(parser.parse("()"));
+const ast = transform(parser.parse("(sleep 1, sleep 2, sleep 3)"));
 
 console.log(ast);
+console.dir(ast, { depth: null });
+console.log(util.inspect(ast, { showHidden: false, depth: null, colors: true }));
 
 const value = await ast.evaluate(environment, envbind);
 
-console.log(">>>", value);
+console.log(">>>", await value._inspect());
