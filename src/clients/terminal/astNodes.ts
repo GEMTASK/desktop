@@ -2,22 +2,6 @@ import { ASTNode, KopiValue, type EnvBind } from "./shared.ts";
 
 import { KopiNumber } from "./kopiTypes.ts";
 
-class NumericLiteral extends ASTNode {
-  readonly value: KopiNumber;
-
-  constructor({ value }: {
-    value: KopiNumber
-  }) {
-    super();
-
-    this.value = value;
-  }
-
-  override async evaluate(): Promise<KopiValue> {
-    return this.value;
-  }
-}
-
 class OperatorExpression extends ASTNode {
   readonly operator: "+" | "-";
   readonly leftExpression: ASTNode;
@@ -49,6 +33,42 @@ class OperatorExpression extends ASTNode {
   }
 }
 
+class ApplyExpression extends ASTNode {
+  expression: ASTNode;
+  argumentExpression: ASTNode;
+
+  constructor({ expression, argumentExpression }: {
+    expression: ASTNode, argumentExpression: ASTNode
+  }) {
+    super();
+
+    this.expression = expression;
+    this.argumentExpression = argumentExpression;
+  }
+
+  override async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
+    const functionValue = await this.expression.evaluate(environment, envbind) as unknown as { apply: (thisArg: undefined, args: [KopiValue]) => Promise<KopiValue> };
+
+    return functionValue.apply(undefined, [await this.argumentExpression.evaluate(environment, envbind)]);
+  }
+}
+
+class NumericLiteral extends ASTNode {
+  readonly value: KopiNumber;
+
+  constructor({ value }: {
+    value: KopiNumber
+  }) {
+    super();
+
+    this.value = value;
+  }
+
+  override async evaluate(): Promise<KopiValue> {
+    return this.value;
+  }
+}
+
 class Identifier extends ASTNode {
   readonly name: string;
 
@@ -72,7 +92,8 @@ class Identifier extends ASTNode {
 }
 
 export {
+  OperatorExpression,
+  ApplyExpression,
   NumericLiteral,
-  Identifier,
-  OperatorExpression
+  Identifier
 };

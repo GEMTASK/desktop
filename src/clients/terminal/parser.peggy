@@ -2,7 +2,7 @@ Expression
   = AddExpression
 
 AddExpression
-  = head:PrimaryExpression tail:(_ ("+" / "-") _ PrimaryExpression)* {
+  = head:ApplyExpression tail:(_ ("+" / "-") _ ApplyExpression)* {
       return tail.reduce((leftExpression, [, operator, , rightExpression]) => ({
         type: "OperatorExpression",
         operator,
@@ -10,6 +10,15 @@ AddExpression
         rightExpression,
         location: location(),
        }), head);
+    }
+
+ApplyExpression
+  = expression:PrimaryExpression _arguments:(_ PrimaryExpression)* {
+      return _arguments.reduce((expression, [, argumentExpression]) => ({
+        type: "ApplyExpression",
+        expression,
+        argumentExpression,
+      }), expression);
     }
 
 PrimaryExpression
