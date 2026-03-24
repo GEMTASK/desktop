@@ -1,5 +1,9 @@
+interface RawASTNode {
+  [key: string]: any;
+}
+
 class KopiValue {
-  inspect(): string {
+  _inspect(): string {
     return "";
   }
 
@@ -19,6 +23,7 @@ class ASTNode extends KopiValue {
 }
 
 export {
+  type RawASTNode,
   type BindValues,
   KopiValue,
   ASTNode

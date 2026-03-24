@@ -19,12 +19,12 @@ class NumericLiteral extends ASTNode {
 }
 
 class OperatorExpression extends ASTNode {
-  readonly operator: "+";
+  readonly operator: "+" | "-";
   readonly leftExpression: ASTNode;
   readonly rightExpression: ASTNode;
 
   constructor({ operator, leftExpression, rightExpression }: {
-    operator: "+", leftExpression: ASTNode, rightExpression: ASTNode
+    operator: "+" | "-", leftExpression: ASTNode, rightExpression: ASTNode
   }) {
     super();
 
@@ -40,7 +40,7 @@ class OperatorExpression extends ASTNode {
     const method = leftExpressionValue[this.operator];
 
     if (typeof method !== "function") {
-      throw new Error("Error");
+      throw new Error(`'${leftExpressionValue._inspect()}' of type ${leftExpressionValue.constructor.name} doesn't have an operator method '${this.operator}'`);
     }
 
     return method.apply(leftExpressionValue, [rightExpressionValue]);
@@ -50,7 +50,9 @@ class OperatorExpression extends ASTNode {
 class Identifier extends ASTNode {
   readonly name: string;
 
-  constructor(name: string) {
+  constructor({ name }: {
+    name: string
+  }) {
     super();
 
     this.name = name;

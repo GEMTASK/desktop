@@ -25,6 +25,7 @@ export default defineConfig([
     },
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "warn",
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": "error",
       "@stylistic/comma-dangle": ["error", "never"],

@@ -9,12 +9,16 @@ class KopiNumber extends KopiValue {
     this.value = value;
   }
 
-  _inspect(): string {
-    return Number.toString();
+  override _inspect(): string {
+    return this.value.toString();
   }
 
   ["+"](that: KopiNumber) {
     return new KopiNumber(this.value + that.value);
+  }
+
+  ["-"](that: KopiNumber) {
+    return new KopiNumber(this.value - that.value);
   }
 }
 
