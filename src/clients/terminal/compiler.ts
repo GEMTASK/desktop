@@ -5,7 +5,7 @@ import { KopiNumber } from "./kopiTypes.ts";
 
 import * as astNodes from "./astNodes.ts";
 
-const transformAst = (rawAstNode: RawASTNode): ASTNode => {
+const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
     case "NumericLiteral":
       return new astNodes.NumericLiteral({
@@ -18,28 +18,26 @@ const transformAst = (rawAstNode: RawASTNode): ASTNode => {
     case "OperatorExpression":
       return new astNodes.OperatorExpression({
         operator: rawAstNode.operator,
-        leftExpression: transformAst(rawAstNode.leftExpression),
-        rightExpression: transformAst(rawAstNode.rightExpression)
+        leftExpression: transform(rawAstNode.leftExpression),
+        rightExpression: transform(rawAstNode.rightExpression)
       });
   }
 
-  throw new Error(`No transformAst found for '${rawAstNode.type}'`);
+  throw new Error(`No transform found for '${rawAstNode.type}'`);
 };
 
 let environment = {
   a: new KopiNumber(5)
 };
 
-const bindValues = (values: Record<string, KopiValue>) => {
-  environment = { ...environment, ...values };
+const envbind = (bindings: Record<string, KopiValue>) => {
+  environment = { ...environment, ...bindings };
 };
 
-const rawAst2 = parser.parse("3 - (2 + 1)");
+const ast = transform(parser.parse("3 - (2 + 1)"));
 
-const ast2 = transformAst(rawAst2);
+console.log(ast);
 
-console.log(ast2);
+const value = await ast.evaluate(environment, envbind);
 
-const value2 = await ast2.evaluate(environment, bindValues);
-
-console.log(value2);
+console.log(value);

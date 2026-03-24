@@ -8,23 +8,19 @@ class KopiValue {
   }
 
   [key: string]: unknown
-
-  // methods: {
-  //   [key: string]: (that: KopiValue) => KopiValue
-  // } = {};
 }
 
-type BindValues = (bindings: Record<string, KopiValue>) => void;
+type EnvBind = (bindings: Record<string, KopiValue>) => void;
 
 class ASTNode extends KopiValue {
-  async evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): Promise<KopiValue> {
+  async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
     return new KopiValue();
   }
 }
 
 export {
   type RawASTNode,
-  type BindValues,
+  type EnvBind,
   KopiValue,
   ASTNode
 };

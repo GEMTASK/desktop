@@ -1,4 +1,4 @@
-import { ASTNode, KopiValue, type BindValues } from "./shared.ts";
+import { ASTNode, KopiValue, type EnvBind } from "./shared.ts";
 
 import { KopiNumber } from "./kopiTypes.ts";
 
@@ -33,10 +33,10 @@ class OperatorExpression extends ASTNode {
     this.rightExpression = rightExpression;
   }
 
-  override async evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): Promise<KopiValue> {
+  override async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
     const [leftExpressionValue, rightExpressionValue] = await Promise.all([
-      this.leftExpression.evaluate(environment, bindValues),
-      this.rightExpression.evaluate(environment, bindValues)
+      this.leftExpression.evaluate(environment, envbind),
+      this.rightExpression.evaluate(environment, envbind)
     ]);
 
     const method = leftExpressionValue[this.operator];
