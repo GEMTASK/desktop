@@ -40,6 +40,6 @@ const ast2 = transformAst(rawAst2);
 
 console.log(ast2);
 
-const value2 = ast2.evaluate(environment, bindValues);
+const value2 = await ast2.evaluate(environment, bindValues);
 
 console.log(value2);

@@ -13,7 +13,7 @@ class NumericLiteral extends ASTNode {
     this.value = value;
   }
 
-  evaluate(): KopiValue {
+  override async evaluate(): Promise<KopiValue> {
     return this.value;
   }
 }
@@ -33,9 +33,11 @@ class OperatorExpression extends ASTNode {
     this.rightExpression = rightExpression;
   }
 
-  override evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): KopiValue {
-    const leftExpressionValue = this.leftExpression.evaluate(environment, bindValues);
-    const rightExpressionValue = this.rightExpression.evaluate(environment, bindValues);
+  override async evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): Promise<KopiValue> {
+    const [leftExpressionValue, rightExpressionValue] = await Promise.all([
+      this.leftExpression.evaluate(environment, bindValues),
+      this.rightExpression.evaluate(environment, bindValues)
+    ]);
 
     const method = leftExpressionValue[this.operator];
 
@@ -58,7 +60,7 @@ class Identifier extends ASTNode {
     this.name = name;
   }
 
-  evaluate(environment: Record<string, KopiValue>): KopiValue {
+  async evaluate(environment: Record<string, KopiValue>): Promise<KopiValue> {
     const value = environment[this.name];
 
     if (!value) {

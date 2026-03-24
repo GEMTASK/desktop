@@ -17,7 +17,7 @@ class KopiValue {
 type BindValues = (bindings: Record<string, KopiValue>) => void;
 
 class ASTNode extends KopiValue {
-  evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): KopiValue {
+  async evaluate(environment: Record<string, KopiValue>, bindValues: BindValues): Promise<KopiValue> {
     return new KopiValue();
   }
 }
