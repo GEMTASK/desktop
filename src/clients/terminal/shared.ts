@@ -3,11 +3,13 @@ interface RawASTNode {
 }
 
 class KopiValue {
-  async _inspect(): Promise<string> {
+  async inspect(): Promise<string> {
     return "";
   }
 
-  [key: string]: unknown
+  static methods: {
+    [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
+  };
 }
 
 type EnvBind = (bindings: Record<string, KopiValue>) => void;

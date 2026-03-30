@@ -67,10 +67,10 @@ const envbind = (bindings: Record<string, KopiValue>) => {
 // const ast = transform(parser.parse("3 - (2 + 1)"));
 // const ast = transform(parser.parse("sleep 2 + sleep 3"));
 // const ast = transform(parser.parse("()"));
-const ast = transform(parser.parse("(sleep (0.5 + 0.5), sleep (1.0 + 1.0))"));
+const ast = transform(parser.parse("((), sleep (0.5 + 0.5), sleep (1.0 + 1.0))"));
 
 console.dir(ast, { depth: null });
 
 const value = await ast.evaluate(environment, envbind);
 
-console.log(">>>", await value._inspect());
+console.log(">>>", await value.inspect());

@@ -23,13 +23,14 @@ class OperatorExpression extends ASTNode {
       this.rightExpression.evaluate(environment, envbind)
     ]);
 
-    const method = leftExpressionValue[this.operator];
+    const method = (leftExpressionValue.constructor as typeof KopiValue).methods[this.operator];
 
     if (typeof method !== "function") {
-      throw new Error(`'${leftExpressionValue._inspect()}' of type ${leftExpressionValue.constructor.name} doesn't have an operator method '${this.operator}'`);
+      throw new Error(`'${leftExpressionValue.inspect()
+        }' of type ${leftExpressionValue.constructor.name} doesn't have an operator method '${this.operator}'`);
     }
 
-    return method.apply(leftExpressionValue, [rightExpressionValue]);
+    return method.apply(undefined, [leftExpressionValue, rightExpressionValue]);
   }
 }
 
