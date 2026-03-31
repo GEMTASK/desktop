@@ -1,9 +1,9 @@
 import * as parser from "./lib/parser.js";
 
 import { ASTPatternNode, KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
-import { KopiNumber } from "./kopiTypes.ts";
+import * as astNodes from "./ast-nodes/index.ts";
 
-import * as astNodes from "./astNodes.ts";
+import { KopiNumber } from "./kopiTypes.ts";
 
 const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
