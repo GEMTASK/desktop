@@ -1,12 +1,17 @@
 import * as parser from "./lib/parser.js";
 
-import { KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
+import { ASTPatternNode, KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
 import { KopiNumber } from "./kopiTypes.ts";
 
 import * as astNodes from "./astNodes.ts";
 
 const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
+    case "Assignment":
+      return new astNodes.Assignment({
+        pattern: transform(rawAstNode.pattern) as ASTPatternNode,
+        expression: transform(rawAstNode.expression)
+      });
     case "OperatorExpression":
       return new astNodes.OperatorExpression({
         operator: rawAstNode.operator,
@@ -28,6 +33,10 @@ const transform = (rawAstNode: RawASTNode): ASTNode => {
       });
     case "Identifier":
       return new astNodes.Identifier({
+        name: rawAstNode.name
+      });
+    case "IdentifierPattern":
+      return new astNodes.IdentifierPattern({
         name: rawAstNode.name
       });
   }
@@ -61,13 +70,16 @@ let environment = {
 };
 
 const envbind = (bindings: Record<string, KopiValue>) => {
+  console.log("envbind", bindings);
+
   environment = { ...environment, ...bindings };
 };
 
 // const ast = transform(parser.parse("3 - (2 + 1)"));
 // const ast = transform(parser.parse("sleep 2 + sleep 3"));
 // const ast = transform(parser.parse("()"));
-const ast = transform(parser.parse("((), sleep (0.5 + 0.5), sleep (1.0 + 1.0))"));
+// const ast = transform(parser.parse("((), sleep (0.5 + 0.5), sleep (1.0 + 1.0))"));
+const ast = transform(parser.parse("b = 100"));
 
 console.dir(ast, { depth: null });
 

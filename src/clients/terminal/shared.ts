@@ -20,9 +20,16 @@ class ASTNode extends KopiValue {
   }
 }
 
+abstract class ASTPatternNode extends ASTNode {
+  abstract match(
+    value: KopiValue, environment: Record<string, KopiValue>, envbind: EnvBind
+  ): Promise<Record<string, KopiValue> | undefined>;
+}
+
 export {
   type RawASTNode,
   type EnvBind,
   KopiValue,
-  ASTNode
+  ASTNode,
+  ASTPatternNode
 };

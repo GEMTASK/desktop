@@ -1,3 +1,20 @@
+Statement
+  = Assignment
+  / Expression
+  
+Assignment
+  = pattern:AssignmentPattern _ "=" _ expression:Expression {
+      return {
+        type: 'Assignment',
+        pattern,
+        expression,
+      }
+    }
+
+//
+// Expressions
+//
+
 Expression
   = AddExpression
 
@@ -57,3 +74,34 @@ Identifier "identifier"
 
 _ "space"
   = " "*
+
+//
+// Paterns
+//
+
+AssignmentPattern
+  = PrimaryPattern
+
+Pattern
+  = PatternAssignment
+  / PrimaryPattern
+
+PatternAssignment
+  = pattern:PrimaryPattern _ "=" _ defaultExpression:Expression {
+      return {
+        ...pattern,
+        defaultExpression,
+      }
+    }
+
+PrimaryPattern
+  = IdentifierPattern
+
+IdentifierPattern
+  = identifier:Identifier {
+    return {
+      type: 'IdentifierPattern',
+      name: identifier.name,
+      defaultExpression: null,
+    };
+  }
