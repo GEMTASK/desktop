@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "parser": "peggy --output ./src/clients/terminal/lib/parser.js --format es --dts ./src/clients/terminal/parser.peggy"
+    "parser": "peggy --output ./src/clients/terminal/kopi/lib/parser.js --format es --dts ./src/clients/terminal/kopi/grammar/parser.peggy"
   },
   "//": {
     "onyx-ui dev": "file:../onyx-ui",

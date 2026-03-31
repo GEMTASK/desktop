@@ -13,7 +13,7 @@ class ApplyExpression extends ASTNode {
     this.argumentExpression = argumentExpression;
   }
 
-  override async inspect(): Promise<string> {
+  override async toString(): Promise<string> {
     return "ApplyExpression";
   }
 

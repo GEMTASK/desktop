@@ -15,7 +15,7 @@ class OperatorExpression extends ASTNode {
     this.rightExpression = rightExpression;
   }
 
-  override async inspect(): Promise<string> {
+  override async toString(): Promise<string> {
     return "OperatorExpression";
   }
 
@@ -28,7 +28,7 @@ class OperatorExpression extends ASTNode {
     const method = (leftExpressionValue.constructor as typeof KopiValue).methods[this.operator];
 
     if (typeof method !== "function") {
-      throw new Error(`'${leftExpressionValue.inspect()
+      throw new Error(`'${leftExpressionValue.toString()
         }' of type ${leftExpressionValue.constructor.name} doesn't have an operator method '${this.operator}'`);
     }
 

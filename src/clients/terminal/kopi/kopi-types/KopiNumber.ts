@@ -9,7 +9,7 @@ class KopiNumber extends KopiValue {
     this.value = value;
   }
 
-  override async inspect(): Promise<string> {
+  override async toString(): Promise<string> {
     return this.value.toString();
   }
 

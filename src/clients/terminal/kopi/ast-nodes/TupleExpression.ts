@@ -12,7 +12,7 @@ class TupleExpression extends ASTNode {
     this.expressions = expressions;
   }
 
-  override async inspect(): Promise<string> {
+  override async toString(): Promise<string> {
     return "TupleExpression";
   }
 

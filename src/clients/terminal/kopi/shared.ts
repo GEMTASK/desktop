@@ -3,7 +3,7 @@ interface RawASTNode {
 }
 
 abstract class KopiValue {
-  abstract inspect(): Promise<string>;
+  abstract toString(): string | Promise<string>;
 
   static methods: {
     [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
