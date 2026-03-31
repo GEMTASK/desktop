@@ -1,4 +1,4 @@
-import { ASTNode, KopiValue, type EnvBind } from "../shared.ts";
+import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
 
 class ApplyExpression extends ASTNode {
   expression: ASTNode;
@@ -13,7 +13,11 @@ class ApplyExpression extends ASTNode {
     this.argumentExpression = argumentExpression;
   }
 
-  override async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
+  override async inspect(): Promise<string> {
+    return "ApplyExpression";
+  }
+
+  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
     const functionValue = await this.expression.evaluate(environment, envbind) as unknown as {
       apply: (thisArg: undefined, args: [KopiValue]) => Promise<KopiValue>
     };

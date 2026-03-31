@@ -1,4 +1,4 @@
-import { ASTNode, KopiValue, type EnvBind } from "../shared.ts";
+import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
 import { KopiTuple } from "../kopi-types/index.ts";
 
 class TupleExpression extends ASTNode {
@@ -12,7 +12,11 @@ class TupleExpression extends ASTNode {
     this.expressions = expressions;
   }
 
-  async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
+  override async inspect(): Promise<string> {
+    return "TupleExpression";
+  }
+
+  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
     return new KopiTuple(
       this.expressions.map(expression => expression.evaluate(environment, envbind))
     );

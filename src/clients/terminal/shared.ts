@@ -2,32 +2,30 @@ interface RawASTNode {
   [key: string]: any;
 }
 
-class KopiValue {
-  async inspect(): Promise<string> {
-    return "";
-  }
+abstract class KopiValue {
+  abstract inspect(): Promise<string>;
 
   static methods: {
     [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
   };
 }
 
-type EnvBind = (bindings: Record<string, KopiValue>) => void;
+type Environment = Record<string, KopiValue>;
+type EnvBind = (bindings: Environment) => void;
 
-class ASTNode extends KopiValue {
-  async evaluate(environment: Record<string, KopiValue>, envbind: EnvBind): Promise<KopiValue> {
-    return new KopiValue();
-  }
+abstract class ASTNode extends KopiValue {
+  abstract evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue>;
 }
 
 abstract class ASTPatternNode extends ASTNode {
   abstract match(
-    value: KopiValue, environment: Record<string, KopiValue>, envbind: EnvBind
-  ): Promise<Record<string, KopiValue> | undefined>;
+    value: KopiValue, environment: Environment, envbind: EnvBind
+  ): Promise<Environment | undefined>;
 }
 
 export {
   type RawASTNode,
+  type Environment,
   type EnvBind,
   KopiValue,
   ASTNode,

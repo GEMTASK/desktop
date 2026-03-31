@@ -1,6 +1,6 @@
 import * as parser from "./lib/parser.js";
 
-import { ASTPatternNode, KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
+import { ASTPatternNode, KopiValue, type ASTNode, type Environment, type RawASTNode } from "./shared.ts";
 import * as astNodes from "./ast-nodes/index.ts";
 
 import { KopiNumber } from "./kopi-types/index.ts";
@@ -53,6 +53,10 @@ class KopiFunction extends KopiValue {
     this._function = _function;
   }
 
+  override async inspect(): Promise<string> {
+    return "KopiFunction";
+  }
+
   apply(thisArgument: undefined, args: [KopiValue]): Promise<KopiValue> {
     return this._function(args[0]);
   }
@@ -69,7 +73,7 @@ let environment = {
   })
 };
 
-const envbind = (bindings: Record<string, KopiValue>) => {
+const envbind = (bindings: Environment) => {
   console.log("envbind", bindings);
 
   environment = { ...environment, ...bindings };

@@ -1,4 +1,4 @@
-import { ASTNode, KopiValue } from "../shared.ts";
+import { ASTNode, KopiValue, type Environment } from "../shared.ts";
 
 class Identifier extends ASTNode {
   readonly name: string;
@@ -11,7 +11,11 @@ class Identifier extends ASTNode {
     this.name = name;
   }
 
-  async evaluate(environment: Record<string, KopiValue>): Promise<KopiValue> {
+  override async inspect(): Promise<string> {
+    return "Identifier";
+  }
+
+  async evaluate(environment: Environment): Promise<KopiValue> {
     const value = environment[this.name];
 
     if (!value) {
