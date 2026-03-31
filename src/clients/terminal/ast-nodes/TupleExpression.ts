@@ -1,5 +1,5 @@
 import { ASTNode, KopiValue, type EnvBind } from "../shared.ts";
-import { KopiTuple } from "../kopiTypes.ts";
+import { KopiTuple } from "../kopi-types/index.ts";
 
 class TupleExpression extends ASTNode {
   expressions: ASTNode[];

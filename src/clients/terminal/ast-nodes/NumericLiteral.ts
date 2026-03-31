@@ -1,5 +1,5 @@
 import { ASTNode, KopiValue } from "../shared.ts";
-import { KopiNumber } from "../kopiTypes.ts";
+import { KopiNumber } from "../kopi-types/index.ts";
 
 class NumericLiteral extends ASTNode {
   readonly value: KopiNumber;

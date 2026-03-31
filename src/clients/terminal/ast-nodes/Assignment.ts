@@ -1,5 +1,5 @@
 import { ASTNode, ASTPatternNode, KopiValue, type EnvBind } from "../shared.ts";
-import { KopiTuple } from "../kopiTypes.ts";
+import { KopiTuple } from "../kopi-types/index.ts";
 
 class Assignment extends ASTNode {
   readonly pattern: ASTPatternNode;

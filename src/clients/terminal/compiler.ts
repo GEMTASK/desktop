@@ -3,7 +3,7 @@ import * as parser from "./lib/parser.js";
 import { ASTPatternNode, KopiValue, type ASTNode, type RawASTNode } from "./shared.ts";
 import * as astNodes from "./ast-nodes/index.ts";
 
-import { KopiNumber } from "./kopiTypes.ts";
+import { KopiNumber } from "./kopi-types/index.ts";
 
 const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
