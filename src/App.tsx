@@ -11,7 +11,7 @@ import Explorer from "./clients/explorer";
 import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
 import Calendar from "./clients/calendar";
-import MarkdownClient from "./clients/markdown/Markdown";
+import Markdown from "./clients/markdown";
 
 import "./App.css";
 
@@ -64,7 +64,7 @@ const clients: Record<string, Client> = {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
   },
   "markdown": {
-    title: "Markdown", size: { width: 645, height: 900 }, client: <MarkdownClient />
+    title: "Markdown", size: { width: 645, height: 900 }, client: <Markdown />
   },
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />
