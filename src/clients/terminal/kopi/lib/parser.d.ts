@@ -169,8 +169,8 @@ export type ParserTracerEvent
       readonly result: unknown;
     };
 
-export type StartRuleNames = "Statement";
-export interface ParseOptions<T extends StartRuleNames = "Statement"> {
+export type StartRuleNames = "Block";
+export interface ParseOptions<T extends StartRuleNames = "Block"> {
   /**
    * String or object that will be attached to the each `LocationRange` object
    * created by the parser. For example, this can be path to the parsed file
@@ -197,7 +197,7 @@ export declare const parse: typeof ParseFunction;
 
 // Overload of ParseFunction for each allowedStartRule
 
-declare function ParseFunction<Options extends ParseOptions<"Statement">>(
+declare function ParseFunction<Options extends ParseOptions<"Block">>(
   input: string,
   options?: Options,
 ): any;

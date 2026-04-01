@@ -1,3 +1,14 @@
+Block
+  = __ head:Statement? tail:(_ (Newline _)+ Statement)* __ {
+      return {
+        type: 'BlockExpression',
+        statements: tail.reduce(
+          (statements, [, , statement]) => [...statements, statement],
+          head ? [head] : []
+        ),
+      };
+    }
+
 Statement
   = Assignment
   / Expression
@@ -105,3 +116,16 @@ IdentifierPattern
       defaultExpression: null,
     };
   }
+
+//
+// Misc
+//
+
+__ "whitespace"
+  = (" " / Newline)*
+  
+Comment "comment"
+  = "#" (!Newline .)*
+
+Newline
+  = Comment? [\r?\n]

@@ -1,3 +1,4 @@
+export { default as BlockExpression } from "./BlockExpression.ts";
 export { default as Assignment } from "./Assignment.ts";
 export { default as OperatorExpression } from "./OperatorExpression.ts";
 export { default as ApplyExpression } from "./ApplyExpression.ts";

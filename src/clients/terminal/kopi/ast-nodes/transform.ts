@@ -4,6 +4,10 @@ import * as astNodes from "./index.ts";
 
 const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
+    case "BlockExpression":
+      return new astNodes.BlockExpression({
+        statements: rawAstNode.statements.map((expression: ASTNode) => transform(expression))
+      });
     case "Assignment":
       return new astNodes.Assignment({
         pattern: transform(rawAstNode.pattern) as ASTPatternNode,

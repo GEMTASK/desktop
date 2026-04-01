@@ -19,10 +19,10 @@ const sleep = (seconds: number) => {
 
 let environment = {
   a: new KopiNumber(5),
-  sleep: (seconds: KopiValue) => {
+  sleep: async (seconds: KopiValue) => {
     assert(seconds instanceof KopiNumber, "Argument to sleep() must be a number");
 
-    return sleep(seconds.value);
+    return new KopiNumber(await sleep(seconds.value));
   }
 };
 
@@ -44,10 +44,10 @@ const value = await ast.evaluate(environment, envbind);
 
 console.log(">>>", await value.toString());
 
-const interpret = async (line: string, environment: Environment) => {
+const interpret = async (line: string, _environment: Environment = environment) => {
   const ast = transform(parser.parse(line));
 
-  return ast.evaluate(environment, envbind);
+  return ast.evaluate(_environment, envbind);
 };
 
 export {
