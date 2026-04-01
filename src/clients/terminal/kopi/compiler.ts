@@ -1,6 +1,3 @@
-import readline from "node:readline/promises";
-import process, { stdin, stdout } from "node:process";
-
 import * as parser from "./lib/parser.js";
 
 import { KopiValue, type Environment } from "./shared.ts";
@@ -8,24 +5,24 @@ import { KopiNumber } from "./kopi-types/index.ts";
 
 import transform from "./ast-nodes/transform.ts";
 
+type Assert = (condition: unknown, message?: string) => asserts condition;
+
+const assert: Assert = (condition: unknown, message?: string): asserts condition => {
+  if (!condition) {
+    throw new Error(message || "Assertion failed");
+  }
+};
+
+const sleep = (seconds: number) => {
+  return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
+};
+
 let environment = {
   a: new KopiNumber(5),
   sleep: (seconds: KopiValue) => {
-    if (!(seconds instanceof KopiNumber)) {
-      throw new Error("Error");
-    }
+    assert(seconds instanceof KopiNumber, "Argument to sleep() must be a number");
 
-    return new Promise(resolve => setTimeout(() => resolve(seconds), seconds.value * 1000));
-  },
-  exit: {
-    toString: async () => { process.exit(); return ""; }
-  },
-  foo: async (seconds: KopiValue) => {
-    if (!(seconds instanceof KopiNumber)) {
-      throw new Error("Error");
-    }
-
-    return new Promise(resolve => setTimeout(() => resolve(seconds), seconds.value * 1000));
+    return sleep(seconds.value);
   }
 };
 
@@ -47,17 +44,13 @@ const value = await ast.evaluate(environment, envbind);
 
 console.log(">>>", await value.toString());
 
-const rl = readline.createInterface({ input: stdin, output: stdout, prompt: "> " });
-
-rl.prompt();
-
-for await (const line of rl) {
+const interpret = async (line: string, environment: Environment) => {
   const ast = transform(parser.parse(line));
-  const value = await ast.evaluate(environment, envbind);
 
-  console.log(await value.toString());
+  return ast.evaluate(environment, envbind);
+};
 
-  rl.prompt();
-}
-
-rl.close();
+export {
+  environment,
+  interpret
+};
