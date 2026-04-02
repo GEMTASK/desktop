@@ -1,6 +1,14 @@
+import { assert } from "../utils.ts";
+
 import { KopiValue } from "../shared.ts";
+import Comparable from "../traits/Equatable.ts";
 
 class KopiNumber extends KopiValue {
+  static symbol = Symbol("KopiNumber");
+  static methods: {
+    [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
+  };
+
   readonly value: number;
 
   constructor(value: number) {
@@ -12,18 +20,20 @@ class KopiNumber extends KopiValue {
   override async toString(): Promise<string> {
     return this.value.toString();
   }
-
-  static symbol = Symbol("KopiNumber");
-
-  static methods = {
-    "+": (thisArg: KopiValue, thatArg: KopiValue) => {
-      if (!(thisArg instanceof KopiNumber) || !(thatArg instanceof KopiNumber)) {
-        throw new Error("Error");
-      }
-
-      return new KopiNumber(thisArg.value + thatArg.value);
-    }
-  };
 }
+
+KopiNumber.methods = {
+  "+": (thisArg: KopiValue, thatArg: KopiValue) => {
+    assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
+
+    return new KopiNumber(thisArg.value + thatArg.value);
+  },
+  "=="(thisArg: KopiValue, thatArg: KopiValue) {
+    assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
+
+    return thisArg.value === thatArg.value;
+  },
+  ...Comparable.methods
+};
 
 export default KopiNumber;

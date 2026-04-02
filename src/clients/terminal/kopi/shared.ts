@@ -2,9 +2,6 @@ abstract class KopiValue {
   abstract toString(): string | Promise<string>;
 
   static symbol: symbol;
-  static methods: {
-    [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
-  };
 }
 
 //

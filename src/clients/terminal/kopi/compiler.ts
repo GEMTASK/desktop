@@ -4,28 +4,11 @@ import { KopiValue, type Environment } from "./shared.ts";
 import { KopiNumber } from "./kopi-types/index.ts";
 
 import transform from "./ast-nodes/transform.ts";
-
-type Assert = (condition: unknown, message?: string) => asserts condition;
-
-const assert: Assert = (condition: unknown, message?: string): asserts condition => {
-  if (!condition) {
-    throw new Error(message || "Assertion failed");
-  }
-};
+import { assert } from "./utils.ts";
 
 const sleep = (seconds: number) => {
   return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
 };
-
-class Comparable {
-  static methods = {
-    equal(a: KopiValue, b: KopiValue) {
-      assert(a instanceof KopiNumber && b instanceof KopiNumber);
-
-      return a.value === b.value;
-    }
-  };
-}
 
 let environment: Environment = {
   a: new KopiNumber(5),
@@ -36,8 +19,6 @@ let environment: Environment = {
   },
   [KopiNumber.symbol]: KopiNumber.methods
 };
-
-console.log((environment[KopiNumber.symbol] as typeof KopiValue).methods);
 
 const envbind = (bindings: Environment) => {
   console.log("envbind", bindings);
