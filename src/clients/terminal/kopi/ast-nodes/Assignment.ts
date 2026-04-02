@@ -1,4 +1,4 @@
-import { ASTNode, ASTPatternNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
+import { ASTNode, ASTPatternNode, KopiValue, type UpdateBindings, type Environment } from "../shared.ts";
 import { KopiTuple } from "../kopi-types/index.ts";
 
 class Assignment extends ASTNode {
@@ -18,12 +18,12 @@ class Assignment extends ASTNode {
     return "Assignment";
   }
 
-  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
-    const expressionValue = await this.expression.evaluate(environment, envbind);
-    const patternMatches = await this.pattern.match(expressionValue, environment, envbind);
+  override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
+    const expressionValue = await this.expression.evaluate(environment, updateBindings);
+    const patternMatches = await this.pattern.match(expressionValue, environment, updateBindings);
 
     if (patternMatches) {
-      envbind(patternMatches);
+      updateBindings(patternMatches);
     }
 
     return KopiTuple.empty;

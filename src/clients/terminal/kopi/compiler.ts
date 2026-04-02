@@ -20,8 +20,8 @@ let environment: Environment = {
   [KopiNumber.symbol]: KopiNumber.methods
 };
 
-const envbind = (bindings: Environment) => {
-  console.log("envbind", bindings);
+const updateBindings = (bindings: Environment) => {
+  console.log("updateBindings", bindings);
 
   environment = { ...environment, ...bindings };
 };
@@ -34,14 +34,14 @@ const ast = transform(parser.parse("b = 100"));
 
 console.dir(ast, { depth: null });
 
-const value = await ast.evaluate(environment, envbind);
+const value = await ast.evaluate(environment, updateBindings);
 
 console.log(">>>", await value.toString());
 
 const interpret = async (line: string, _environment: Environment = environment) => {
   const ast = transform(parser.parse(line));
 
-  return ast.evaluate(_environment, envbind);
+  return ast.evaluate(_environment, updateBindings);
 };
 
 export {

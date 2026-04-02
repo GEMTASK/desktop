@@ -1,5 +1,5 @@
 import KopiTuple from "../kopi-types/KopiTuple.ts";
-import { ASTPatternNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
+import { ASTPatternNode, KopiValue, type UpdateBindings, type Environment } from "../shared.ts";
 
 class IdentifierPattern extends ASTPatternNode {
   readonly name: string;
@@ -14,11 +14,11 @@ class IdentifierPattern extends ASTPatternNode {
     return "IdentifierPattern";
   }
 
-  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
+  override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     return KopiTuple.empty;
   }
 
-  override async match(value: KopiValue, environment: Environment, envbind: EnvBind) {
+  override async match(value: KopiValue, environment: Environment, updateBindings: UpdateBindings) {
     return {
       [this.name]: value
     };

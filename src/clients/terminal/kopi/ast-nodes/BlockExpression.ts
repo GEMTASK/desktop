@@ -1,5 +1,5 @@
 import { KopiTuple } from "../kopi-types/index.ts";
-import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
+import { ASTNode, KopiValue, type UpdateBindings, type Environment } from "../shared.ts";
 
 class BlockExpression extends ASTNode {
   readonly statements: ASTNode[];
@@ -16,9 +16,9 @@ class BlockExpression extends ASTNode {
     return "BlockExpression";
   }
 
-  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
+  override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     return this.statements.reduce<KopiValue>(async (result, statement) => (
-      await result, await statement.evaluate(environment, envbind)
+      await result, await statement.evaluate(environment, updateBindings)
     ), KopiTuple.empty);
   }
 }

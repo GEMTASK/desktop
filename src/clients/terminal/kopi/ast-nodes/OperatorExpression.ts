@@ -1,4 +1,4 @@
-import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
+import { ASTNode, KopiValue, type UpdateBindings, type Environment } from "../shared.ts";
 
 type Methods = {
   [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
@@ -23,10 +23,10 @@ class OperatorExpression extends ASTNode {
     return "OperatorExpression";
   }
 
-  override async evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue> {
+  override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     const [leftExpressionValue, rightExpressionValue] = await Promise.all([
-      this.leftExpression.evaluate(environment, envbind),
-      this.rightExpression.evaluate(environment, envbind)
+      this.leftExpression.evaluate(environment, updateBindings),
+      this.rightExpression.evaluate(environment, updateBindings)
     ]);
 
     const symbol = (leftExpressionValue.constructor as typeof KopiValue).symbol;

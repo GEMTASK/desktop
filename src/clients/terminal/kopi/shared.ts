@@ -7,26 +7,26 @@ abstract class KopiValue {
 //
 
 type Environment = Record<string | symbol, KopiValue>;
-type EnvBind = (bindings: Environment) => void;
+type UpdateBindings = (bindings: Environment) => void;
 
 interface RawASTNode {
   [key: string]: any;
 }
 
 abstract class ASTNode extends KopiValue {
-  abstract evaluate(environment: Environment, envbind: EnvBind): Promise<KopiValue>;
+  abstract evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue>;
 }
 
 abstract class ASTPatternNode extends ASTNode {
   abstract match(
-    value: KopiValue, environment: Environment, envbind: EnvBind
+    value: KopiValue, environment: Environment, updateBindings: UpdateBindings
   ): Promise<Environment | undefined>;
 }
 
 export {
   type RawASTNode,
   type Environment,
-  type EnvBind,
+  type UpdateBindings,
   KopiValue,
   ASTNode,
   ASTPatternNode
