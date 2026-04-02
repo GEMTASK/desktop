@@ -1,5 +1,9 @@
 import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
 
+type Methods = {
+  [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
+};
+
 class OperatorExpression extends ASTNode {
   readonly operator: "+" | "-";
   readonly leftExpression: ASTNode;
@@ -25,7 +29,8 @@ class OperatorExpression extends ASTNode {
       this.rightExpression.evaluate(environment, envbind)
     ]);
 
-    const method = (leftExpressionValue.constructor as typeof KopiValue).methods[this.operator];
+    const symbol = (leftExpressionValue.constructor as typeof KopiValue).symbol;
+    const method = (environment[symbol] as Methods)[this.operator];
 
     if (typeof method !== "function") {
       throw new Error(`'${leftExpressionValue.toString()

@@ -17,14 +17,27 @@ const sleep = (seconds: number) => {
   return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
 };
 
-let environment = {
+class Comparable {
+  static methods = {
+    equal(a: KopiValue, b: KopiValue) {
+      assert(a instanceof KopiNumber && b instanceof KopiNumber);
+
+      return a.value === b.value;
+    }
+  };
+}
+
+let environment: Environment = {
   a: new KopiNumber(5),
   sleep: async (seconds: KopiValue) => {
     assert(seconds instanceof KopiNumber, "Argument to sleep() must be a number");
 
     return new KopiNumber(await sleep(seconds.value));
-  }
+  },
+  [KopiNumber.symbol]: KopiNumber.methods
 };
+
+console.log((environment[KopiNumber.symbol] as typeof KopiValue).methods);
 
 const envbind = (bindings: Environment) => {
   console.log("envbind", bindings);

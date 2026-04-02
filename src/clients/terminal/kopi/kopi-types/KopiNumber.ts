@@ -13,6 +13,8 @@ class KopiNumber extends KopiValue {
     return this.value.toString();
   }
 
+  static symbol = Symbol("KopiNumber");
+
   static methods = {
     "+": (thisArg: KopiValue, thatArg: KopiValue) => {
       if (!(thisArg instanceof KopiNumber) || !(thatArg instanceof KopiNumber)) {

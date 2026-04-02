@@ -1,5 +1,5 @@
-import { KopiTuple } from "../kopi-types";
-import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared";
+import { KopiTuple } from "../kopi-types/index.ts";
+import { ASTNode, KopiValue, type EnvBind, type Environment } from "../shared.ts";
 
 class BlockExpression extends ASTNode {
   readonly statements: ASTNode[];
