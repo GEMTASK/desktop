@@ -26,6 +26,19 @@ test("Math", async () => {
   );
 });
 
+test("Assignment", async () => {
+  const result = await interpret(`
+    x = sleep 2
+    y = sleep 1
+    
+    x + y
+  `);
+
+  expect(result).toStrictEqual(
+    new KopiNumber(3)
+  );
+});
+
 test("Async operations", async () => {
   const tuple = await interpret(`
     (sleep (sleep 1) + sleep 1, sleep 1 + sleep 1)

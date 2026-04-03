@@ -38,6 +38,10 @@ const value = await ast.evaluate(environment, updateBindings);
 
 console.log(">>>", await value.toString());
 
+const parse = (source: string) => {
+  return transform(parser.parse(source));
+};
+
 const interpret = async (line: string, _environment: Environment = environment) => {
   const ast = transform(parser.parse(line));
 
@@ -46,5 +50,6 @@ const interpret = async (line: string, _environment: Environment = environment) 
 
 export {
   environment,
+  parse,
   interpret
 };
