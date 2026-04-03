@@ -17,15 +17,13 @@ class BlockExpression extends ASTNode {
   }
 
   // async? assignment race conditions?
-  override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
-    const updateBindings2 = (bindings: Environment) => {
-      console.log("updateBindings 2", bindings);
-
+  override async evaluate(environment: Environment): Promise<KopiValue> {
+    const updateBindings = (bindings: Environment) => {
       environment = { ...environment, ...bindings };
     };
 
     return await this.statements.reduce<KopiValue>(async (result, statement) => (
-      await result, await statement.evaluate(environment, updateBindings2)
+      await result, await statement.evaluate(environment, updateBindings)
     ), KopiTuple.empty);
   }
 }

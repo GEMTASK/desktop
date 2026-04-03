@@ -21,8 +21,6 @@ let environment: Environment = {
 };
 
 const updateBindings = (bindings: Environment) => {
-  console.log("updateBindings", bindings);
-
   environment = { ...environment, ...bindings };
 };
 
@@ -30,20 +28,13 @@ const updateBindings = (bindings: Environment) => {
 // const ast = transform(parser.parse("sleep 2 + sleep 3"));
 // const ast = transform(parser.parse("()"));
 // const ast = transform(parser.parse("((), sleep (0.5 + 0.5), sleep (1.0 + 1.0))"));
-const ast = transform(parser.parse("b = 100"));
-
-console.dir(ast, { depth: null });
-
-const value = await ast.evaluate(environment, updateBindings);
-
-console.log(">>>", await value.toString());
 
 const parse = (source: string) => {
   return transform(parser.parse(source));
 };
 
 const interpret = async (line: string, _environment: Environment = environment) => {
-  const ast = transform(parser.parse(line));
+  const ast = parse(line);
 
   return ast.evaluate(_environment, updateBindings);
 };

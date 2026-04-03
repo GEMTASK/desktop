@@ -11,8 +11,6 @@ const rl = readline.createInterface({
   prompt: "> "
 });
 
-rl.prompt();
-
 let environment = {
   ...originalEnvironment,
   exit: {
@@ -21,10 +19,12 @@ let environment = {
 };
 
 const updateBindings = (bindings: Environment) => {
-  console.log("updateBindings", bindings);
-
   environment = { ...environment, ...bindings };
 };
+
+console.log("Kopi shell – a simple, immutable, async programming langauge.");
+
+rl.prompt();
 
 for await (const line of rl) {
   const astRootNode = parse(line);
