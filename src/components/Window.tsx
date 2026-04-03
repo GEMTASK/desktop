@@ -54,7 +54,7 @@ function Window({
 
   //
 
-  const handlePointerDown = (event: React.PointerEvent) => {
+  const handleTitlebarPointerDown = (event: React.PointerEvent) => {
     event.currentTarget.setPointerCapture(event.pointerId);
 
     if (windowElementRef.current) {
@@ -71,7 +71,7 @@ function Window({
     onFocus(id);
   };
 
-  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+  const handleTitlebarPointerMove = (event: React.PointerEvent<HTMLElement>) => {
     if (windowElementRef.current && initialMoveEventRef.current) {
       if (
         Math.abs(event.clientX - initialMoveEventRef.current.clientX) > 1
@@ -83,10 +83,10 @@ function Window({
     }
   };
 
-  const handlePointerUp = () => {
-    initialMoveEventRef.current = null;
+  const handleTitlebarPointerUp = () => {
+    if (windowElementRef.current && initialMoveEventRef.current) {
+      initialMoveEventRef.current = null;
 
-    if (windowElementRef.current) {
       windowElementRef.current.style.left = `${Math.round(windowElementRef.current.offsetLeft / 15) * 15}px`;
       windowElementRef.current.style.top = `${Math.round(windowElementRef.current.offsetTop / 15) * 15}px`;
 
@@ -142,9 +142,9 @@ function Window({
       <View horizontal border="bottom" borderColor="gutter" fillColor="divider" align="middle justify" style={{
         borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1
       }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
+        onPointerDown={handleTitlebarPointerDown}
+        onPointerMove={handleTitlebarPointerMove}
+        onPointerUp={handleTitlebarPointerUp}
       >
         <Button
           hover
