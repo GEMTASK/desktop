@@ -1,11 +1,12 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import { XIcon } from "lucide-react";
 
 import type { Delegate } from "onyx-ui";
 
 import { View, Text, Button } from "onyx-ui";
 
 import Frame from "./Frame";
-import { XIcon } from "lucide-react";
+import styles from "./styles.module.scss";
 
 type PointerData = {
   clientX: number,
@@ -103,7 +104,13 @@ function Window({
   };
 
   const handleCloseButtonClick = (event: React.MouseEvent) => {
-    onRequestClose?.(id);
+    if (windowElementRef.current && styles.close) {
+      windowElementRef.current.addEventListener("animationend", () => {
+        onRequestClose?.(id);
+      });
+
+      windowElementRef.current.classList.add(styles.close);
+    }
   };
 
   //
@@ -127,7 +134,7 @@ function Window({
   }, [id, onLayout]);
 
   return (
-    <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" style={{
+    <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" className={styles.element} style={{
       left: position?.x, top: position?.y, width: size.width, height: size.height, zIndex: order
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
