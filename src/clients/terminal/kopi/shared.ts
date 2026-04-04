@@ -21,6 +21,10 @@ abstract class ASTPatternNode extends ASTNode {
   abstract match(
     value: KopiValue, environment: Environment, updateBindings: UpdateBindings
   ): Promise<Environment | undefined>;
+
+  abstract match2(
+    value: KopiValue, environment: Environment, updateBindings: UpdateBindings
+  ): Environment;
 }
 
 export {

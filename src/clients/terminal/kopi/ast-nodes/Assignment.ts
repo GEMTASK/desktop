@@ -20,7 +20,7 @@ class Assignment extends ASTNode {
 
   override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     const expressionValue = await this.expression.evaluate(environment, updateBindings);
-    const patternMatches = await this.pattern.match(expressionValue, environment, updateBindings);
+    const patternMatches = this.pattern.match2(expressionValue, environment, updateBindings);
 
     if (patternMatches) {
       updateBindings(patternMatches);

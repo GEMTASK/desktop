@@ -17,6 +17,7 @@ class BlockExpression extends ASTNode {
   }
 
   // async? assignment race conditions?
+  // Need to wait for binding to be created, but don't need to wait for their value
   override async evaluate(environment: Environment): Promise<KopiValue> {
     const updateBindings = (bindings: Environment) => {
       environment = { ...environment, ...bindings };

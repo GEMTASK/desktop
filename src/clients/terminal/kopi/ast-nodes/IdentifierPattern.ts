@@ -23,6 +23,12 @@ class IdentifierPattern extends ASTPatternNode {
       [this.name]: value
     };
   }
+
+  override match2(value: KopiValue, environment: Environment, updateBindings: UpdateBindings) {
+    return {
+      [this.name]: value
+    };
+  }
 }
 
 export default IdentifierPattern;
