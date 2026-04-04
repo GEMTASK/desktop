@@ -14,6 +14,7 @@ import Calendar from "./clients/calendar";
 import Markdown from "./clients/markdown";
 
 import "./App.css";
+import { Terminal } from "./clients/terminal";
 
 function Asteroids() {
   return (
@@ -59,6 +60,9 @@ const clients: Record<string, Client> = {
   },
   "calculator": {
     title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />
+  },
+  "terminal": {
+    title: "Terminal", size: { width: 800, height: 535 }, client: <Terminal />
   },
   "styleguide": {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
@@ -118,6 +122,7 @@ const startupClients: Client[] = [
 const utilitiesMenuItems = [
   <Menu.Item title="Clock" value="clock" />,
   <Menu.Item title="Calculator" value="calculator" />,
+  <Menu.Item title="Terminal" value="terminal" />,
   <Menu.Item title="Browser" value="browser" />
 ];
 

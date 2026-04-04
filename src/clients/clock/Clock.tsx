@@ -52,6 +52,7 @@ const AnalogClock = () => {
     <View as="svg" viewBox="0 0 200 200" flex>
       {Array.from({ length: 12 }, (_, index, angle = (index * 30 + 180) * (Math.PI / 180)) => (
         <line
+          key={index}
           x1={(Math.cos(angle) * 0 - Math.sin(angle) * 85) / 1.075 + 100}
           y1={(Math.cos(angle) * 85 + Math.sin(angle) * 0) / 1.075 + 100}
           x2={(Math.cos(angle) * 0 - Math.sin(angle) * 85) + 100}
