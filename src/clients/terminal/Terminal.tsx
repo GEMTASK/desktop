@@ -26,15 +26,11 @@ const Terminal = () => {
         setHistory(history => [
           ...history,
           <React.Suspense key={history.length} fallback={<Text padding="8px 12px">...</Text>}>
-            {new Promise(resolve => {
-              (async () => {
-                resolve(
-                  <Text padding="8px 12px">
-                    {(await astNode.evaluate(environment, updateBindings)).toString()}
-                  </Text>
-                );
-              })();
-            })}
+            {(async () => (
+              <Text padding="8px 12px">
+                {(await astNode.evaluate(environment, updateBindings)).toString()}
+              </Text>
+            ))()}
           </React.Suspense>
         ]);
       }
