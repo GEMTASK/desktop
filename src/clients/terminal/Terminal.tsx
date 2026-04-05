@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View } from "onyx-ui";
+import { type Delegate, Icon, Text, View } from "onyx-ui";
+import { ChevronRightIcon } from "lucide-react";
 
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
@@ -7,44 +8,68 @@ import type { Environment } from "./kopi/shared";
 
 let environment = originalEnvironment;
 
-const updateBindings = (bindings: Environment) => {
-  environment = { ...environment, ...bindings };
-};
-
-const Terminal = () => {
-  const [history, setHistory] = useState<React.ReactElement[]>([]);
-
-  const handleInputKeyDown = async (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+const Input = ({
+  lines,
+  changeOnEnter,
+  onValueChange,
+  ...props
+}: Delegate<{
+  lines?: number,
+  changeOnEnter?: boolean,
+  onValueChange: (value: string) => void
+}, typeof View<"div">>) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const currentTarget = event.currentTarget;
 
-    if (event.key === "Enter") {
+    if (changeOnEnter && event.key === "Enter") {
       event.preventDefault();
 
-      const astRootNode = parse(event.currentTarget.value);
-
-      for (const astNode of (astRootNode as BlockExpression).statements) {
-        setHistory(history => [
-          ...history,
-          <React.Suspense key={history.length} fallback={<Text padding="8px 12px">...</Text>}>
-            {(async () => (
-              <Text padding="8px 12px">
-                {(await astNode.evaluate(environment, updateBindings)).toString()}
-              </Text>
-            ))()}
-          </React.Suspense>
-        ]);
-      }
+      onValueChange?.(event.currentTarget.value);
 
       currentTarget.value = "";
     }
   };
 
   return (
+    <View horizontal align="middle left" padding="0px 8px" style={{ minHeight: 28 }} {...props}>
+      <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -4 }} />
+      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "Open Sans", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none" }} />
+    </View>
+  );
+};
+
+const updateBindings = (bindings: Environment) => {
+  environment = { ...environment, ...bindings };
+};
+
+//
+
+const Terminal = () => {
+  const [history, setHistory] = useState<React.ReactElement[]>([]);
+
+  const handleInputValueChange = (value: string) => {
+    const astRootNode = parse(value);
+
+    for (const astNode of (astRootNode as BlockExpression).statements) {
+      setHistory(history => [
+        ...history,
+        <React.Suspense key={history.length} fallback={<Text padding="8px 12px">...</Text>}>
+          {(async () => (
+            <Text padding="8px 12px">
+              {(await astNode.evaluate(environment, updateBindings)).toString()}
+            </Text>
+          ))()}
+        </React.Suspense>
+      ]);
+    }
+  };
+
+  return (
     <View>
-      <View padding="8px 0px">
+      <View padding="8px 0px" style={{ paddingBottom: 0 }}>
         {history}
       </View>
-      <textarea onKeyDown={handleInputKeyDown} />
+      <Input changeOnEnter onValueChange={handleInputValueChange} />
     </View>
   );
 };
