@@ -65,7 +65,7 @@ const Terminal = () => {
   };
 
   return (
-    <View>
+    <View style={{ overflowY: "auto" }}>
       <View padding="8px 0px" style={{ paddingBottom: 0 }}>
         {history}
       </View>
