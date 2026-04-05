@@ -33,7 +33,7 @@ const Input = ({
   return (
     <View horizontal align="middle left" padding="0px 8px" style={{ minHeight: 28 }} {...props}>
       <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -4 }} />
-      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "Open Sans", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none" }} />
+      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "Open Sans", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none", marginTop: -1, color: "var(--text-color)" }} />
     </View>
   );
 };
