@@ -10,6 +10,7 @@ let environment = originalEnvironment;
 
 const Input = ({
   lines,
+  style,
   changeOnEnter,
   onValueChange,
   ...props
@@ -31,8 +32,8 @@ const Input = ({
   };
 
   return (
-    <View horizontal align="middle left" padding="0px 8px" style={{ minHeight: 28 }} {...props}>
-      <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -4 }} />
+    <View horizontal align="middle left" padding="0px 8px" style={{ ...style, minHeight: 28 }} {...props}>
+      <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
       <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "Open Sans", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none", marginTop: -1, color: "var(--text-color)" }} />
     </View>
   );
@@ -55,9 +56,17 @@ const Terminal = () => {
         ...history,
         <React.Suspense key={history.length} fallback={<Text padding="8px 12px">...</Text>}>
           {(async () => (
-            <Text padding="8px 12px">
-              {(await astNode.evaluate(environment, updateBindings)).toString()}
-            </Text>
+            <>
+              <View horizontal padding="0px 8px" align="middle left">
+                <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
+                <Text padding="4px 0px">
+                  {value}
+                </Text>
+              </View>
+              <Text padding="4px 8px">
+                {(await astNode.evaluate(environment, updateBindings)).toString()}
+              </Text>
+            </>
           ))()}
         </React.Suspense>
       ]);
@@ -69,7 +78,7 @@ const Terminal = () => {
       <View padding="8px 0px" style={{ paddingBottom: 0 }}>
         {history}
       </View>
-      <Input changeOnEnter onValueChange={handleInputValueChange} />
+      <Input changeOnEnter style={{ marginTop: -4 }} onValueChange={handleInputValueChange} />
     </View>
   );
 };

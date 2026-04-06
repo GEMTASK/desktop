@@ -10,6 +10,14 @@ const sleep = (seconds: number) => {
   return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
 };
 
+const KopiNumberConstructor = (value: KopiValue) => {
+  assert(value instanceof KopiNumber);
+
+  return new KopiNumber(value.value);
+};
+
+KopiNumberConstructor.PI = Math.PI;
+
 let environment: Environment = {
   a: new KopiNumber(5),
   sleep: async (seconds: KopiValue) => {
@@ -17,7 +25,8 @@ let environment: Environment = {
 
     return new KopiNumber(await sleep(seconds.value));
   },
-  [KopiNumber.symbol]: KopiNumber.methods
+  [KopiNumber.symbol]: KopiNumber.methods,
+  Number: (value: KopiValue) => new KopiNumber(value.value)
 };
 
 const updateBindings = (bindings: Environment) => {
