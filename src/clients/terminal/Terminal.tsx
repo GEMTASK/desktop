@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { type Delegate, Icon, Text, View } from "onyx-ui";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, LoaderCircleIcon } from "lucide-react";
 
 import Clock from "../clock";
 
 import { type Environment } from "./kopi/shared";
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
+
+import styles from "./Terminal.module.scss";
 
 let environment = {
   ...originalEnvironment,
@@ -68,7 +70,9 @@ const Terminal = () => {
               {value}
             </Text>
           </View>
-          <React.Suspense fallback={<Text padding="4px 8px">...</Text>}>
+          <React.Suspense fallback={
+            <Icon icon={LoaderCircleIcon} size={14} className={styles.spin} style={{ padding: "2px 8px", marginLeft: -2 }} />
+          }>
             {(async (element?: string | React.ReactElement) => (
               element = await (await astNode.evaluate(environment, updateBindings)).inspect(),
               typeof element !== "string" ? element : <Text padding="4px 8px">
