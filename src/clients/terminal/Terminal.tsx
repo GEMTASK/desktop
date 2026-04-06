@@ -43,7 +43,7 @@ const Input = ({
   return (
     <View horizontal align="middle left" padding="0px 8px" style={{ ...style, minHeight: 28 }} {...props}>
       <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
-      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "Open Sans", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none", marginTop: -1, color: "var(--text-color)" }} />
+      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "JetBrains Mono", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none", marginTop: -1, color: "var(--text-color)" }} />
     </View>
   );
 };
@@ -52,10 +52,20 @@ const updateBindings = (bindings: Environment) => {
   environment = { ...environment, ...bindings };
 };
 
+const MonoText = ({ ...props }) => {
+  return (
+    <Text innerStyle={{ fontFamily: "JetBrains Mono" }} {...props} />
+  );
+};
+
 //
 
 const Terminal = () => {
-  const [history, setHistory] = useState<React.ReactElement[]>([]);
+  const [history, setHistory] = useState<React.ReactElement[]>([
+    <MonoText key={-1} padding="4px 8px">
+      Kopi shell – a simple, immutable, async programming langauge.
+    </MonoText>
+  ]);
 
   const handleInputValueChange = (value: string) => {
     const astRootNode = parse(value);
@@ -66,18 +76,18 @@ const Terminal = () => {
         <React.Fragment key={history.length}>
           <View horizontal padding="0px 8px" align="middle left">
             <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
-            <Text padding="4px 0px">
+            <MonoText padding="4px 0px">
               {value}
-            </Text>
+            </MonoText>
           </View>
           <React.Suspense fallback={
-            <Icon icon={LoaderCircleIcon} size={14} className={styles.spin} style={{ padding: "2px 8px", marginLeft: -2 }} />
+            <Icon icon={LoaderCircleIcon} size={14} className={styles.spin} style={{ padding: "3px 8px", marginLeft: -2 }} />
           }>
             {(async (element?: string | React.ReactElement) => (
               element = await (await astNode.evaluate(environment, updateBindings)).inspect(),
-              typeof element !== "string" ? element : <Text padding="4px 8px">
+              typeof element !== "string" ? element : <MonoText padding="4px 8px">
                 {element}
-              </Text>
+              </MonoText>
             ))()}
           </React.Suspense>
         </React.Fragment>

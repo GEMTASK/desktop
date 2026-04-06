@@ -146,7 +146,7 @@ function Frame({
       ref={windowElementRef}
       absolute
       style={{
-        inset: -16,
+        inset: -8,
         borderRadius: 8
         // background: "hsla(0, 0%, 0%, 0.1)"
       }}
