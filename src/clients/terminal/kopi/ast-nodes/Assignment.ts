@@ -14,7 +14,7 @@ class Assignment extends ASTNode {
     this.expression = expression;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "Assignment";
   }
 

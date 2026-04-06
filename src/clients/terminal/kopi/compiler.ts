@@ -5,6 +5,7 @@ import { KopiNumber } from "./kopi-types/index.ts";
 
 import transform from "./ast-nodes/transform.ts";
 import { assert } from "./utils.ts";
+import KopiFunction from "./kopi-types/KopiFunction.ts";
 
 const sleep = (seconds: number) => {
   return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
@@ -20,13 +21,13 @@ KopiNumberConstructor.PI = Math.PI;
 
 let environment: Environment = {
   a: new KopiNumber(5),
-  sleep: async (seconds: KopiValue) => {
+  sleep: new KopiFunction(async (seconds: KopiValue) => {
     assert(seconds instanceof KopiNumber, "Argument to sleep() must be a number");
 
     return new KopiNumber(await sleep(seconds.value));
-  },
+  }),
   [KopiNumber.symbol]: KopiNumber.methods,
-  Number: (value: KopiValue) => new KopiNumber(value.value)
+  Number: new KopiFunction(async (value: KopiValue) => new KopiNumber(value.value))
 };
 
 const updateBindings = (bindings: Environment) => {

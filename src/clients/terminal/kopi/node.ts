@@ -14,7 +14,7 @@ const rl = readline.createInterface({
 let environment = {
   ...originalEnvironment,
   exit: {
-    toString: async () => { process.exit(); return ""; }
+    inspect: async () => { process.exit(); }
   }
 };
 

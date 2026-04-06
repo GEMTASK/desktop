@@ -1,5 +1,5 @@
 abstract class KopiValue {
-  abstract toString(): string | Promise<string>;
+  abstract inspect(): Promise<string | React.ReactElement>;
 
   static symbol: symbol;
 }

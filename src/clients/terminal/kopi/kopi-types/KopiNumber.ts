@@ -17,7 +17,7 @@ class KopiNumber extends KopiValue {
     this.value = value;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return this.value.toString();
   }
 }
@@ -27,13 +27,13 @@ KopiNumber.methods = {
     assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
 
     return new KopiNumber(thisArg.value + thatArg.value);
-  },
-  "=="(thisArg: KopiValue, thatArg: KopiValue) {
-    assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
+  }
+  // "=="(thisArg: KopiValue, thatArg: KopiValue) {
+  //   assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
 
-    return thisArg.value === thatArg.value;
-  },
-  ...Comparable.methods
+  //   return thisArg.value === thatArg.value;
+  // },
+  // ...Comparable.methods
 };
 
 export default KopiNumber;

@@ -4,13 +4,15 @@ import { ChevronRightIcon } from "lucide-react";
 
 import Clock from "../clock";
 
-import { KopiValue, type Environment } from "./kopi/shared";
+import { type Environment } from "./kopi/shared";
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
 
 let environment = {
   ...originalEnvironment,
-  clock: <Clock style={{ width: 300, height: 300 }} />
+  clock: {
+    async inspect() { return <Clock style={{ width: 300, height: 300 }} />; }
+  }
 };
 
 const Input = ({
@@ -67,12 +69,10 @@ const Terminal = () => {
             </Text>
           </View>
           <React.Suspense fallback={<Text padding="4px 8px">...</Text>}>
-            {(async (element?: any, elementAsString?: string) => (
-              element = await astNode.evaluate(environment, updateBindings),
-              elementAsString = await element.toString(),
-              console.log(typeof element),
-              !(element instanceof KopiValue) ? element : <Text padding="4px 8px">
-                {elementAsString}
+            {(async (element?: string | React.ReactElement) => (
+              element = await (await astNode.evaluate(environment, updateBindings)).inspect(),
+              typeof element !== "string" ? element : <Text padding="4px 8px">
+                {element}
               </Text>
             ))()}
           </React.Suspense>

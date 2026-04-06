@@ -10,7 +10,7 @@ class IdentifierPattern extends ASTPatternNode {
     this.name = name;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "IdentifierPattern";
   }
 

@@ -12,7 +12,7 @@ class BlockExpression extends ASTNode {
     this.statements = statements;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "BlockExpression";
   }
 
@@ -23,9 +23,9 @@ class BlockExpression extends ASTNode {
       environment = { ...environment, ...bindings };
     };
 
-    return await this.statements.reduce<KopiValue>(async (result, statement) => (
+    return await this.statements.reduce<Promise<KopiValue>>(async (result, statement) => (
       await result, await statement.evaluate(environment, updateBindings)
-    ), KopiTuple.empty);
+    ), Promise.resolve(KopiTuple.empty));
   }
 }
 

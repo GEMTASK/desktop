@@ -15,7 +15,7 @@ class KopiTuple extends KopiValue {
     }
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     const elements = await Promise.all(
       this.elements.map(async (element, index) => (await element).toString())
     );
