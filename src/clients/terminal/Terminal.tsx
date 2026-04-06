@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { type Delegate, Icon, Text, View } from "onyx-ui";
 import { ChevronRightIcon } from "lucide-react";
 
+import Clock from "../clock";
+
+import { KopiValue, type Environment } from "./kopi/shared";
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
-import type { Environment } from "./kopi/shared";
 
-let environment = originalEnvironment;
+let environment = {
+  ...originalEnvironment,
+  clock: <Clock style={{ width: 300, height: 300 }} />
+};
 
 const Input = ({
   lines,
@@ -54,21 +59,24 @@ const Terminal = () => {
     for (const astNode of (astRootNode as BlockExpression).statements) {
       setHistory(history => [
         ...history,
-        <React.Suspense key={history.length} fallback={<Text padding="8px 12px">...</Text>}>
-          {(async () => (
-            <>
-              <View horizontal padding="0px 8px" align="middle left">
-                <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
-                <Text padding="4px 0px">
-                  {value}
-                </Text>
-              </View>
-              <Text padding="4px 8px">
-                {(await astNode.evaluate(environment, updateBindings)).toString()}
+        <React.Fragment key={history.length}>
+          <View horizontal padding="0px 8px" align="middle left">
+            <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
+            <Text padding="4px 0px">
+              {value}
+            </Text>
+          </View>
+          <React.Suspense fallback={<Text padding="4px 8px">...</Text>}>
+            {(async (element?: any, elementAsString?: string) => (
+              element = await astNode.evaluate(environment, updateBindings),
+              elementAsString = await element.toString(),
+              console.log(typeof element),
+              !(element instanceof KopiValue) ? element : <Text padding="4px 8px">
+                {elementAsString}
               </Text>
-            </>
-          ))()}
-        </React.Suspense>
+            ))()}
+          </React.Suspense>
+        </React.Fragment>
       ]);
     }
   };

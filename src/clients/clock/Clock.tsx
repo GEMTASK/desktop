@@ -24,7 +24,7 @@ const calculateHands = (date: Date) => {
   });
 };
 
-const AnalogClock = () => {
+const AnalogClock = ({ ...props }) => {
   const [date, setDate] = useState(new Date());
   const timerRef = useRef<number>(0);
 
@@ -49,7 +49,7 @@ const AnalogClock = () => {
   const hands = calculateHands(date);
 
   return (
-    <View as="svg" viewBox="0 0 200 200" flex>
+    <View as="svg" viewBox="0 0 200 200" flex {...props}>
       {Array.from({ length: 12 }, (_, index, angle = (index * 30 + 180) * (Math.PI / 180)) => (
         <line
           key={index}
