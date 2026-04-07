@@ -25,17 +25,53 @@ const CalcButton = <TValue extends unknown>({
   );
 };
 
-function Calculator() {
-  const [display, setDisplay] = useState("");
-  const [value, setValue] = useState(0);
+const Operator = {
+  Noop: (a: number, b: number) => a,
+  Add: (a: number, b: number) => a + b
+};
 
-  const handleButtonClick = (evant: any, value?: number) => {
-    console.log(value);
-    setDisplay(input => input + value);
+function Calculator() {
+  const [display, setDisplay] = useState(0);
+  const [value, setValue] = useState(0);
+  const [operator, setOperator] = useState(() => Operator.Add);
+  const [reset, setReset] = useState(false);
+
+  const handleClearButtonClick = () => {
+    setOperator(() => Operator.Noop);
+
+    setDisplay(0);
+    setValue(0);
+  };
+
+  const handleDigitButtonClick = (evant: any, value?: number) => {
+    if (reset) {
+      setDisplay(0);
+
+      setReset(false);
+    }
+
+    setDisplay(display => display * 10 + Number(value));
+  };
+
+  const handleOperatorButtonClick = (event: any, operator?: typeof Operator[keyof typeof Operator]) => {
+    setValue(display);
+
+    setOperator(() => Operator.Add);
+
+    setReset(true);
+  };
+
+  const handleEqualButtonClick = (event: any) => {
+    if (operator) {
+      const result = operator(display, value);
+
+      setValue(result);
+      setDisplay(result);
+    }
   };
 
   const buttonProps = {
-    onClick: handleButtonClick
+    onClick: handleDigitButtonClick
   };
 
   return (
@@ -44,22 +80,22 @@ function Calculator() {
         {display.toLocaleString()}
       </Text>
       <View flex horizontal padding="8px" spacing="8px" fillColor="panel" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)" }}>
-        <CalcButton value={() => setValue(0)}>C</CalcButton>
+        <CalcButton onClick={handleClearButtonClick}>C</CalcButton>
         <CalcButton>÷</CalcButton>
         <CalcButton>×</CalcButton>
         <CalcButton>−</CalcButton>
         <CalcButton bold value={7} {...buttonProps}>7</CalcButton>
         <CalcButton bold value={8} {...buttonProps}>8</CalcButton>
         <CalcButton bold value={9} {...buttonProps}>9</CalcButton>
-        <CalcButton style={{ gridColumnStart: 4, gridRow: "2 / 4" }} onClick={() => setValue(Number(display))}>+</CalcButton>
-        <CalcButton bold>4</CalcButton>
-        <CalcButton bold>5</CalcButton>
-        <CalcButton bold>6</CalcButton>
-        <CalcButton bold>1</CalcButton>
-        <CalcButton bold>2</CalcButton>
-        <CalcButton bold>3</CalcButton>
-        <CalcButton style={{ gridColumnStart: 4, gridRow: "4 / 6" }}>=</CalcButton>
-        <CalcButton bold style={{ gridColumn: "1 / 3" }}>0</CalcButton>
+        <CalcButton value={Operator.Add} style={{ gridColumnStart: 4, gridRow: "2 / 4" }} onClick={handleOperatorButtonClick}>+</CalcButton>
+        <CalcButton bold value={4} {...buttonProps}>4</CalcButton>
+        <CalcButton bold value={5} {...buttonProps}>5</CalcButton>
+        <CalcButton bold value={6} {...buttonProps}>6</CalcButton>
+        <CalcButton bold value={1} {...buttonProps}>1</CalcButton>
+        <CalcButton bold value={2} {...buttonProps}>2</CalcButton>
+        <CalcButton bold value={3} {...buttonProps}>3</CalcButton>
+        <CalcButton onClick={handleEqualButtonClick} style={{ gridColumnStart: 4, gridRow: "4 / 6" }}>=</CalcButton>
+        <CalcButton bold value={0} {...buttonProps} style={{ gridColumn: "1 / 3" }}>0</CalcButton>
         <CalcButton bold>.</CalcButton>
       </View>
     </View>
