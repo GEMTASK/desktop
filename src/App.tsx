@@ -68,7 +68,7 @@ const clients: Record<string, Client> = {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
   },
   "markdown": {
-    title: "Markdown", size: { width: 645, height: 900 }, client: <Markdown />
+    title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />
   },
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />
