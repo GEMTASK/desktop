@@ -28,7 +28,7 @@ export default defineConfig([
       "@typescript-eslint/no-explicit-any": "warn",
       "@stylistic/quotes": ["error", "double"],
       "@stylistic/semi": "error",
-      "@stylistic/comma-dangle": ["error", "never"],
+      "@stylistic/comma-dangle": ["error", "always-multiline"],
       "@stylistic/member-delimiter-style": [
         "error",
         {

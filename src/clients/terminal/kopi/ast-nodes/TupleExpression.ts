@@ -12,13 +12,13 @@ class TupleExpression extends ASTNode {
     this.expressions = expressions;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "TupleExpression";
   }
 
   override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     return new KopiTuple(
-      this.expressions.map(expression => expression.evaluate(environment, updateBindings))
+      this.expressions.map(expression => expression.evaluate(environment, updateBindings)),
     );
   }
 }

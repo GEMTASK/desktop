@@ -8,8 +8,8 @@ const client = new S3Client({
   region: "us-east-1",
   credentials: {
     accessKeyId: "AKIATDBOG2D7WLWY5KE7",
-    secretAccessKey: "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"
-  }
+    secretAccessKey: "CsEKQ71Vh1pTZrUHZtdSx3lpIpCZEoh6bHOau0Uj",
+  },
 });
 
 function Folder({
@@ -18,7 +18,7 @@ function Folder({
   level = 0,
   children,
   selectedPath,
-  onSelect
+  onSelect,
 }: {
   name: string,
   path: string,
@@ -61,7 +61,7 @@ function File({
   type,
   name,
   size,
-  path
+  path,
 }: {
   detailsView?: boolean,
   type: "file" | "folder",
@@ -129,7 +129,7 @@ function Details({ items }: { items: Branch[] | undefined }) {
 
 const Views = {
   list: List,
-  details: Details
+  details: Details,
 };
 
 //
@@ -151,7 +151,7 @@ function Explorer() {
       const command = new ListObjectsV2Command({
         Bucket: "mike-austin",
         Delimiter: "/",
-        Prefix: selectedPath
+        Prefix: selectedPath,
       });
 
       const data = await client.send(command);
@@ -162,15 +162,15 @@ function Explorer() {
           name: Prefix?.split("/").at(-2) as string,
           path: Prefix as string,
           size: 0,
-          children: undefined
+          children: undefined,
         })) ?? [],
         ...data.Contents?.filter(file => file.Key !== selectedPath)?.map(({ Key, Size }) => ({
           type: "file" as const,
           name: Key?.split("/").at(-1) as string,
           path: Key as string,
           size: Size as number,
-          children: undefined
-        })) ?? []
+          children: undefined,
+        })) ?? [],
       ];
 
       setData(files);
@@ -180,7 +180,7 @@ function Explorer() {
           ...child,
           children: child.path === selectedPath && child.children === undefined
             ? files
-            : updateItem(child.children, selectedPath, files)
+            : updateItem(child.children, selectedPath, files),
         }));
       };
 

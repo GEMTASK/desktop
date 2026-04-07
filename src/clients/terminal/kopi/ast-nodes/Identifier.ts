@@ -11,7 +11,7 @@ class Identifier extends ASTNode {
     this.name = name;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "Identifier";
   }
 

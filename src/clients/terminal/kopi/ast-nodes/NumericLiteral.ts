@@ -12,6 +12,10 @@ class NumericLiteral extends ASTNode {
     this.value = new KopiNumber(value);
   }
 
+  override async inspect(): Promise<string> {
+    return "NumericLiteral";
+  }
+
   override async evaluate(): Promise<KopiValue> {
     return this.value;
   }

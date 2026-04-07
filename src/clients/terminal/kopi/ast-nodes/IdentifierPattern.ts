@@ -20,13 +20,13 @@ class IdentifierPattern extends ASTPatternNode {
 
   override async match(value: KopiValue, environment: Environment, updateBindings: UpdateBindings) {
     return {
-      [this.name]: value
+      [this.name]: value,
     };
   }
 
   override match2(value: KopiValue, environment: Environment, updateBindings: UpdateBindings) {
     return {
-      [this.name]: value
+      [this.name]: value,
     };
   }
 }

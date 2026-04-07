@@ -6,39 +6,39 @@ const transform = (rawAstNode: RawASTNode): ASTNode => {
   switch (rawAstNode.type) {
     case "BlockExpression":
       return new astNodes.BlockExpression({
-        statements: rawAstNode.statements.map((expression: ASTNode) => transform(expression))
+        statements: rawAstNode.statements.map((expression: ASTNode) => transform(expression)),
       });
     case "Assignment":
       return new astNodes.Assignment({
         pattern: transform(rawAstNode.pattern) as ASTPatternNode,
-        expression: transform(rawAstNode.expression)
+        expression: transform(rawAstNode.expression),
       });
     case "OperatorExpression":
       return new astNodes.OperatorExpression({
         operator: rawAstNode.operator,
         leftExpression: transform(rawAstNode.leftExpression),
-        rightExpression: transform(rawAstNode.rightExpression)
+        rightExpression: transform(rawAstNode.rightExpression),
       });
     case "ApplyExpression":
       return new astNodes.ApplyExpression({
         expression: transform(rawAstNode.expression),
-        argumentExpression: transform(rawAstNode.argumentExpression)
+        argumentExpression: transform(rawAstNode.argumentExpression),
       });
     case "TupleExpression":
       return new astNodes.TupleExpression({
-        expressions: rawAstNode.expressions.map((expression: ASTNode) => transform(expression))
+        expressions: rawAstNode.expressions.map((expression: ASTNode) => transform(expression)),
       });
     case "NumericLiteral":
       return new astNodes.NumericLiteral({
-        value: rawAstNode.value
+        value: rawAstNode.value,
       });
     case "Identifier":
       return new astNodes.Identifier({
-        name: rawAstNode.name
+        name: rawAstNode.name,
       });
     case "IdentifierPattern":
       return new astNodes.IdentifierPattern({
-        name: rawAstNode.name
+        name: rawAstNode.name,
       });
   }
 

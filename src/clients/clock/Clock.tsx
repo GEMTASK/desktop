@@ -10,17 +10,17 @@ const calculateHands = (date: Date) => {
   return ({
     hour: {
       x: Math.cos(hourAngle) * 0 - Math.sin(hourAngle) * 85,
-      y: Math.cos(hourAngle) * 85 + Math.sin(hourAngle) * 0
+      y: Math.cos(hourAngle) * 85 + Math.sin(hourAngle) * 0,
     },
     minute: {
       x: Math.cos(minuteAngle) * 0 - Math.sin(minuteAngle) * 85,
-      y: Math.cos(minuteAngle) * 85 + Math.sin(minuteAngle) * 0
+      y: Math.cos(minuteAngle) * 85 + Math.sin(minuteAngle) * 0,
 
     },
     second: {
       x: Math.cos(secondAngle) * 0 - Math.sin(secondAngle) * 85,
-      y: Math.cos(secondAngle) * 85 + Math.sin(secondAngle) * 0
-    }
+      y: Math.cos(secondAngle) * 85 + Math.sin(secondAngle) * 0,
+    },
   });
 };
 

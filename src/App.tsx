@@ -31,7 +31,7 @@ const IframeClients = {
   "strategic-asteroids": "https://code.mike-austin.com/asteroids",
   "lets-code": "https://code.mike-austin.com/lets-code",
   "fountain": "https://code.mike-austin.com/fountain",
-  "imploding-sphere": "https://editor.p5js.org/mike_ekim1024/full/shcbRaIS8"
+  "imploding-sphere": "https://editor.p5js.org/mike_ekim1024/full/shcbRaIS8",
 };
 
 function IFrame({ name }: { name: keyof typeof IframeClients }) {
@@ -53,59 +53,59 @@ type Client = {
 
 const clients: Record<string, Client> = {
   "calendar": {
-    title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />
+    title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />,
   },
   "clock": {
-    title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />
+    title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />,
   },
   "calculator": {
-    title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />
+    title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />,
   },
   "terminal": {
-    title: "Terminal", size: { width: 800, height: 535 }, client: <Terminal />
+    title: "Terminal", size: { width: 800, height: 535 }, client: <Terminal />,
   },
   "styleguide": {
-    title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />
+    title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />,
   },
   "markdown": {
-    title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />
+    title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />,
   },
   "bestest-movies-ever": {
-    title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />
+    title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />,
   },
   "music-player": {
-    title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />
+    title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />,
   },
   "s3-explorer": {
-    title: "S3 Explorer", size: { width: 675, height: 535 }, client: <Explorer />
+    title: "S3 Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
   },
   "ft86-part-picker": {
-    title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />
+    title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,
   },
   "strategic-asteroids": {
-    title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <Asteroids />
+    title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <Asteroids />,
   },
   "react-asteroids": {
-    title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />
+    title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
   },
   "browser": {
-    title: "Browser", size: { width: 500, height: 500 }, client: <Browser />
+    title: "Browser", size: { width: 500, height: 500 }, client: <Browser />,
   },
   "p5-lets-code": {
-    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />
+    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,
   },
   "p5-fountain": {
-    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <IFrame name="fountain" />
+    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <IFrame name="fountain" />,
   },
   "p5-asteroids": {
-    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />
+    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />,
   },
   "vector-draw": {
-    title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />
+    title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />,
   },
   "imploding-sphere": {
-    title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />
-  }
+    title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />,
+  },
 } as const;
 
 const startupClients: Client[] = [
@@ -116,14 +116,14 @@ const startupClients: Client[] = [
   { ...clients["calculator"]!, position: { x: 705, y: 15 } },
   { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
   { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } },
-  { ...clients["markdown"]!, position: { x: 15, y: 360 } }
 ];
 
 const utilitiesMenuItems = [
   <Menu.Item title="Clock" value="clock" />,
   <Menu.Item title="Calculator" value="calculator" />,
   <Menu.Item title="Terminal" value="terminal" />,
-  <Menu.Item title="Browser" value="browser" />
+  <Menu.Item title="Browser" value="browser" />,
+  <Menu.Item title="Markdown" value="markdown" />,
 ];
 
 const programsMenuItems = [
@@ -146,10 +146,10 @@ const programsMenuItems = [
     <Menu.Group label="Coding Lessons" />,
     <Menu.Item title="Let's Code!" value="p5-lets-code" />,
     <Menu.Item title="Asteroids" value="p5-asteroids" />,
-    <Menu.Item title="Fountain" value="p5-fountain" />
+    <Menu.Item title="Fountain" value="p5-fountain" />,
   ]}>
     <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} />
-  </Menu>
+  </Menu>,
 ];
 
 //
@@ -159,7 +159,7 @@ const programsMenuItems = [
 function App() {
   const [windows, setWindows] = useState(startupClients.map(client => ({
     id: crypto.randomUUID(),
-    ...client
+    ...client,
   })));
   const [orderedWindowIds, setOrderedWindowIds] = useState<string[]>(windows.map(window => window.id));
 
@@ -168,26 +168,26 @@ function App() {
 
     setWindows(windows => [
       ...windows,
-      { id, ...client, position: { x: 0, y: 0 } }
+      { id, ...client, position: { x: 0, y: 0 } },
     ]);
 
     setOrderedWindowIds(orderedWindowIds => [
       ...orderedWindowIds,
-      id
+      id,
     ]);
   };
 
   const handleWindowUpdate = (id: string, x: number, y: number) => {
     setWindows(windows => windows.map(window => window.id !== id ? window : ({
       ...window,
-      position: { x, y }
+      position: { x, y },
     })));
   };
 
   const handleWindowFocus = (id: string) => {
     setOrderedWindowIds(orderedWindowIds => [
       ...orderedWindowIds.filter(windowId => windowId !== id),
-      id
+      id,
     ]);
   };
 
@@ -203,12 +203,12 @@ function App() {
 
       setWindows(windows => [
         ...windows,
-        { id, ...client }
+        { id, ...client },
       ]);
 
       setOrderedWindowIds(orderedWindowIds => [
         ...orderedWindowIds,
-        id
+        id,
       ]);
     }
   };
@@ -231,8 +231,8 @@ function App() {
       ...window,
       position: {
         x: (document.body.offsetWidth - element.offsetWidth) / 2,
-        y: (document.body.offsetHeight - element.offsetHeight) / 2
-      }
+        y: (document.body.offsetHeight - element.offsetHeight) / 2,
+      },
     }));
   };
 
@@ -255,7 +255,7 @@ function App() {
         </Menu>
         <Menu onSelect={handleLinksMenuSelect} items={[
           <Menu.Item title="My GitHub Repos" value="https://github.com/mikeaustin" />,
-          <Menu.Item title="My Old Resume (2017)" value="https://mike-austin.com" />
+          <Menu.Item title="My Old Resume (2017)" value="https://mike-austin.com" />,
         ]}>
           <Button hover padding="8px">
             Links

@@ -16,13 +16,13 @@ function Asteroids() {
       rotation: 0,
       velocity: {
         x: 0.0,
-        y: 0.0
+        y: 0.0,
       },
       position: {
         x: 250,
-        y: 250
-      }
-    }
+        y: 250,
+      },
+    },
   });
 
   const animationFrameRef = useRef(0);
@@ -31,7 +31,7 @@ function Asteroids() {
     "ArrowUp": false,
     "ArrowDown": false,
     "ArrowLeft": false,
-    "ArrowRight": false
+    "ArrowRight": false,
   });
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -53,8 +53,8 @@ function Asteroids() {
       setState(({ ship }) => ({
         ship: {
           ...ship,
-          rotation: ship.rotation + timestampDelta * 0.25
-        }
+          rotation: ship.rotation + timestampDelta * 0.25,
+        },
       }));
     }
 
@@ -62,8 +62,8 @@ function Asteroids() {
       setState(({ ship }) => ({
         ship: {
           ...ship,
-          rotation: ship.rotation - timestampDelta * 0.25
-        }
+          rotation: ship.rotation - timestampDelta * 0.25,
+        },
       }));
     }
 
@@ -73,9 +73,9 @@ function Asteroids() {
           ...ship,
           velocity: {
             x: ship.velocity.x + (Math.cos(angle) - Math.sin(angle)) * 0.05,
-            y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05
-          }
-        }
+            y: ship.velocity.y + (Math.sin(angle) + Math.cos(angle)) * 0.05,
+          },
+        },
       }));
     }
 
@@ -84,9 +84,9 @@ function Asteroids() {
         ...ship,
         position: {
           x: ship.position.x + ship.velocity.x,
-          y: ship.position.y + ship.velocity.y
-        }
-      }
+          y: ship.position.y + ship.velocity.y,
+        },
+      },
     }));
 
     lastTimestamp.current = timestamp;

@@ -33,5 +33,5 @@ export {
   type UpdateBindings,
   KopiValue,
   ASTNode,
-  ASTPatternNode
+  ASTPatternNode,
 };

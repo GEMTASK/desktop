@@ -19,18 +19,18 @@ class OperatorExpression extends ASTNode {
     this.rightExpression = rightExpression;
   }
 
-  override async toString(): Promise<string> {
+  override async inspect(): Promise<string> {
     return "OperatorExpression";
   }
 
   override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     const [leftExpressionValue, rightExpressionValue] = await Promise.all([
       this.leftExpression.evaluate(environment, updateBindings),
-      this.rightExpression.evaluate(environment, updateBindings)
+      this.rightExpression.evaluate(environment, updateBindings),
     ]);
 
     const symbol = (leftExpressionValue.constructor as typeof KopiValue).symbol;
-    const method = (environment[symbol] as Methods)[this.operator];
+    const method = (environment[symbol] as unknown as Methods)[this.operator];
 
     if (typeof method !== "function") {
       throw new Error(`'${leftExpressionValue.toString()

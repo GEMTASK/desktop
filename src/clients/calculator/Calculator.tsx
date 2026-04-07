@@ -27,7 +27,7 @@ const CalcButton = <TValue extends unknown>({
 
 const Operator = {
   Noop: (a: number, b: number) => a,
-  Add: (a: number, b: number) => a + b
+  Add: (a: number, b: number) => a + b,
 };
 
 function Calculator() {
@@ -71,7 +71,7 @@ function Calculator() {
   };
 
   const buttonProps = {
-    onClick: handleDigitButtonClick
+    onClick: handleDigitButtonClick,
   };
 
   return (

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
   ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon,
-  HomeIcon, SquareIcon, TrashIcon
+  HomeIcon, SquareIcon, TrashIcon,
 } from "lucide-react";
 
 import { Button, Checkbox, Divider, Form, Icon, Menu, Popover, Select, Text, View } from "onyx-ui";
@@ -16,12 +16,12 @@ function Styleguide() {
     sendSpam: boolean
   }>({
     itemType: "TO_DO",
-    sendSpam: true
+    sendSpam: true,
   });
 
   const handleItemFiltersUpdate = (name: string, value: FieldValue) => setItemFilters(filters => ({
     ...filters,
-    [name]: value
+    [name]: value,
   }));
 
   const itemTypeSelectOptions = [
@@ -33,9 +33,9 @@ function Styleguide() {
         { icon: SquareIcon, label: "To Do", value: "TO_DO" },
         { icon: SquareIcon, label: "In Progress", value: "IN_PROGRESS" },
         { icon: SquareIcon, label: "In Review", value: "IN_REVIEW" },
-        { icon: SquareIcon, label: "Done", value: "DONE" }
-      ]
-    }
+        { icon: SquareIcon, label: "Done", value: "DONE" },
+      ],
+    },
   ];
 
   return (
@@ -123,13 +123,13 @@ function Styleguide() {
           <Menu.Item icon={CopyIcon} title="Clone Item" />,
           <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
           <Menu anchor="top right" items={[
-            <Menu.Item icon={ArrowRightFromLineIcon} title="Blocked By" />
+            <Menu.Item icon={ArrowRightFromLineIcon} title="Blocked By" />,
           ]}>
             <Menu.Item icon={ArrowRightLeftIcon} title="Related To" rightIcon={ChevronRightIcon} />
           </Menu>,
           <Menu.Divider />,
           <Menu.Group label="Group" />,
-          <Menu.Item icon={TrashIcon} title="Delete Item" />
+          <Menu.Item icon={TrashIcon} title="Delete Item" />,
         ]}>
           <Button solid rightIcon={ChevronDownIcon}>
             Menu
