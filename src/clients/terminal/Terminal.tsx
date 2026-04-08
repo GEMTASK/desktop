@@ -22,12 +22,14 @@ const Input = ({
   lines,
   icon,
   changeOnEnter,
+  innerStyle,
   onValueChange,
   ...props
 }: Delegate<{
   value?: string,
   lines?: number,
-  icon?: React.ComponentProps<typeof Icon>["icon"];
+  icon?: React.ComponentProps<typeof Icon>["icon"],
+  innerStyle?: React.ComponentProps<"textarea">["style"],
   changeOnEnter?: boolean,
   onValueChange?: (value: string) => void
 }, typeof View<"div">>) => {
@@ -46,9 +48,9 @@ const Input = ({
   return (
     <View horizontal align="middle left" padding="0px 8px" className={styles.Input} {...props}>
       {icon && (
-        <Icon icon={icon} size={20} style={{ marginLeft: -6, xmarginBottom: -1 }} />
+        <Icon icon={icon} size={20} style={{ marginLeft: -6 }} />
       )}
-      <textarea defaultValue={value} name="textarea" onKeyDown={handleKeyDown} />
+      <textarea defaultValue={value} name="textarea" style={innerStyle} onKeyDown={handleKeyDown} />
     </View>
   );
 };
@@ -106,7 +108,14 @@ const Terminal = () => {
     <View style={{ overflowY: "auto" }}>
       <View padding="8px" style={{ paddingBottom: 0 }}>
         {history}
-        <Input changeOnEnter icon={ChevronRightIcon} padding="0px" style={{ marginTop: -4 }} onValueChange={handleInputValueChange} />
+        <Input
+          changeOnEnter
+          icon={ChevronRightIcon}
+          padding="0px"
+          style={{ marginTop: -4 }}
+          innerStyle={{ fontFamily: "JetBrains Mono" }}
+          onValueChange={handleInputValueChange}
+        />
       </View>
     </View>
   );
