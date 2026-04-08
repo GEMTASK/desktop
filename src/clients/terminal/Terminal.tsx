@@ -13,20 +13,23 @@ import styles from "./Terminal.module.scss";
 let environment = {
   ...originalEnvironment,
   clock: {
-    async inspect() { return <Clock style={{ width: 300, height: 300 }} />; }
-  }
+    async inspect() { return <Clock style={{ width: 300, height: 300 }} />; },
+  },
 };
 
 const Input = ({
+  value,
   lines,
-  style,
+  icon,
   changeOnEnter,
   onValueChange,
   ...props
 }: Delegate<{
+  value?: string,
   lines?: number,
+  icon?: React.ComponentProps<typeof Icon>["icon"];
   changeOnEnter?: boolean,
-  onValueChange: (value: string) => void
+  onValueChange?: (value: string) => void
 }, typeof View<"div">>) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const currentTarget = event.currentTarget;
@@ -41,9 +44,11 @@ const Input = ({
   };
 
   return (
-    <View horizontal align="middle left" padding="0px 8px" style={{ ...style, minHeight: 28 }} {...props}>
-      <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
-      <textarea onKeyDown={handleKeyDown} style={{ padding: 0, margin: 0, fontFamily: "JetBrains Mono", fontSize: 14, height: 20, lineHeight: "20px", border: "none", outline: "none", width: "100%", resize: "none", marginTop: -1, color: "var(--text-color)" }} />
+    <View horizontal align="middle left" padding="0px 8px" className={styles.Input} {...props}>
+      {icon && (
+        <Icon icon={icon} size={20} style={{ marginLeft: -6, xmarginBottom: -1 }} />
+      )}
+      <textarea defaultValue={value} name="textarea" onKeyDown={handleKeyDown} />
     </View>
   );
 };
@@ -62,9 +67,9 @@ const MonoText = ({ ...props }) => {
 
 const Terminal = () => {
   const [history, setHistory] = useState<React.ReactElement[]>([
-    <MonoText key={-1} padding="4px 8px">
+    <MonoText key={-1} padding="4px 0px">
       Kopi shell – a simple, immutable, async programming langauge.
-    </MonoText>
+    </MonoText>,
   ]);
 
   const handleInputValueChange = (value: string) => {
@@ -74,35 +79,41 @@ const Terminal = () => {
       setHistory(history => [
         ...history,
         <React.Fragment key={history.length}>
-          <View horizontal padding="0px 8px" align="middle left">
+          <View horizontal padding="0px 0px" align="middle left">
             <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
             <MonoText padding="4px 0px">
               {value}
             </MonoText>
           </View>
           <React.Suspense fallback={
-            <Icon icon={LoaderCircleIcon} size={14} className={styles.spin} style={{ padding: "3px 8px", marginLeft: -2 }} />
+            <Icon icon={LoaderCircleIcon} size={14} className={styles.spin} style={{ padding: "3px 0", marginLeft: -2 }} />
           }>
             {(async (element?: string | React.ReactElement) => (
               element = await (await astNode.evaluate(environment, updateBindings)).inspect(),
-              typeof element !== "string" ? element : <MonoText padding="4px 8px">
-                {element}
-              </MonoText>
+              typeof element !== "string" ? element : (
+                <MonoText padding="4px 0px">
+                  {element}
+                </MonoText>
+              )
             ))()}
           </React.Suspense>
-        </React.Fragment>
+        </React.Fragment>,
       ]);
     }
   };
 
   return (
     <View style={{ overflowY: "auto" }}>
-      <View padding="8px 0px" style={{ paddingBottom: 0 }}>
+      <View padding="8px" style={{ paddingBottom: 0 }}>
         {history}
+        <Input changeOnEnter icon={ChevronRightIcon} padding="0px" style={{ marginTop: -4 }} onValueChange={handleInputValueChange} />
       </View>
-      <Input changeOnEnter style={{ marginTop: -4 }} onValueChange={handleInputValueChange} />
     </View>
   );
 };
 
 export default Terminal;
+
+export {
+  Input,
+};

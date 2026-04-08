@@ -11,8 +11,8 @@ test("Types", async () => {
   expect(result).toStrictEqual(
     new KopiTuple([
       Promise.resolve(new KopiNumber(123)),
-      Promise.resolve(new KopiNumber(456))
-    ])
+      Promise.resolve(new KopiNumber(456)),
+    ]),
   );
 });
 
@@ -22,7 +22,7 @@ test("Math", async () => {
   `);
 
   expect(result).toStrictEqual(
-    new KopiNumber(5)
+    new KopiNumber(5),
   );
 });
 
@@ -35,7 +35,7 @@ test("Assignment", async () => {
   `);
 
   expect(result).toStrictEqual(
-    new KopiNumber(3)
+    new KopiNumber(3),
   );
 });
 
@@ -46,6 +46,6 @@ test("Async operations", async () => {
 
   expect(await Promise.all(tuple.elements)).toStrictEqual([
     new KopiNumber(2),
-    new KopiNumber(2)
+    new KopiNumber(2),
   ]);
 });

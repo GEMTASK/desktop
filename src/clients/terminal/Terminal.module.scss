@@ -11,3 +11,22 @@
 .spin {
   animation: 1.0s spin linear infinite;
 }
+
+.Input {
+  min-height: 26px;
+}
+
+textarea {
+  padding: 0;
+  margin: 0;
+  font-family: "JetBrains Mono";
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+  border: none;
+  outline: none;
+  width: 100%;
+  resize: none;
+  margin-top: -1;
+  color: var(--text-color);
+}

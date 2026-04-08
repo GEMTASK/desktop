@@ -3,9 +3,10 @@ import {
   ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon,
   HomeIcon, SquareIcon, TrashIcon,
 } from "lucide-react";
-
 import { Button, Checkbox, Divider, Form, Icon, Menu, Popover, Select, Text, View } from "onyx-ui";
 import type { FieldValue } from "onyx-ui";
+
+import { Input } from "../terminal/Terminal";
 
 const SelectField = Form.Field.withComponent(Select);
 const CheckboxField = Form.Field.withComponent(Checkbox);
@@ -135,6 +136,7 @@ function Styleguide() {
             Menu
           </Button>
         </Menu>
+        <Input border cornerRadius="2px" value={"Hello"} />
       </View>
 
       <View>
