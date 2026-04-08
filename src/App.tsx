@@ -12,6 +12,7 @@ import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
 import Calendar from "./clients/calendar";
 import Markdown from "./clients/markdown";
+import Eyes from "./clients/eyes/Eyes";
 
 import "./App.css";
 import { Terminal } from "./clients/terminal";
@@ -64,6 +65,9 @@ const clients: Record<string, Client> = {
   "terminal": {
     title: "Terminal", size: { width: 800, height: 535 }, client: <Terminal />,
   },
+  "eyes": {
+    title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
+  },
   "styleguide": {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />,
   },
@@ -77,7 +81,7 @@ const clients: Record<string, Client> = {
     title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />,
   },
   "s3-explorer": {
-    title: "S3 Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
+    title: "Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
   },
   "ft86-part-picker": {
     title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,
@@ -114,7 +118,8 @@ const startupClients: Client[] = [
   { ...clients["calendar"]!, position: { x: 15, y: 15 } },
   { ...clients["clock"]!, position: { x: 390, y: 15 } },
   { ...clients["calculator"]!, position: { x: 705, y: 15 } },
-  { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
+  { ...clients["eyes"]!, position: { x: 705, y: 360 } },
+  // { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
   { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } },
 ];
 
@@ -124,6 +129,8 @@ const utilitiesMenuItems = [
   <Menu.Item title="Terminal" value="terminal" />,
   <Menu.Item title="Browser" value="browser" />,
   <Menu.Item title="Markdown" value="markdown" />,
+  <Menu.Divider />,
+  <Menu.Item title="Styleguide" value="styleguide" />,
 ];
 
 const programsMenuItems = [
