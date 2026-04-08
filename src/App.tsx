@@ -63,7 +63,7 @@ const clients: Record<string, Client> = {
     title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />,
   },
   "terminal": {
-    title: "Terminal", size: { width: 800, height: 535 }, client: <Terminal />,
+    title: "Terminal", size: { width: 700, height: 535 }, client: <Terminal />,
   },
   "eyes": {
     title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
@@ -121,6 +121,7 @@ const startupClients: Client[] = [
   { ...clients["eyes"]!, position: { x: 705, y: 360 } },
   // { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
   { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } },
+  { ...clients["terminal"]!, position: { x: 975, y: 360 } },
 ];
 
 const utilitiesMenuItems = [

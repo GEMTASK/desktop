@@ -26,7 +26,7 @@ const CalcButton = <TValue extends unknown>({
 };
 
 const Operator = {
-  Noop: (a: number, b: number) => a,
+  Noop: (a: number, b: number) => b,
   Add: (a: number, b: number) => a + b,
 };
 
@@ -46,7 +46,6 @@ function Calculator() {
   const handleDigitButtonClick = (evant: any, value?: number) => {
     if (reset) {
       setDisplay(0);
-
       setReset(false);
     }
 
@@ -54,9 +53,16 @@ function Calculator() {
   };
 
   const handleOperatorButtonClick = (event: any, operator?: typeof Operator[keyof typeof Operator]) => {
-    setValue(display);
+    if (operator) {
+      const result = operator(display, value);
 
-    setOperator(() => Operator.Add);
+      console.log("display", display, "result", result);
+
+      setValue(display);
+      setDisplay(result);
+    }
+
+    setOperator(() => operator ?? Operator.Noop);
 
     setReset(true);
   };
@@ -68,6 +74,8 @@ function Calculator() {
       setValue(result);
       setDisplay(result);
     }
+
+    setReset(true);
   };
 
   const buttonProps = {
