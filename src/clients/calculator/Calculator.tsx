@@ -28,11 +28,12 @@ const CalcButton = <TValue extends unknown>({
 const Operator = {
   Noop: (a: number, b: number) => b,
   Add: (a: number, b: number) => a + b,
+  Sub: (a: number, b: number) => a - b,
 };
 
 function Calculator() {
   const [display, setDisplay] = useState(0);
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState<number | undefined>(undefined);
   const [operator, setOperator] = useState(() => Operator.Add);
   const [reset, setReset] = useState(false);
 
@@ -40,7 +41,9 @@ function Calculator() {
     setOperator(() => Operator.Noop);
 
     setDisplay(0);
-    setValue(0);
+    setValue(undefined);
+
+    setReset(true);
   };
 
   const handleDigitButtonClick = (evant: any, value?: number) => {
@@ -49,29 +52,36 @@ function Calculator() {
       setReset(false);
     }
 
-    setDisplay(display => display * 10 + Number(value));
+    setDisplay(display => display * 10 + Number(value ?? 0));
   };
 
-  const handleOperatorButtonClick = (event: any, operator?: typeof Operator[keyof typeof Operator]) => {
-    if (operator) {
-      const result = operator(display, value);
+  const handleOperatorButtonClick = (event: any, _operator?: typeof Operator[keyof typeof Operator]) => {
+    console.log(_operator, value, display);
 
-      console.log("display", display, "result", result);
+    if (value !== undefined && !reset && _operator) {
+      const result = operator(value, display);
 
-      setValue(display);
+      setValue(result);
       setDisplay(result);
+    } else {
+      setValue(display);
     }
 
-    setOperator(() => operator ?? Operator.Noop);
+    setOperator(() => _operator ?? Operator.Noop);
 
     setReset(true);
   };
 
   const handleEqualButtonClick = (event: any) => {
-    if (operator) {
-      const result = operator(display, value);
+    console.log(value, display);
 
-      setValue(result);
+    if (value !== undefined && operator) {
+      const result = operator(value, display);
+
+      if (!reset) {
+        setValue(display);
+      }
+
       setDisplay(result);
     }
 
@@ -91,7 +101,7 @@ function Calculator() {
         <CalcButton onClick={handleClearButtonClick}>C</CalcButton>
         <CalcButton>÷</CalcButton>
         <CalcButton>×</CalcButton>
-        <CalcButton>−</CalcButton>
+        <CalcButton value={Operator.Sub} onClick={handleOperatorButtonClick}>−</CalcButton>
         <CalcButton bold value={7} {...buttonProps}>7</CalcButton>
         <CalcButton bold value={8} {...buttonProps}>8</CalcButton>
         <CalcButton bold value={9} {...buttonProps}>9</CalcButton>
