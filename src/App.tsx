@@ -150,7 +150,7 @@ const programsMenuItems = [
   <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
 
   <Menu.Divider />,
-  <Menu anchor="top right" items={[
+  <Menu noPortal anchor="top right" items={[
     <Menu.Group label="Coding Lessons" />,
     <Menu.Item title="Let's Code!" value="p5-lets-code" />,
     <Menu.Item title="Asteroids" value="p5-asteroids" />,

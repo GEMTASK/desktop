@@ -123,7 +123,7 @@ function Styleguide() {
         <Menu items={[
           <Menu.Item icon={CopyIcon} title="Clone Item" />,
           <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
-          <Menu anchor="top right" items={[
+          <Menu noPortal anchor="top right" items={[
             <Menu.Item icon={ArrowRightFromLineIcon} title="Blocked By" />,
           ]}>
             <Menu.Item icon={ArrowRightLeftIcon} title="Related To" rightIcon={ChevronRightIcon} />
