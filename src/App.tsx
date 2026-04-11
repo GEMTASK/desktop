@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ChevronRightIcon } from "lucide-react";
 
-import { View, Button, Menu } from "onyx-ui";
+import { View, Button, Menu, Text } from "onyx-ui";
 
 import About from "./clients/about";
 import Window from "./components/Window";
@@ -134,6 +134,7 @@ const desktopMenuItems = [
 
 const utilitiesMenuItems = [
   <Menu.Item title="Clock" value="clock" />,
+  <Menu.Item title="Calendar" value="calendar" />,
   <Menu.Item title="Calculator" value="calculator" />,
   <Menu.Item title="Terminal" value="terminal" />,
   <Menu.Item title="Browser" value="browser" />,
@@ -281,6 +282,24 @@ function App() {
         </Menu>
       </View>
       <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
+        <View
+          absolute
+          padding="16px"
+          style={{
+            top: 0, right: 0, bottom: 0, width: 240,
+            background: "hsla(0, 0%, 100%, 0.2)",
+            backdropFilter: "blur(10px)",
+            boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 16px",
+          }}
+        >
+          <View padding="8px 0px" fillColor="panel" cornerRadius="2px">
+            {windows.map(window => (
+              <Text fontWeight="600" padding="8px 16px">
+                {window.title}
+              </Text>
+            ))}
+          </View>
+        </View>
         {windows.map(({ id, title, position, size, client }) => (
           <Window
             key={id}
