@@ -295,7 +295,7 @@ function App() {
         >
           <View padding="8px 0px" fillColor="panel" cornerRadius="2px">
             {windows.map(window => (
-              <Button hover icon={window.icon} align="left" cornerRadius="0px">
+              <Button hover key={window.id} icon={window.icon} align="left" cornerRadius="0px">
                 {window.title}
               </Button>
             ))}
