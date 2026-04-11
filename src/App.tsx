@@ -293,9 +293,9 @@ function App() {
             boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 16px",
           }}
         >
-          <View padding="8px 0px" fillColor="panel" cornerRadius="2px">
+          <View padding="8px 0px" fillColor="content" cornerRadius="2px">
             {windows.map(window => (
-              <Button hover key={window.id} icon={window.icon} align="left" cornerRadius="0px">
+              <Button hover key={window.id} selected={window.id === orderedWindowIds.at(-1)} icon={window.icon} align="left" cornerRadius="0px">
                 {window.title}
               </Button>
             ))}
