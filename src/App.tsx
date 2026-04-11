@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { ChevronRightIcon } from "lucide-react";
+import { CalculatorIcon, CalendarIcon, ChevronRightIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PenIcon, TerminalIcon } from "lucide-react";
 
-import { View, Button, Menu, Text } from "onyx-ui";
+import { View, Button, Menu, Text, Icon } from "onyx-ui";
 
 import About from "./clients/about";
 import Window from "./components/Window";
@@ -47,6 +47,7 @@ function IFrame({ name }: { name: keyof typeof IframeClients }) {
 //
 
 type Client = {
+  icon?: React.ComponentProps<typeof Icon>["icon"],
   title: string,
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
@@ -58,25 +59,25 @@ const clients: Record<string, Client> = {
     title: "About", size: { width: 500, height: 255 }, client: <About />,
   },
   "calendar": {
-    title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />,
+    icon: CalendarIcon, title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />,
   },
   "clock": {
-    title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />,
+    icon: ClockIcon, title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />,
   },
   "calculator": {
-    title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />,
+    icon: CalculatorIcon, title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />,
   },
   "terminal": {
-    title: "Terminal", size: { width: 700, height: 535 }, client: <Terminal />,
+    icon: TerminalIcon, title: "Terminal", size: { width: 700, height: 535 }, client: <Terminal />,
   },
   "eyes": {
-    title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
+    icon: EyeIcon, title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
   },
   "styleguide": {
     title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />,
   },
   "markdown": {
-    title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />,
+    icon: PenIcon, title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />,
   },
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />,
@@ -85,7 +86,7 @@ const clients: Record<string, Client> = {
     title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />,
   },
   "s3-explorer": {
-    title: "Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
+    icon: FolderIcon, title: "Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
   },
   "ft86-part-picker": {
     title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,
@@ -97,7 +98,7 @@ const clients: Record<string, Client> = {
     title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
   },
   "browser": {
-    title: "Browser", size: { width: 1200, height: 900 }, client: <Browser />,
+    icon: GlobeIcon, title: "Browser", size: { width: 1200, height: 900 }, client: <Browser />,
   },
   "p5-lets-code": {
     title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,
@@ -294,9 +295,12 @@ function App() {
         >
           <View padding="8px 0px" fillColor="panel" cornerRadius="2px">
             {windows.map(window => (
-              <Text fontWeight="600" padding="8px 16px">
-                {window.title}
-              </Text>
+              <View horizontal padding="8px 16px" spacing="8px" align="middle left">
+                <Icon icon={window.icon ?? ChevronRightIcon} size={16} />
+                <Text fontWeight="600">
+                  {window.title}
+                </Text>
+              </View>
             ))}
           </View>
         </View>
