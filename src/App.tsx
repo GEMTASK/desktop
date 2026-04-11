@@ -295,12 +295,9 @@ function App() {
         >
           <View padding="8px 0px" fillColor="panel" cornerRadius="2px">
             {windows.map(window => (
-              <View horizontal padding="8px 16px" spacing="8px" align="middle left">
-                <Icon icon={window.icon ?? ChevronRightIcon} size={16} />
-                <Text fontWeight="600">
-                  {window.title}
-                </Text>
-              </View>
+              <Button hover icon={window.icon} align="left" cornerRadius="0px">
+                {window.title}
+              </Button>
             ))}
           </View>
         </View>
