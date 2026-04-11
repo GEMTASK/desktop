@@ -12,10 +12,11 @@ import Browser from "./clients/browser";
 import AnalogClock from "./clients/clock";
 import Calendar from "./clients/calendar";
 import Markdown from "./clients/markdown";
-import Eyes from "./clients/eyes/Eyes";
+import Eyes from "./clients/eyes";
+import Terminal from "./clients/terminal";
+import About from "./clients/about";
 
 import "./App.css";
-import { Terminal } from "./clients/terminal";
 
 function Asteroids() {
   return (
@@ -53,6 +54,9 @@ type Client = {
 };
 
 const clients: Record<string, Client> = {
+  "about": {
+    title: "About", size: { width: 500, height: 255 }, client: <About />,
+  },
   "calendar": {
     title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />,
   },
@@ -122,6 +126,10 @@ const startupClients: Client[] = [
   // { ...clients["styleguide"]!, position: { x: 705, y: 360 } },
   { ...clients["s3-explorer"]!, position: { x: 15, y: 360 } },
   { ...clients["terminal"]!, position: { x: 975, y: 360 } },
+];
+
+const desktopMenuItems = [
+  <Menu.Item title="About Desktop" value="about" />,
 ];
 
 const utilitiesMenuItems = [
@@ -248,9 +256,11 @@ function App() {
     <View id="window" style={{ height: "100vh", overflow: "hidden" }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
-        <Button hover fontWeight="700" padding="8px">
-          Desktop
-        </Button>
+        <Menu onSelect={handleMenuSelect} items={desktopMenuItems}>
+          <Button hover fontWeight="700" padding="8px">
+            Desktop
+          </Button>
+        </Menu>
         <Menu onSelect={handleMenuSelect} items={utilitiesMenuItems}>
           <Button hover padding="8px">
             Utilities
