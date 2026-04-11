@@ -3,6 +3,7 @@ import { ChevronRightIcon } from "lucide-react";
 
 import { View, Button, Menu } from "onyx-ui";
 
+import About from "./clients/about";
 import Window from "./components/Window";
 import Calculator from "./clients/calculator";
 import Styleguide from "./clients/styleguide";
@@ -14,7 +15,6 @@ import Calendar from "./clients/calendar";
 import Markdown from "./clients/markdown";
 import Eyes from "./clients/eyes";
 import Terminal from "./clients/terminal";
-import About from "./clients/about";
 
 import "./App.css";
 

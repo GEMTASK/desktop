@@ -8,14 +8,14 @@ function About() {
   return (
     <View flex padding="16px" spacing="24px" align="middle center" fillColor="panel">
       <View spacing="12px" align="middle center">
-        <Text fontSize="24px">
+        <Text select fontSize="24px">
           React Desktop
         </Text>
-        <Text light fontSize="12px">
+        <Text select light fontSize="12px">
           2022 – 2026 Mike Austin
         </Text>
       </View>
-      <Text innerStyle={{ textAlign: "center" }}>
+      <Text select innerStyle={{ textAlign: "center" }}>
         A React-based desktop environment, component library,<br />
         and integrated programming language
       </Text>
