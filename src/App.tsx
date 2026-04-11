@@ -93,7 +93,7 @@ const clients: Record<string, Client> = {
     title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
   },
   "browser": {
-    title: "Browser", size: { width: 500, height: 500 }, client: <Browser />,
+    title: "Browser", size: { width: 1200, height: 900 }, client: <Browser />,
   },
   "p5-lets-code": {
     title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,

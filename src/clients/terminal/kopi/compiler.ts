@@ -19,7 +19,7 @@ const KopiNumberConstructor = (value: KopiValue) => {
 
 KopiNumberConstructor.PI = Math.PI;
 
-let environment: Environment = {
+let environment: any = {
   a: new KopiNumber(5),
   sleep: new KopiFunction(async (seconds: KopiValue) => {
     assert(seconds instanceof KopiNumber, "Argument to sleep() must be a number");
@@ -27,7 +27,7 @@ let environment: Environment = {
     return new KopiNumber(await sleep(seconds.value));
   }),
   [KopiNumber.symbol]: KopiNumber.methods,
-  Number: new KopiFunction(async (value: KopiValue) => new KopiNumber(value.value))
+  Number: new KopiFunction(async (value: KopiValue) => new KopiNumber((value as any).value)),
 };
 
 const updateBindings = (bindings: Environment) => {
@@ -52,5 +52,5 @@ const interpret = async (line: string, _environment: Environment = environment) 
 export {
   environment,
   parse,
-  interpret
+  interpret,
 };

@@ -3,7 +3,7 @@ import { View } from "onyx-ui";
 function Browser() {
   return (
     <View flex>
-      <View as="iframe" src="https://github.com" />
+      <View flex as="iframe" src="https://gemtask.github.io" />
     </View>
   );
 }
