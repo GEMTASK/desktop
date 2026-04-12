@@ -1,7 +1,7 @@
 import { useState } from "react";
 import {
-  ArrowRightFromLineIcon, ArrowRightLeftIcon, BookmarkIcon, ChevronDownIcon, ChevronRightIcon, CopyIcon,
-  HomeIcon, SquareIcon, TrashIcon,
+  ArrowRightFromLineIcon, ArrowRightLeftIcon, BookIcon, BookmarkIcon, BugIcon, ChevronDownIcon, ChevronRightIcon, ClockIcon, CopyIcon,
+  HomeIcon, LayersIcon, SettingsIcon, SquareIcon, TrashIcon,
 } from "lucide-react";
 import { Button, Checkbox, Divider, Form, Icon, Menu, Popover, Select, Text, View } from "onyx-ui";
 import type { FieldValue } from "onyx-ui";
@@ -26,6 +26,19 @@ function Styleguide() {
   }));
 
   const itemTypeSelectOptions = [
+    { label: "Any", value: undefined },
+    {
+      label: "", value: "", options: [
+        { icon: BookIcon, label: "Story", value: "STORY" },
+        { icon: SettingsIcon, label: "Chore", value: "BACKLOG" },
+        { icon: BugIcon, label: "Defect", value: "TO_DO" },
+        { icon: ClockIcon, label: "Spike", value: "IN_PROGRESS" },
+        { icon: LayersIcon, label: "Epic", value: "IN_REVIEW" },
+      ],
+    },
+  ];
+
+  const itemStatusSelectOptions = [
     { label: "Any", value: undefined },
     {
       label: "", value: "", options: [
@@ -140,17 +153,19 @@ function Styleguide() {
       </View>
 
       <View>
-        <Form fields={itemFilters} spacing="8px" onFieldChange={handleItemFiltersUpdate}>
-          <View horizontal spacing="8px">
+        <Form fields={itemFilters} spacing="16px" onFieldChange={handleItemFiltersUpdate}>
+          <View horizontal spacing="16px">
             <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
             <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
           </View>
 
-          <Form.Field name="sendSpam">
-            <Checkbox label="Yes, send me spam" />
-          </Form.Field>
+          <View spacing="8px">
+            <Form.Field name="sendSpam">
+              <Checkbox label="Yes, send me spam" />
+            </Form.Field>
 
-          <CheckboxField label="Yes, send me spam" name="sendSpam" />
+            <CheckboxField label="Yes, send me spam" name="sendSpam" />
+          </View>
         </Form>
       </View>
     </View>
