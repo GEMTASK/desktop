@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronRightIcon } from "lucide-react";
+import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
 import { View, Button, Menu, Icon } from "onyx-ui";
 
 import Window from "./components/Window";
@@ -173,8 +173,8 @@ function App() {
           </Button>
         </Menu>
         <Menu onSelect={handleLinksMenuSelect} items={[
-          <Menu.Item title="My GitHub Repos" value="https://github.com/mikeaustin" />,
-          <Menu.Item title="My Old Resume (2017)" value="https://mike-austin.com" />,
+          <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" />,
+          <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" />,
         ]}>
           <Button hover padding="8px">
             Links

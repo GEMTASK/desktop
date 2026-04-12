@@ -101,7 +101,7 @@ function Styleguide() {
       </Text>
 
       <Text>
-        Click <Text as="a" href="/">here</Text>!
+        Click <Text as="a" href="/" textColor="primary">here</Text>!
       </Text>
 
       <Icon icon={HomeIcon} color="primary" />

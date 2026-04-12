@@ -1,5 +1,5 @@
 import {
-  CalculatorIcon, CalendarIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PenIcon, TerminalIcon,
+  CalculatorIcon, CalendarIcon, CircleQuestionMarkIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PaletteIcon, PenIcon, TerminalIcon,
 } from "lucide-react";
 
 import { View, Icon } from "onyx-ui";
@@ -46,7 +46,7 @@ type Client = {
 
 const clients: Record<string, Client> = {
   "about": {
-    title: "About", size: { width: 500, height: 255 }, client: <About />,
+    icon: CircleQuestionMarkIcon, title: "About", size: { width: 500, height: 255 }, client: <About />,
   },
   "calendar": {
     icon: CalendarIcon, title: "Calendar", size: { width: 360, height: 330 }, client: <Calendar />,
@@ -64,7 +64,7 @@ const clients: Record<string, Client> = {
     icon: EyeIcon, title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
   },
   "styleguide": {
-    title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />,
+    icon: PaletteIcon, title: "Styleguide", size: { width: 645, height: undefined }, client: <Styleguide />,
   },
   "markdown": {
     icon: PenIcon, title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />,
