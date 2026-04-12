@@ -58,7 +58,7 @@ function Styleguide() {
     >
       <View horizontal spacing="16px" align="middle justify">
         <Text fontSize="32px">Page Heading</Text>
-        <Button style={{ minWidth: 32 }}>Action Button</Button>
+        <Button style={{ minHeight: 32 }}>Action Button</Button>
       </View>
       <Divider />
 
