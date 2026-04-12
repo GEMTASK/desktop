@@ -69,7 +69,7 @@ const MonoText = ({ ...props }) => {
 
 const Terminal = () => {
   const [history, setHistory] = useState<React.ReactElement[]>([
-    <MonoText key={-1} padding="4px 0px">
+    <MonoText select key={-1} padding="4px 0px">
       Kopi shell – a simple, immutable, async programming langauge.
     </MonoText>,
   ]);
@@ -83,7 +83,7 @@ const Terminal = () => {
         <React.Fragment key={history.length}>
           <View horizontal padding="0px 0px" align="middle left">
             <Icon icon={ChevronRightIcon} size={20} style={{ marginLeft: -6, marginBottom: -1 }} />
-            <MonoText padding="4px 0px">
+            <MonoText select padding="4px 0px">
               {value}
             </MonoText>
           </View>
@@ -93,7 +93,7 @@ const Terminal = () => {
             {(async (element?: string | React.ReactElement) => (
               element = await (await astNode.evaluate(environment, updateBindings)).inspect(),
               typeof element !== "string" ? element : (
-                <MonoText padding="4px 0px">
+                <MonoText select padding="4px 0px">
                   {element}
                 </MonoText>
               )

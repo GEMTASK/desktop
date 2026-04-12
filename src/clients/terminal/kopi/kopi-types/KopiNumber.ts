@@ -2,6 +2,7 @@ import { assert } from "../utils.ts";
 
 import { KopiValue } from "../shared.ts";
 import Comparable from "../traits/Equatable.ts";
+// import KopiString from "./KopiString.ts";
 
 class KopiNumber extends KopiValue {
   static symbol = Symbol("KopiNumber");
@@ -31,6 +32,11 @@ KopiNumber.methods = {
   [KopiNumber.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
     return thisArg;
   },
+  // [KopiString.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
+  //   assert(thisArg instanceof KopiNumber);
+
+  //   return new KopiString(String(thisArg.value));
+  // },
 
   // "=="(thisArg: KopiValue, thatArg: KopiValue) {
   //   assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);

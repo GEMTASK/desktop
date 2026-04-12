@@ -32,6 +32,10 @@ const transform = (rawAstNode: RawASTNode): ASTNode => {
       return new astNodes.NumericLiteral({
         value: rawAstNode.value,
       });
+    case "StringLiteral":
+      return new astNodes.StringLiteral({
+        value: rawAstNode.value,
+      });
     case "Identifier":
       return new astNodes.Identifier({
         name: rawAstNode.name,
