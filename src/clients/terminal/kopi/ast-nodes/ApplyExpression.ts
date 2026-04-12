@@ -19,10 +19,13 @@ class ApplyExpression extends ASTNode {
 
   override async evaluate(environment: Environment, updateBindings: UpdateBindings): Promise<KopiValue> {
     const functionValue = await this.expression.evaluate(environment, updateBindings) as unknown as {
-      apply: (thisArg: undefined, args: [KopiValue]) => Promise<KopiValue>
+      apply: (thisArg: undefined, args: [KopiValue, Environment]) => Promise<KopiValue>
     };
 
-    return functionValue.apply(undefined, [await this.argumentExpression.evaluate(environment, updateBindings)]);
+    return functionValue.apply(undefined, [
+      await this.argumentExpression.evaluate(environment, updateBindings),
+      environment,
+    ]);
   }
 }
 

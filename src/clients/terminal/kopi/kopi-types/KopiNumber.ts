@@ -27,7 +27,11 @@ KopiNumber.methods = {
     assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
 
     return new KopiNumber(thisArg.value + thatArg.value);
-  }
+  },
+  [KopiNumber.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
+    return thisArg;
+  },
+
   // "=="(thisArg: KopiValue, thatArg: KopiValue) {
   //   assert(thisArg instanceof KopiNumber && thatArg instanceof KopiNumber);
 
