@@ -29,7 +29,7 @@ class OperatorExpression extends ASTNode {
       this.rightExpression.evaluate(environment, updateBindings),
     ]);
 
-    const symbol = (leftExpressionValue.constructor as typeof KopiValue).symbol;
+    const symbol = (leftExpressionValue.constructor as typeof KopiValue).type.symbol;
     const method = (environment[symbol] as unknown as Methods)[this.operator];
 
     if (typeof method !== "function") {

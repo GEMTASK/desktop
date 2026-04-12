@@ -6,34 +6,13 @@ import { KopiNumber, KopiString } from "./kopi-types/index.ts";
 import transform from "./ast-nodes/transform.ts";
 import { assert } from "./utils.ts";
 import KopiFunction from "./kopi-types/KopiFunction.ts";
+import KopiNumberConstructor from "./kopi-types/KopiNumberConstructor.ts";
 
 const sleep = (seconds: number) => {
   return new Promise<number>(resolve => setTimeout(() => resolve(seconds), seconds * 1000));
 };
 
 // KopiNumberConstructor.PI = Math.PI;
-
-class KopiNumberConstructor extends KopiValue {
-  apply(thisArg: undefined, args: [KopiValue, Environment]) {
-    return environment[(args[0].constructor as typeof KopiValue).symbol][KopiNumber.symbol](args[0]);
-  }
-
-  override async inspect(): Promise<string> {
-    return "Number";
-  }
-}
-
-class KopiStringConstructor extends KopiValue {
-  apply(thisArg: undefined, args: [KopiValue, Environment]) {
-    return environment[(args[0].constructor as typeof KopiValue).symbol][KopiString.symbol](args[0]);
-  }
-
-  override async inspect(): Promise<string> {
-    return "String";
-  }
-}
-
-//
 
 let environment: any = {
   a: new KopiNumber(5),
@@ -42,10 +21,10 @@ let environment: any = {
 
     return new KopiNumber(await sleep(seconds.value));
   }),
-  [KopiNumber.symbol]: KopiNumber.methods,
+  [KopiNumberConstructor.symbol]: KopiNumber.methods,
   [KopiString.symbol]: KopiString.methods,
   Number: new KopiNumberConstructor(),
-  String: new KopiStringConstructor(),
+  // String: new KopiStringConstructor(),
 };
 
 const updateBindings = (bindings: Environment) => {

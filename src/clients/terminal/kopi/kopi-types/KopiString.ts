@@ -1,7 +1,7 @@
 import { assert } from "../utils.ts";
 
 import { KopiValue } from "../shared.ts";
-import KopiNumber from "./KopiNumber.ts";
+// import KopiNumber from "./KopiNumber.ts";
 
 class KopiString extends KopiValue {
   static symbol = Symbol("KopiString");
@@ -31,11 +31,11 @@ KopiString.methods = {
   [KopiString.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
     return thisArg;
   },
-  [KopiNumber.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
-    assert(thisArg instanceof KopiString);
+  // [KopiNumber.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
+  //   assert(thisArg instanceof KopiString);
 
-    return new KopiNumber(Number(thisArg.value));
-  },
+  //   return new KopiNumber(Number(thisArg.value));
+  // },
 };
 
 export default KopiString;

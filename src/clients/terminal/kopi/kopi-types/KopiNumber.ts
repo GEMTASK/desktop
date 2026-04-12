@@ -3,9 +3,12 @@ import { assert } from "../utils.ts";
 import { KopiValue } from "../shared.ts";
 import Comparable from "../traits/Equatable.ts";
 // import KopiString from "./KopiString.ts";
+import KopiNumberConstructor from "./KopiNumberConstructor.ts";
 
 class KopiNumber extends KopiValue {
-  static symbol = Symbol("KopiNumber");
+  // static symbol = Symbol("KopiNumber");
+  static type = KopiNumberConstructor;
+
   static methods: {
     [key: string]: (thisArg: KopiValue, thatArg: KopiValue) => KopiValue
   };
@@ -29,7 +32,7 @@ KopiNumber.methods = {
 
     return new KopiNumber(thisArg.value + thatArg.value);
   },
-  [KopiNumber.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
+  [KopiNumberConstructor.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {
     return thisArg;
   },
   // [KopiString.symbol]: (thisArg: KopiValue, thatArg: KopiValue) => {

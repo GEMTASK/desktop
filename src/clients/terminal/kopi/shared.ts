@@ -1,8 +1,13 @@
+abstract class Type {
+  static symbol: symbol = Symbol("Foo");
+}
+
 abstract class KopiValue {
   // [x: string]: number;
   abstract inspect(): Promise<string | React.ReactElement>;
 
-  static symbol: symbol;
+  // static symbol: symbol;
+  static type: typeof Type;
 }
 
 //
