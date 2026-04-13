@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useState } from "react";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
 import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon, SquareIcon, ListIcon, TableIcon, LayoutGridIcon, LayoutListIcon, TextAlignJustifyIcon } from "lucide-react";
 
-import { Button, Divider, Icon, Text, View } from "onyx-ui";
+import { Button, Divider, Icon, Menu, Text, View } from "onyx-ui";
 
 const client = new S3Client({
   region: "us-east-1",
@@ -33,11 +33,8 @@ function Folder({
 
   return (
     <View>
-      <View horizontal spacing="4px" align="middle left" onClick={handleButtonClick} /* style={{ paddingLeft: level * 8 }} */>
-        <Button flex hover icon={FolderIcon} selected={path === selectedPath} padding="8px" align="middle left" style={{ paddingLeft: level * 8 + 12 }}>
-          {/* <Icon icon={ChevronRightIcon} size={16} /> */}
-          {name}
-        </Button>
+      <View spacing="4px" onClick={handleButtonClick}>
+        <Menu.Item hover icon={FolderIcon} title={name} selected={path === selectedPath} style={{ paddingLeft: level * 8 + 16 }} />
       </View>
       <View>
         {children?.filter(file => file.type === "folder").map(folder => (
@@ -221,7 +218,7 @@ function Explorer() {
         </View> */}
       </View>
       <View flex horizontal>
-        <View padding="8px" style={{ width: 160 }}>
+        <View padding="8px 0px" style={{ width: 160 }}>
           {foldersData && (
             <Folder name="/" path="" children={foldersData} selectedPath={selectedPath} onSelect={handleItemSelect} />
           )}

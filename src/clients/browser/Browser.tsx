@@ -26,7 +26,7 @@ function Browser() {
       <View flex>
         <View horizontal border="bottom" padding="8px" spacing="8px" align="middle left" fillColor="panel">
           <Button hover icon={HomeIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
-          <Input flex border value={url} fillColor="content" style={{ minHeight: 32 }} />
+          <Input flex border value={url} fillColor="content" cornerRadius="2px" style={{ minHeight: 32 }} />
         </View>
         <View flex as="iframe" src={url} />
       </View>
