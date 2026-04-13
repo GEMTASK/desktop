@@ -3,5 +3,5 @@ const kopi_sleep = () => {
 };
 
 export {
-  kopi_sleep
+  kopi_sleep,
 };

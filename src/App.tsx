@@ -220,7 +220,6 @@ function App() {
           </View>
         </View>
         {windows.map(({ id, title, position, size, client, minimized }) => (
-          console.log(minimized),
           <Window
             key={id}
             id={id}
