@@ -34,7 +34,7 @@ export default defineConfig([
         {
           "multiline": {
             "delimiter": "comma",
-            "requireLast": false,
+            "requireLast": true,
           },
           "singleline": {
             "delimiter": "comma",

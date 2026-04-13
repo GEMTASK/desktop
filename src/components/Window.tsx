@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { XIcon } from "lucide-react";
+import { Minimize2Icon, MinimizeIcon, XIcon } from "lucide-react";
 
 import type { Delegate } from "onyx-ui";
 
@@ -12,7 +12,7 @@ type PointerData = {
   clientX: number,
   clientY: number,
   offsetLeft: number,
-  offsetTop: number
+  offsetTop: number,
 };
 
 //
@@ -26,26 +26,30 @@ function Window({
   position,
   size,
   order,
+  minimized,
+  onLayout,
   onUpdate,
   onFocus,
   onRequestClose,
-  onLayout
+  onRequestMinimize,
 }: Delegate<{
   id: string,
   title: string,
   position?: {
     x: number,
-    y: number
+    y: number,
   },
   size: {
     width?: number,
-    height?: number
+    height?: number,
   },
   order: number,
+  minimized: boolean,
+  onLayout?: (id: string, element: HTMLElement) => void,
   onUpdate: (id: string, x: number, y: number) => void,
   onFocus: (id: string) => void,
   onRequestClose?: (id: string) => void,
-  onLayout?: (id: string, element: HTMLElement) => void
+  onRequestMinimize?: (id: string) => void,
 }, typeof View<"div">>) {
   const initialMoveEventRef = useRef<PointerData | null>(null);
   const initialResizeDOMRectRef = useRef<DOMRect | null>(null);
@@ -62,7 +66,7 @@ function Window({
         clientX: event.clientX,
         clientY: event.clientY,
         offsetLeft: event.clientX - windowElementRef.current.offsetLeft,
-        offsetTop: event.clientY - windowElementRef.current.offsetTop
+        offsetTop: event.clientY - windowElementRef.current.offsetTop,
       };
 
       windowElementRef.current.style.willChange = "left, top";
@@ -92,7 +96,7 @@ function Window({
 
       onUpdate(id,
         windowElementRef.current.offsetLeft,
-        windowElementRef.current.offsetTop
+        windowElementRef.current.offsetTop,
       );
 
       windowElementRef.current.style.willChange = "left, top";
@@ -113,6 +117,16 @@ function Window({
     }
   };
 
+  const handleMinimizeButtonClick = (event: React.MouseEvent) => {
+    if (windowElementRef.current && styles.minimize) {
+      // windowElementRef.current.addEventListener("animationend", () => {
+      onRequestMinimize?.(id);
+      // });
+
+      // windowElementRef.current.classList.add(styles.minimize);
+    }
+  };
+
   //
 
   const handleFrameResizeStart = () => {
@@ -128,36 +142,52 @@ function Window({
     }
   };
 
-  // x   
-
   useLayoutEffect(() => {
     onLayout?.(id, windowElementRef.current!);
   }, [id, onLayout]);
 
+  useLayoutEffect(() => {
+    if (minimized && windowElementRef.current && styles.minimize) {
+      windowElementRef.current.classList.add(styles.minimize);
+    } else if (!minimized && windowElementRef.current && styles.minimize) {
+      windowElementRef.current.classList.remove(styles.minimize);
+    }
+  }, [minimized]);
+
   return (
     <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" className={styles.element} style={{
-      left: position?.x, top: position?.y, width: size.width, height: size.height, zIndex: order
+      left: position?.x, top: position?.y, width: size.width, height: size.height, zIndex: order,
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
       <View horizontal border="bottom" borderColor="gutter" fillColor="divider" align="middle justify" style={{
-        borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1
+        borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1,
       }}
         onPointerDown={handleTitlebarPointerDown}
         onPointerMove={handleTitlebarPointerMove}
         onPointerUp={handleTitlebarPointerUp}
       >
-        <Button
-          hover
-          icon={XIcon}
-          style={{ padding: 6, marginLeft: 4 }}
-          onPointerDown={handleCloseButtonPointerDown}
-          onClick={handleCloseButtonClick}
-        />
+        <View flex horizontal>
+          <Button
+            hover
+            icon={XIcon}
+            style={{ padding: 6, marginLeft: 4 }}
+            onPointerDown={handleCloseButtonPointerDown}
+            onClick={handleCloseButtonClick}
+          />
+        </View>
         <Text fontWeight="700" padding="8px 16px" style={{ marginBottom: -1 }}>
           {title}
         </Text>
-        <View style={{ width: 28 }} />
+        <View flex horizontal align="right">
+          <Button
+            hover
+            icon={Minimize2Icon}
+            style={{ padding: 6, marginRight: 4 }}
+            onPointerDown={handleCloseButtonPointerDown}
+            onClick={handleMinimizeButtonClick}
+          />
+        </View>
       </View>
       <View flex id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
         {children}

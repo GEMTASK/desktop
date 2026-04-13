@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronRightIcon, ExternalLinkIcon } from "lucide-react";
+import { ChevronRightIcon, ExternalLinkIcon, Minimize2 } from "lucide-react";
 import { View, Button, Menu, Icon } from "onyx-ui";
 
 import Window from "./components/Window";
@@ -16,7 +16,8 @@ type Client = {
   title: string,
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
-  client: React.ReactElement
+  client: React.ReactElement,
+  minimized?: boolean
 };
 
 const startupClients: Client[] = [
@@ -143,6 +144,24 @@ function App() {
     setOrderedWindowIds(windowIds => windowIds.filter(windowId => windowId !== id));
   };
 
+  const handleWindowRequestMinimize = (id: string) => {
+    setWindows(windows => windows.map(window => window.id !== id ? window : {
+      ...window,
+      minimized: true,
+    }));
+  };
+
+  const handleWindowWindowSelect = (id: string) => {
+    setWindows(windows => windows.map(window => window.id !== id ? window : {
+      ...window,
+      minimized: false,
+    }));
+    setOrderedWindowIds(orderedWindowIds => [
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+      id,
+    ]);
+  };
+
   const handleWindowLayout = (id: string, element: HTMLElement) => {
     setWindows(windows => windows.map(window => window.id !== id || window.position ? window : {
       ...window,
@@ -185,13 +204,23 @@ function App() {
         >
           <View padding="8px 0px" fillColor="content" cornerRadius="2px">
             {windows.map(window => (
-              <Button hover key={window.id} selected={window.id === orderedWindowIds.at(-1)} icon={window.icon} align="left" cornerRadius="0px">
+              <Button
+                hover
+                key={window.id}
+                selected={window.id === orderedWindowIds.at(-1)}
+                icon={window.icon}
+                rightIcon={window.minimized ? Minimize2 : undefined}
+                align="left"
+                cornerRadius="0px"
+                onClick={() => handleWindowWindowSelect(window.id)}
+              >
                 {window.title}
               </Button>
             ))}
           </View>
         </View>
-        {windows.map(({ id, title, position, size, client }) => (
+        {windows.map(({ id, title, position, size, client, minimized }) => (
+          console.log(minimized),
           <Window
             key={id}
             id={id}
@@ -199,9 +228,11 @@ function App() {
             position={position}
             size={size}
             order={orderedWindowIds.indexOf(id)}
+            minimized={!!minimized}
             onUpdate={handleWindowUpdate}
             onFocus={handleWindowFocus}
             onRequestClose={handleWindowRequestClose}
+            onRequestMinimize={handleWindowRequestMinimize}
             onLayout={handleWindowLayout}
           >
             {client}
