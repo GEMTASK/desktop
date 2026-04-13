@@ -60,7 +60,7 @@ const Eyes = ({
   };
 
   return (
-    <View as="svg" ref={svgElementRef} fillColor="white" {...props}>
+    <View flex as="svg" ref={svgElementRef} fillColor="white" {...props}>
       <View as="svg" flex viewBox="0 0 100 50">
         <circle
           cx={25}
