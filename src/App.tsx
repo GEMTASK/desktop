@@ -184,9 +184,8 @@ function App() {
       <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
         <View
           absolute
-          padding="16px"
           style={{
-            top: 0, right: 0, bottom: 0, width: 240,
+            top: 0, right: 0, bottom: 0, width: 240, padding: 15,
             background: "hsla(0, 0%, 100%, 0.2)",
             backdropFilter: "blur(10px)",
             boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 16px",

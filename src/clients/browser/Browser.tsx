@@ -1,9 +1,37 @@
-import { View } from "onyx-ui";
+import { useState } from "react";
+import { Button, Icon, Text, View } from "onyx-ui";
+import { BookmarkIcon, CalendarsIcon, HistoryIcon, HomeIcon, MenuIcon, PlusIcon } from "lucide-react";
+
+import { Input } from "../terminal/Terminal";
 
 function Browser() {
+  const [url, setUrl] = useState("https://gemtask.github.io");
+
   return (
-    <View flex>
-      <View flex as="iframe" src="https://gemtask.github.io" />
+    <View flex horizontal>
+      <View border="right" style={{ width: 256 }}>
+        <View horizontal padding="8px" border="bottom" align="middle justify" fillColor="panel">
+          <Button hover icon={MenuIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+          <View horizontal fillColor="panel">
+            <Button hover icon={CalendarsIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+            <Button solid icon={BookmarkIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+            <Button hover icon={HistoryIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+          </View>
+          <Button hover icon={PlusIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+        </View>
+        <View padding="8px 0px">
+          <Button hover icon={BookmarkIcon} cornerRadius="0px" align="middle left" style={{ textAlign: "left" }}>
+            GEMTASK – Agile, Simplified
+          </Button>
+        </View>
+      </View>
+      <View flex>
+        <View horizontal border="bottom" padding="8px" spacing="8px" align="middle left" fillColor="panel">
+          <Button hover icon={HomeIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
+          <Input flex border value={url} fillColor="content" style={{ minHeight: 32 }} />
+        </View>
+        <View flex as="iframe" src={url} />
+      </View>
     </View>
   );
 }
