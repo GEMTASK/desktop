@@ -124,6 +124,7 @@ function Window({
   const handleFrameUpdate = (deltaX: number, deltaY: number) => {
     if (windowElementRef.current && initialResizeDOMRectRef.current) {
       windowElementRef.current.style.width = `${initialResizeDOMRectRef.current.width + deltaX}px`;
+      windowElementRef.current.style.height = `${initialResizeDOMRectRef.current.height + deltaY}px`;
     }
   };
 

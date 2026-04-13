@@ -11,18 +11,18 @@ type PointerData = {
 const ResizeVertical = {
   NONE: 0,
   TOP: 1,
-  BOTTOM: 3
+  BOTTOM: 3,
 } as const;
 
 const ResizeHorizontal = {
   NONE: 0,
   LEFT: 4,
-  RIGHT: 2
+  RIGHT: 2,
 } as const;
 
 type ResizeState = [
   typeof ResizeVertical[keyof typeof ResizeVertical],
-  typeof ResizeHorizontal[keyof typeof ResizeHorizontal]
+  typeof ResizeHorizontal[keyof typeof ResizeHorizontal],
 ];
 
 const getResizeState = (x: number, y: number, width: number, height: number) => {
@@ -73,7 +73,7 @@ const getCursor = (vertical: ResizeState[0], horizontal: ResizeState[1]) => {
 
 function Frame({
   onStart,
-  onUpdate
+  onUpdate,
 }: {
   onStart: () => void,
   onUpdate: (deltaX: number, deltaY: number) => void
@@ -90,14 +90,11 @@ function Frame({
       const { clientX, clientY } = event;
       const { offsetLeft, offsetTop } = windowElementRef.current;
 
-      // console.log(windowElementRef.current.offsetLeft)
-      console.log(windowElementRef.current.parentElement?.offsetLeft);
-
       initialEventRef.current = {
         clientX,
         clientY,
         offsetLeft,
-        offsetTop
+        offsetTop,
       };
     }
 
@@ -106,33 +103,40 @@ function Frame({
     const localX = event.clientX - clientRect.left;
     const localY = event.clientY - clientRect.top;
 
-    const [vertical, horizontal] = getResizeState(localX, localY, clientRect.width, clientRect.height);
+    const [verticalResizeState, horizontalResizeState] = getResizeState(localX, localY, clientRect.width, clientRect.height);
 
-    dragState.current = [vertical, horizontal];
+    dragState.current = [verticalResizeState, horizontalResizeState];
 
     onStart();
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    const clientRect = event.currentTarget.getBoundingClientRect();
+
+    const localX = event.clientX - clientRect.left;
+    const localY = event.clientY - clientRect.top;
+
+    const [verticalResizeState, horizontalResizeState] = getResizeState(localX, localY, clientRect.width, clientRect.height);
+
     if (initialEventRef.current) {
-      onUpdate(
-        event.clientX - initialEventRef.current.clientX,
-        event.clientY - initialEventRef.current.clientY
-      );
+      if (verticalResizeState === ResizeVertical.BOTTOM && horizontalResizeState === ResizeHorizontal.RIGHT) {
+        onUpdate(
+          event.clientX - initialEventRef.current.clientX,
+          event.clientY - initialEventRef.current.clientY,
+        );
+      } else if (horizontalResizeState === ResizeHorizontal.RIGHT) {
+        onUpdate(
+          event.clientX - initialEventRef.current.clientX,
+          0,
+        );
+      } else if (verticalResizeState === ResizeVertical.BOTTOM) {
+        onUpdate(
+          0,
+          event.clientY - initialEventRef.current.clientY,
+        );
+      }
     } else {
-      const clientRect = event.currentTarget.getBoundingClientRect();
-
-      const localX = event.clientX - clientRect.left;
-      const localY = event.clientY - clientRect.top;
-
-      // console.log(clientRect.top, windowElementRef.current!.parentElement!.clientTop - windowElementRef.current!.clientTop);
-
-      //       const localX = event.clientX - windowElementRef.current!.parentElement!.offsetLeft - windowElementRef.current!.offsetLeft;
-      // const localY = event.clientY - windowElementRef.current!.parentElement!.offsetTop + windowElementRef.current!.offsetTop;
-
-      const [vertical, horizontal] = getResizeState(localX, localY, clientRect.width, clientRect.height);
-
-      event.currentTarget.style.cursor = getCursor(vertical, horizontal);
+      event.currentTarget.style.cursor = getCursor(verticalResizeState, horizontalResizeState);
     }
   };
 
@@ -147,7 +151,7 @@ function Frame({
       absolute
       style={{
         inset: -8,
-        borderRadius: 8
+        borderRadius: 8,
         // background: "hsla(0, 0%, 0%, 0.1)"
       }}
       onPointerDown={handlePointerDown}
