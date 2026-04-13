@@ -158,27 +158,19 @@ function App() {
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
         <Menu onSelect={handleMenuSelect} items={desktopMenuItems}>
-          <Button hover fontWeight="700" padding="8px">
-            Desktop
-          </Button>
+          <Menu.Item title="Desktop" fontWeight="700" padding="8px" />
         </Menu>
         <Menu onSelect={handleMenuSelect} items={utilitiesMenuItems}>
-          <Button hover padding="8px">
-            Utilities
-          </Button>
+          <Menu.Item title="Utilities" padding="8px" />
         </Menu>
         <Menu onSelect={handleMenuSelect} items={programsMenuItems}>
-          <Button hover padding="8px">
-            Programs
-          </Button>
+          <Menu.Item title="Programs" padding="8px" />
         </Menu>
         <Menu onSelect={handleLinksMenuSelect} items={[
           <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" />,
           <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" />,
         ]}>
-          <Button hover padding="8px">
-            Links
-          </Button>
+          <Menu.Item title="Links" padding="8px" />
         </Menu>
       </View>
       <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>

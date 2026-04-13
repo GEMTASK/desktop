@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Icon, Text, View } from "onyx-ui";
+import { Button, Icon, Menu, Text, View } from "onyx-ui";
 import { BookmarkIcon, CalendarsIcon, HistoryIcon, HomeIcon, MenuIcon, PlusIcon } from "lucide-react";
 
 import { Input } from "../terminal/Terminal";
@@ -20,9 +20,7 @@ function Browser() {
           <Button hover icon={PlusIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
         </View>
         <View padding="8px 0px">
-          <Button hover icon={BookmarkIcon} cornerRadius="0px" align="middle left" style={{ textAlign: "left" }}>
-            GEMTASK – Agile, Simplified
-          </Button>
+          <Menu.Item icon={BookmarkIcon} title="GEMTASK – Agile, Simplified" />
         </View>
       </View>
       <View flex>
