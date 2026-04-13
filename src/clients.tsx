@@ -1,11 +1,11 @@
 import {
-  CalculatorIcon, CalendarIcon, CircleQuestionMarkIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PaletteIcon, PenIcon, TerminalIcon,
+  CalculatorIcon, CalendarIcon, CircleQuestionMarkIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PaletteIcon, PenIcon,
+  TerminalIcon,
 } from "lucide-react";
 
 import { View, Icon } from "onyx-ui";
 
 import About from "./clients/about";
-import Window from "./components/Window";
 import Calculator from "./clients/calculator";
 import Styleguide from "./clients/styleguide";
 // import Asteroids from "./clients/asteroids/Asteroids";
@@ -30,6 +30,7 @@ const IframeClients = {
   "imploding-sphere": "https://editor.p5js.org/mike_ekim1024/full/shcbRaIS8",
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 function IFrame({ name }: { name: keyof typeof IframeClients }) {
   return (
     <View flex as="iframe" src={IframeClients[name]} />
@@ -41,7 +42,8 @@ type Client = {
   title: string,
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
-  client: React.ReactElement
+  client: React.ReactElement,
+  minimized?: boolean
 };
 
 const clients: Record<string, Client> = {
