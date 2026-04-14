@@ -1,21 +1,69 @@
 import React, { useState } from "react";
+import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import { type Delegate, Icon, Text, View } from "onyx-ui";
 import { ChevronRightIcon, LoaderCircleIcon } from "lucide-react";
 
 import Clock from "../clock";
 
-import { type Environment } from "./kopi/shared";
+import { KopiValue, type Environment } from "./kopi/shared";
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
 
 import styles from "./Terminal.module.scss";
 
-let environment = {
-  ...originalEnvironment,
-  clock: {
-    async inspect() { return <Clock style={{ width: 300, height: 300 }} />; },
+const client = new S3Client({
+  region: "us-east-1",
+  credentials: {
+    accessKeyId: "AKIATDBOG2D7WLWY5KE7",
+    secretAccessKey: "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",
   },
-};
+});
+
+//
+
+class LsCommand extends KopiValue {
+  path: string;
+
+  constructor(path: string = "") {
+    super();
+
+    this.path = path;
+  }
+
+  override async inspect() {
+    const command = new ListObjectsV2Command({
+      Bucket: "mike-austin",
+      Delimiter: "/",
+      Prefix: this.path,
+    });
+
+    const data = await client.send(command);
+
+    const items = data && [
+      ...data.CommonPrefixes!.map(({ Prefix }) => ({
+        name: Prefix!.split("/").at(-2)!.padEnd(15),
+      })),
+      ...data.Contents!.filter(file => file.Key !== this.path)!.map(({ Key, Size }) => ({
+        name: Key?.split("/").at(-1)!.replaceAll("-", "‑").padEnd(15),
+      })),
+    ];
+
+    return items?.map(item => item.name).join("");
+  }
+
+  apply(thisArg: undefined, [arg]: [KopiValue]) {
+    return new LsCommand("photos/");
+  }
+}
+
+class PwdCommand extends KopiValue {
+  override async inspect() {
+    console.log(client);
+    return "mike-austin.s3.amazonaws";
+  }
+}
+
+//
 
 const Input = ({
   value,
@@ -31,7 +79,7 @@ const Input = ({
   icon?: React.ComponentProps<typeof Icon>["icon"],
   innerStyle?: React.ComponentProps<"textarea">["style"],
   changeOnEnter?: boolean,
-  onValueChange?: (value: string) => void
+  onValueChange?: (value: string) => void,
 }, typeof View<"div">>) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const currentTarget = event.currentTarget;
@@ -55,19 +103,31 @@ const Input = ({
   );
 };
 
+//
+
+let environment = {
+  ...originalEnvironment,
+  clock: {
+    async inspect() { return <Clock style={{ width: 300, height: 300 }} />; },
+  },
+  ls: new LsCommand(),
+  pwd: new PwdCommand(),
+};
+
 const updateBindings = (bindings: Environment) => {
   environment = { ...environment, ...bindings };
 };
 
 const MonoText = ({ ...props }) => {
   return (
-    <Text innerStyle={{ fontFamily: "JetBrains Mono" }} {...props} />
+    <Text innerStyle={{ fontFamily: "JetBrains Mono", whiteSpace: "pre-wrap" }} {...props} />
   );
 };
 
 //
 
 const Terminal = () => {
+  const [path, setPath] = useState("");
   const [history, setHistory] = useState<React.ReactElement[]>([
     <MonoText select key={-1} padding="4px 0px">
       Kopi shell – a simple, immutable, async programming langauge.

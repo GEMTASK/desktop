@@ -1,6 +1,8 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { S3Client, ListObjectsV2Command } from "@aws-sdk/client-s3";
-import { ChevronRightIcon, FileIcon, FolderIcon, HomeIcon, SquareIcon, ListIcon, TableIcon, LayoutGridIcon, LayoutListIcon, TextAlignJustifyIcon } from "lucide-react";
+import {
+  FileIcon, FolderIcon, HomeIcon, SquareIcon, ListIcon, TableIcon, LayoutGridIcon, LayoutListIcon, TextAlignJustifyIcon,
+} from "lucide-react";
 
 import { Button, Divider, Icon, Menu, Text, View } from "onyx-ui";
 

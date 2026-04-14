@@ -14,22 +14,6 @@ const sleep = (seconds: number) => {
 
 // KopiNumberConstructor.PI = Math.PI;
 
-class LsCommand {
-  options: string;
-
-  constructor(options: string = "hello") {
-    this.options = options;
-  }
-
-  inspect() {
-    return this.options;
-  }
-
-  apply() {
-    return new LsCommand("world");
-  }
-}
-
 let environment: any = {
   a: new KopiNumber(5),
   sleep: new KopiFunction(async (seconds: KopiValue) => {
@@ -41,7 +25,6 @@ let environment: any = {
   [KopiString.symbol]: KopiString.methods,
   Number: new KopiNumberConstructor(),
   // String: new KopiStringConstructor(),
-  ls: new LsCommand(),
 };
 
 const updateBindings = (bindings: Environment) => {
