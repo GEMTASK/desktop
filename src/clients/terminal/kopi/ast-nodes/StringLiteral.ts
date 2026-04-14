@@ -5,7 +5,7 @@ class StringLiteral extends ASTNode {
   readonly value: KopiString;
 
   constructor({ value }: {
-    value: string
+    value: string,
   }) {
     super();
 

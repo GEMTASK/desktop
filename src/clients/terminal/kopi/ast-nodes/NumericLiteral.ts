@@ -5,7 +5,7 @@ class NumericLiteral extends ASTNode {
   readonly value: KopiNumber;
 
   constructor({ value }: {
-    value: number
+    value: number,
   }) {
     super();
 

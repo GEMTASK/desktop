@@ -5,9 +5,11 @@ import { ChevronRightIcon, LoaderCircleIcon } from "lucide-react";
 
 import Clock from "../clock";
 
+import { assert } from "./kopi/utils";
 import { KopiValue, type Environment } from "./kopi/shared";
 import { environment as originalEnvironment, parse } from "./kopi/compiler";
 import type { BlockExpression } from "./kopi/ast-nodes";
+import { KopiString } from "./kopi/kopi-types";
 
 import styles from "./Terminal.module.scss";
 
@@ -52,7 +54,9 @@ class LsCommand extends KopiValue {
   }
 
   apply(thisArg: undefined, [arg]: [KopiValue]) {
-    return new LsCommand("photos/");
+    assert(arg instanceof KopiString);
+
+    return new LsCommand(String(arg.value));
   }
 }
 

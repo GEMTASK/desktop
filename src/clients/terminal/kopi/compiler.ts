@@ -25,6 +25,13 @@ let environment: any = {
   [KopiString.symbol]: KopiString.methods,
   Number: new KopiNumberConstructor(),
   // String: new KopiStringConstructor(),
+  typeof: new KopiFunction(async (value: KopiValue) => {
+    return {
+      async inspect() {
+        return value.constructor.name.toString();
+      },
+    };
+  }),
 };
 
 const updateBindings = (bindings: Environment) => {
