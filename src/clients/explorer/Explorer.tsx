@@ -25,7 +25,7 @@ function Folder({
   level?: number,
   children: Branch[] | undefined,
   selectedPath: string,
-  onSelect?: (path: string) => void
+  onSelect?: (path: string) => void,
 }) {
   const handleButtonClick = () => {
     onSelect?.(path);
@@ -64,7 +64,7 @@ function File({
   type: "file" | "folder",
   name: string,
   path: string,
-  size: number
+  size: number,
 }) {
   if (detailsView) {
     return (
@@ -93,7 +93,7 @@ type Branch = {
   name: string,
   path: string,
   size: number,
-  children: Branch[] | undefined
+  children: Branch[] | undefined,
 };
 
 //
@@ -124,9 +124,46 @@ function Details({ items }: { items: Branch[] | undefined }) {
   );
 }
 
+function Table({ items }: { items: Branch[] | undefined }) {
+  return (
+    <View>
+      <table style={{ borderCollapse: "collapse" }}>
+        <thead>
+          <tr>
+            <th></th>
+            <th style={{ textAlign: "left" }}>
+              <Text padding="4px" fontWeight="600">Name</Text>
+            </th>
+            <th style={{ textAlign: "left" }}>
+              <Text padding="4px" fontWeight="600">Size</Text>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {items?.map(({ type, name, size }) => (
+            <tr>
+              <td style={{ padding: "0px 8px" }}>
+                <Icon icon={type === "folder" ? FolderIcon : FileIcon} size={16} />
+              </td>
+              <td>
+                <Text padding="8px">{name}</Text>
+              </td>
+              <td>
+                <Text padding="8px">{size.toLocaleString()} bytes</Text>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </View>
+  );
+}
+
 const Views = {
-  list: List,
-  details: Details,
+  Icon: List,
+  List,
+  Details,
+  Table,
 };
 
 //
@@ -137,7 +174,7 @@ function Explorer() {
   const [foldersData, setRootData] = useState<Branch[]>();
   const [filesData, setData] = useState<Branch[]>();
   const [selectedPath, setSelectedPath] = useState("");
-  const [selectedView, setSelectedView] = useState<keyof typeof Views>("list");
+  const [selectedView, setSelectedView] = useState<keyof typeof Views>("List");
 
   const handleItemSelect = (path: string) => {
     setSelectedPath(path);
@@ -202,12 +239,12 @@ function Explorer() {
           <Button hover icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
         <View horizontal fillColor="panel">
-          <Button hover icon={SquareIcon} solid={selectedView === "list"} onClick={() => setSelectedView("list")} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={SquareIcon} solid={selectedView === "Icon"} onClick={() => setSelectedView("Icon")} style={{ minWidth: 32, minHeight: 32 }} />
           {/* <Button solid icon={LayoutGridIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
           {/* <Button solid icon={ListIcon} style={{ minWidth: 32, minHeight: 32 }} /> */}
-          <Button hover icon={TextAlignJustifyIcon} solid={selectedView === "details"} onClick={() => setSelectedView("details")} style={{ minWidth: 32, minHeight: 32 }} />
-          <Button hover icon={LayoutListIcon} style={{ minWidth: 32, minHeight: 32 }} />
-          <Button hover icon={TableIcon} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={TextAlignJustifyIcon} solid={selectedView === "List"} onClick={() => setSelectedView("List")} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={LayoutListIcon} solid={selectedView === "Details"} onClick={() => setSelectedView("Details")} style={{ minWidth: 32, minHeight: 32 }} />
+          <Button hover icon={TableIcon} solid={selectedView === "Table"} onClick={() => setSelectedView("Table")} style={{ minWidth: 32, minHeight: 32 }} />
         </View>
         <View flex align="right" fillColor="panel">
           <Button hover icon={HomeIcon} style={{ minWidth: 32, minHeight: 32 }} />
