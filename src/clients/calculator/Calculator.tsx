@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint */
 
+import { useState } from "react";
+
 import { Button, Text, View } from "onyx-ui";
 
 import type { Delegate } from "onyx-ui";
-import { useLayoutEffect, useState } from "react";
 
 const CalcButton = <TValue extends unknown>({
   value,
@@ -46,7 +47,7 @@ function Calculator() {
     setReset(true);
   };
 
-  const handleDigitButtonClick = (evant: any, value?: number) => {
+  const handleDigitButtonClick = (evant: React.MouseEvent, value?: number) => {
     if (!value) {
       return;
     }
@@ -59,12 +60,10 @@ function Calculator() {
     setDisplay(display => display * 10 + Number(value));
   };
 
-  const handleOperatorButtonClick = (event: any, _operator?: typeof Operator[keyof typeof Operator]) => {
+  const handleOperatorButtonClick = (event: React.MouseEvent, _operator?: typeof Operator[keyof typeof Operator]) => {
     if (!_operator) {
       return;
     }
-
-    console.log(_operator, value, display);
 
     if (!reset) {
       const result = operator(value, display);
@@ -80,20 +79,15 @@ function Calculator() {
     setReset(true);
   };
 
-  const handleEqualButtonClick = (event: any) => {
-    console.log(value, display);
-
-    if (value !== undefined && operator) {
+  const handleEqualButtonClick = () => {
+    if (!reset) {
       const result = operator(value, display);
 
-      if (!reset) {
-        setValue(display);
-      }
-
+      setValue(0);
       setDisplay(result);
-    }
 
-    setReset(true);
+      setReset(true);
+    }
   };
 
   const buttonProps = {
