@@ -138,8 +138,8 @@ function Table({ items }: { items: Branch[] | undefined }) {
         </Text>
       </View>
       <View padding="8px 0px">
-        {items?.map(({ type, name, size }) => (
-          <Menu.Item icon={FolderIcon}>
+        {items?.map(({ type, name, path, size }) => (
+          <Menu.Item key={path} icon={FolderIcon}>
             <Text style={{ width: 200, textAlign: "left" }}>
               {name}
             </Text>

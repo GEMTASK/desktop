@@ -1,9 +1,9 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { Minimize2Icon, MinimizeIcon, XIcon } from "lucide-react";
+import { EllipseIcon, EllipsisIcon, EllipsisVerticalIcon, Minimize2Icon, MinimizeIcon, XIcon } from "lucide-react";
 
 import type { Delegate } from "onyx-ui";
 
-import { View, Text, Button } from "onyx-ui";
+import { View, Text, Button, Menu } from "onyx-ui";
 
 import Frame from "./Frame";
 import styles from "./styles.module.scss";
@@ -180,6 +180,11 @@ function Window({
           {title}
         </Text>
         <View flex horizontal align="right">
+          <Menu items={[
+            <Menu.Item title="Send to Back" />,
+          ]}>
+            <Button hover icon={EllipsisVerticalIcon} onPointerDown={handleCloseButtonPointerDown} />
+          </Menu>
           <Button
             hover
             icon={Minimize2Icon}
