@@ -1,6 +1,6 @@
 import {
-  CalculatorIcon, CalendarIcon, CircleQuestionMarkIcon, ClockIcon, EyeIcon, FolderIcon, GlobeIcon, PaletteIcon, PenIcon,
-  TerminalIcon,
+  BrainCircuitIcon, CalculatorIcon, CalendarIcon, CarIcon, CircleQuestionMarkIcon, ClockIcon, CodeIcon, EyeIcon,
+  FilmIcon, FolderIcon, Gamepad2Icon, GlobeIcon, GpuIcon, MusicIcon, PaletteIcon, PenIcon, PenToolIcon, TerminalIcon,
 } from "lucide-react";
 
 import { View, Icon } from "onyx-ui";
@@ -76,52 +76,52 @@ const clients: Record<string, Client> = {
     icon: PenIcon, title: "Markdown", size: { width: 800, height: 900 }, client: <Markdown />,
   },
   "bestest-movies-ever": {
-    title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />,
+    icon: FilmIcon, title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />,
   },
   "virtual-stereo": {
-    title: "Stereo System", size: { width: 1500, height: 900 }, client: <IFrame name="virtual-stereo" />,
+    icon: MusicIcon, title: "Stereo System", size: { width: 1500, height: 900 }, client: <IFrame name="virtual-stereo" />,
   },
   "s3-explorer": {
     icon: FolderIcon, title: "Explorer", size: { width: 675, height: 525 }, client: <Explorer />,
   },
   "ft86-part-picker": {
-    title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,
+    icon: CarIcon, title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,
   },
   "strategic-asteroids": {
-    title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <IFrame name="asteroids" />,
+    icon: Gamepad2Icon, title: "Strategic Asteroids", size: { width: 800, height: 872 }, client: <IFrame name="asteroids" />,
   },
   "react-asteroids": {
-    title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
+    icon: Gamepad2Icon, title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
   },
   "browser": {
     icon: GlobeIcon, title: "Browser", size: { width: 1200, height: 900 }, client: <Browser />,
   },
   "p5-lets-code": {
-    title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,
+    icon: CodeIcon, title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,
   },
   "p5-fountain": {
-    title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <IFrame name="fountain" />,
+    icon: CodeIcon, title: "p5 Fountain", size: { width: 1680, height: 1100 }, client: <IFrame name="fountain" />,
   },
   "p5-asteroids": {
-    title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />,
+    icon: CodeIcon, title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />,
   },
   "p5-snake": {
-    title: "Snakey Snake", size: { width: 400, height: 473 }, client: <IFrame name="snake" />,
+    icon: Gamepad2Icon, title: "Snakey Snake", size: { width: 400, height: 473 }, client: <IFrame name="snake" />,
   },
   "p5-bounce": {
-    title: "Bounce!", size: { width: 720, height: 473 }, client: <IFrame name="bounce" />,
+    icon: GpuIcon, title: "Bounce!", size: { width: 720, height: 473 }, client: <IFrame name="bounce" />,
   },
   "p5-segments": {
-    title: "Segments", size: { width: 710, height: 473 }, client: <IFrame name="segments" />,
+    icon: GpuIcon, title: "Segments", size: { width: 710, height: 473 }, client: <IFrame name="segments" />,
   },
   "vector-draw": {
-    title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />,
+    icon: PenToolIcon, title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />,
   },
   "imploding-sphere": {
-    title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />,
+    icon: GpuIcon, title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />,
   },
   "virtual-machine": {
-    title: "Virtual Machine", size: { width: 435, height: 870 }, client: <IFrame name="virtual-machine" />,
+    icon: BrainCircuitIcon, title: "Virtual Machine", size: { width: 435, height: 870 }, client: <IFrame name="virtual-machine" />,
   },
 } as const;
 
