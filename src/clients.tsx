@@ -18,16 +18,20 @@ import Eyes from "./clients/eyes";
 import Terminal from "./clients/terminal";
 
 const IframeClients = {
+  "lets-code": "https://code.mike-austin.com/lets-code",
   "asteroids": "https://editor.p5js.org/mike_ekim1024/full/q8nWdZV0U",
-  "music-player": "https://mike-austin.com/music-player",
+  "fountain": "https://code.mike-austin.com/fountain",
+  "snake": "https://editor.p5js.org/mike_ekim1024/full/8c5ovMThX",
+  "bounce": "https://editor.p5js.org/mike_ekim1024/full/1eTmKDLpo",
+  "segments": "https://editor.p5js.org/mike_ekim1024/full/HM5JTspTa",
+  "virtual-stereo": "https://mike-austin.com/music-player",
   "bestest-movies-ever": "https://bestestmoviesever.com",
   "ft86-part-picker": "https://wheels.ft86partpicker.com",
   "vector-draw": "https://mike-austin.com/draw-2",
   "react-asteroids": "https://codepen.io/mikeaustin/embed/mdpYMym?default-tab=js%2Cresult",
   "strategic-asteroids": "https://code.mike-austin.com/asteroids",
-  "lets-code": "https://code.mike-austin.com/lets-code",
-  "fountain": "https://code.mike-austin.com/fountain",
   "imploding-sphere": "https://editor.p5js.org/mike_ekim1024/full/shcbRaIS8",
+  "virtual-machine": "https://mike-austin.com/react-desktop-old/clients/vmachine",
 };
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -43,7 +47,7 @@ type Client = {
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
   client: React.ReactElement,
-  minimized?: boolean
+  minimized?: boolean,
 };
 
 const clients: Record<string, Client> = {
@@ -74,8 +78,8 @@ const clients: Record<string, Client> = {
   "bestest-movies-ever": {
     title: "Bestest Movies Ever", size: { width: 960, height: 900 }, client: <IFrame name="bestest-movies-ever" />,
   },
-  "music-player": {
-    title: "Music Player", size: { width: 1500, height: 900 }, client: <IFrame name="music-player" />,
+  "virtual-stereo": {
+    title: "Stereo System", size: { width: 1500, height: 900 }, client: <IFrame name="virtual-stereo" />,
   },
   "s3-explorer": {
     icon: FolderIcon, title: "Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
@@ -101,11 +105,23 @@ const clients: Record<string, Client> = {
   "p5-asteroids": {
     title: "p5 Asteroids", size: { width: 1680, height: 1100 }, client: <IFrame name="strategic-asteroids" />,
   },
+  "p5-snake": {
+    title: "Snakey Snake", size: { width: 400, height: 473 }, client: <IFrame name="snake" />,
+  },
+  "p5-bounce": {
+    title: "Bounce!", size: { width: 720, height: 473 }, client: <IFrame name="bounce" />,
+  },
+  "p5-segments": {
+    title: "Segments", size: { width: 710, height: 473 }, client: <IFrame name="segments" />,
+  },
   "vector-draw": {
     title: "Vector Draw", size: { width: 1340, height: 900 }, client: <IFrame name="vector-draw" />,
   },
   "imploding-sphere": {
     title: "Imploding Sphere", size: { width: 800, height: 872 }, client: <IFrame name="imploding-sphere" />,
+  },
+  "virtual-machine": {
+    title: "Virtual Machine", size: { width: 435, height: 870 }, client: <IFrame name="virtual-machine" />,
   },
 } as const;
 

@@ -47,21 +47,20 @@ const utilitiesMenuItems = [
 const programsMenuItems = [
   <Menu.Group label="Applications" />,
   <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" />,
-  <Menu.Item title="Music Player" value="music-player" />,
+  <Menu.Item title="Stereo System" value="virtual-stereo" />,
   <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" />,
   <Menu.Item title="Vector Draw" value="vector-draw" />,
+  <Menu.Item title="Virtual Machine" value="virtual-machine" />,
   <Menu.Divider />,
-  <Menu.Group label="Games" />,
+  <Menu.Group label="Games & Visuals" />,
   <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
   <Menu.Item title="React Asteroids" value="react-asteroids" />,
-
-  <Menu.Divider />,
-  <Menu.Group label="Visuals" />,
+  <Menu.Item title="Snakey Snake" value="p5-snake" />,
+  <Menu.Item title="Bouncy Bounce" value="p5-bounce" />,
+  <Menu.Item title="Line Segments" value="p5-segments" />,
   <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
-
   <Menu.Divider />,
   <Menu noPortal anchor="top right" items={[
-    <Menu.Group label="Coding Lessons" />,
     <Menu.Item title="Let's Code!" value="p5-lets-code" />,
     <Menu.Item title="Asteroids" value="p5-asteroids" />,
     <Menu.Item title="Fountain" value="p5-fountain" />,
@@ -188,6 +187,7 @@ function App() {
         <Menu onSelect={handleLinksMenuSelect} items={[
           <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" />,
           <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" />,
+          <Menu.Item icon={ExternalLinkIcon} title="Learning React" value="https://codepen.io/collection/dbOKez" />,
         ]}>
           <Menu.Item title="Links" padding="8px" />
         </Menu>
