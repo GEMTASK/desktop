@@ -30,6 +30,7 @@ function Window({
   onLayout,
   onUpdate,
   onFocus,
+  onSendToBack,
   onRequestClose,
   onRequestMinimize,
 }: Delegate<{
@@ -48,6 +49,7 @@ function Window({
   onLayout?: (id: string, element: HTMLElement) => void,
   onUpdate: (id: string, x: number, y: number) => void,
   onFocus: (id: string) => void,
+  onSendToBack: (id: string) => void,
   onRequestClose?: (id: string) => void,
   onRequestMinimize?: (id: string) => void,
 }, typeof View<"div">>) {
@@ -103,10 +105,6 @@ function Window({
     }
   };
 
-  const handleCloseButtonPointerDown = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
-
   const handleCloseButtonClick = (event: React.MouseEvent) => {
     if (windowElementRef.current && styles.close) {
       windowElementRef.current.addEventListener("animationend", () => {
@@ -119,12 +117,12 @@ function Window({
 
   const handleMinimizeButtonClick = (event: React.MouseEvent) => {
     if (windowElementRef.current && styles.minimize) {
-      // windowElementRef.current.addEventListener("animationend", () => {
       onRequestMinimize?.(id);
-      // });
-
-      // windowElementRef.current.classList.add(styles.minimize);
     }
+  };
+
+  const handleSendToBackButtonClick = (event: React.MouseEvent) => {
+    onSendToBack?.(id);
   };
 
   //
@@ -162,39 +160,47 @@ function Window({
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
       <View horizontal border="bottom" borderColor="gutter" fillColor="divider" align="middle justify" style={{
         borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1,
-      }}
-        onPointerDown={handleTitlebarPointerDown}
-        onPointerMove={handleTitlebarPointerMove}
-        onPointerUp={handleTitlebarPointerUp}
-      >
-        <View flex horizontal>
+      }}>
+        <View horizontal>
           <Button
             hover
             icon={XIcon}
             style={{ padding: 6, marginLeft: 4 }}
-            onPointerDown={handleCloseButtonPointerDown}
             onClick={handleCloseButtonClick}
           />
         </View>
-        <Text fontWeight="700" padding="8px 16px" style={{ marginBottom: -1 }}>
-          {title}
-        </Text>
-        <View flex horizontal align="right">
+        <View
+          flex
+          horizontal
+          padding="8px 16px"
+          onPointerDown={handleTitlebarPointerDown}
+          onPointerMove={handleTitlebarPointerMove}
+          onPointerUp={handleTitlebarPointerUp}
+        >
+          <View style={{ width: 28 }} />
+          <Text flex fontWeight="700" style={{ textAlign: "center", marginBottom: -1 }}>
+            {title}
+          </Text>
+        </View>
+        <View horizontal>
           <Menu items={[
-            <Menu.Item title="Send to Back" />,
+            <Menu.Item title="Send to Back" onClick={handleSendToBackButtonClick} />,
           ]}>
-            <Button hover icon={EllipsisVerticalIcon} onPointerDown={handleCloseButtonPointerDown} />
+            <Button hover icon={EllipsisVerticalIcon} style={{ padding: 6, marginRight: 4 }}
+              onClick={handleMinimizeButtonClick}
+            />
           </Menu>
           <Button
             hover
             icon={Minimize2Icon}
             style={{ padding: 6, marginRight: 4 }}
-            onPointerDown={handleCloseButtonPointerDown}
             onClick={handleMinimizeButtonClick}
           />
         </View>
       </View>
-      <View flex id="content" fillColor="content" style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}>
+      <View flex id="content" fillColor="content"
+        style={{ borderBottomLeftRadius: 4, borderBottomRightRadius: 4, overflow: "hidden" }}
+      >
         {children}
       </View>
     </View>

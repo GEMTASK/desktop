@@ -109,6 +109,13 @@ function App() {
     ]);
   };
 
+  const handleWindowSendToBack = (id: string) => {
+    setOrderedWindowIds(orderedWindowIds => [
+      id,
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+    ]);
+  };
+
   const handleMenuSelect = (value?: string) => {
     if (typeof value !== "string") {
       return;
@@ -231,6 +238,7 @@ function App() {
             minimized={!!minimized}
             onUpdate={handleWindowUpdate}
             onFocus={handleWindowFocus}
+            onSendToBack={handleWindowSendToBack}
             onRequestClose={handleWindowRequestClose}
             onRequestMinimize={handleWindowRequestMinimize}
             onLayout={handleWindowLayout}
