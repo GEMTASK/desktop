@@ -64,7 +64,7 @@ const clients: Record<string, Client> = {
     icon: CalculatorIcon, title: "Calculator", size: { width: 255, height: 330 }, client: <Calculator />,
   },
   "terminal": {
-    icon: TerminalIcon, title: "Terminal", size: { width: 700, height: 535 }, client: <Terminal />,
+    icon: TerminalIcon, title: "Terminal", size: { width: 700, height: 525 }, client: <Terminal />,
   },
   "eyes": {
     icon: EyeIcon, title: "Eyes", size: { width: 255, height: 165 }, client: <Eyes />,
@@ -82,7 +82,7 @@ const clients: Record<string, Client> = {
     title: "Stereo System", size: { width: 1500, height: 900 }, client: <IFrame name="virtual-stereo" />,
   },
   "s3-explorer": {
-    icon: FolderIcon, title: "Explorer", size: { width: 675, height: 535 }, client: <Explorer />,
+    icon: FolderIcon, title: "Explorer", size: { width: 675, height: 525 }, client: <Explorer />,
   },
   "ft86-part-picker": {
     title: "FT86 Part Picker", size: { width: 1024 + 32, height: 900 }, client: <IFrame name="ft86-part-picker" />,

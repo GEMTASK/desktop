@@ -17,7 +17,7 @@ type Client = {
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
   client: React.ReactElement,
-  minimized?: boolean
+  minimized?: boolean,
 };
 
 const startupClients: Client[] = [
@@ -40,6 +40,7 @@ const utilitiesMenuItems = [
   <Menu.Item title="Terminal" value="terminal" />,
   <Menu.Item title="Browser" value="browser" />,
   <Menu.Item title="Markdown" value="markdown" />,
+  <Menu.Item title="Eyes" value="eyes" />,
   <Menu.Divider />,
   <Menu.Item title="Styleguide" value="styleguide" />,
 ];
