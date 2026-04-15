@@ -13,7 +13,7 @@ const CalcButton = <TValue extends unknown>({
   ...props
 }: Delegate<{
   value?: TValue,
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>, value?: TValue) => void
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>, value?: TValue) => void,
 }, typeof Button, "value">) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     onClick?.(event, value);

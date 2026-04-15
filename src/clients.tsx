@@ -1,6 +1,6 @@
 import {
   BrainCircuitIcon, CalculatorIcon, CalendarIcon, CarIcon, CircleQuestionMarkIcon, ClockIcon, CodeIcon, EyeIcon,
-  FilmIcon, FolderIcon, Gamepad2Icon, GlobeIcon, GpuIcon, MusicIcon, PaletteIcon, PenIcon, PenToolIcon, TerminalIcon,
+  FilmIcon, FolderIcon, Gamepad2Icon, GemIcon, GlobeIcon, GpuIcon, MusicIcon, PaletteIcon, PenIcon, PenToolIcon, TerminalIcon,
 } from "lucide-react";
 
 import { View, Icon } from "onyx-ui";
@@ -16,6 +16,7 @@ import Calendar from "./clients/calendar";
 import Markdown from "./clients/markdown";
 import Eyes from "./clients/eyes";
 import Terminal from "./clients/terminal";
+import GEMTASK from "./clients/gemtask";
 
 const IframeClients = {
   "lets-code": "https://code.mike-austin.com/lets-code",
@@ -122,6 +123,9 @@ const clients: Record<string, Client> = {
   },
   "virtual-machine": {
     icon: BrainCircuitIcon, title: "Virtual Machine", size: { width: 435, height: 870 }, client: <IFrame name="virtual-machine" />,
+  },
+  "gemtask": {
+    icon: GemIcon, title: "GEMTASK", size: { width: 800, height: 400 }, client: <GEMTASK />,
   },
 } as const;
 
