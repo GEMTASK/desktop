@@ -33,7 +33,7 @@ const Operator = {
 
 function Calculator() {
   const [display, setDisplay] = useState(0);
-  const [value, setValue] = useState<number | undefined>(undefined);
+  const [value, setValue] = useState(0);
   const [operator, setOperator] = useState(() => Operator.Add);
   const [reset, setReset] = useState(false);
 
@@ -41,24 +41,32 @@ function Calculator() {
     setOperator(() => Operator.Noop);
 
     setDisplay(0);
-    setValue(undefined);
+    setValue(0);
 
     setReset(true);
   };
 
   const handleDigitButtonClick = (evant: any, value?: number) => {
+    if (!value) {
+      return;
+    }
+
     if (reset) {
       setDisplay(0);
       setReset(false);
     }
 
-    setDisplay(display => display * 10 + Number(value ?? 0));
+    setDisplay(display => display * 10 + Number(value));
   };
 
   const handleOperatorButtonClick = (event: any, _operator?: typeof Operator[keyof typeof Operator]) => {
+    if (!_operator) {
+      return;
+    }
+
     console.log(_operator, value, display);
 
-    if (value !== undefined && !reset && _operator) {
+    if (!reset) {
       const result = operator(value, display);
 
       setValue(result);
@@ -67,7 +75,7 @@ function Calculator() {
       setValue(display);
     }
 
-    setOperator(() => _operator ?? Operator.Noop);
+    setOperator(() => _operator);
 
     setReset(true);
   };
