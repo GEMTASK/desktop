@@ -129,34 +129,26 @@ function Details({ items }: { items: Branch[] | undefined }) {
 function Table({ items }: { items: Branch[] | undefined }) {
   return (
     <View>
-      <table style={{ borderCollapse: "collapse" }}>
-        <thead>
-          <tr>
-            <th></th>
-            <th style={{ textAlign: "left" }}>
-              <Text padding="4px" fontWeight="600">Name</Text>
-            </th>
-            <th style={{ textAlign: "left" }}>
-              <Text padding="4px" fontWeight="600">Size</Text>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {items?.map(({ type, name, size }) => (
-            <tr>
-              <td style={{ padding: "0px 8px" }}>
-                <Icon icon={type === "folder" ? FolderIcon : FileIcon} size={16} />
-              </td>
-              <td>
-                <Text padding="8px">{name}</Text>
-              </td>
-              <td>
-                <Text padding="8px">{size.toLocaleString()} bytes</Text>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <View horizontal padding="16px" border="bottom" style={{ paddingBottom: 8 }}>
+        <Text fontWeight="600" style={{ width: 200 + 32 }}>
+          Name
+        </Text>
+        <Text fontWeight="600" style={{ width: 200 }}>
+          Size
+        </Text>
+      </View>
+      <View padding="8px 0px">
+        {items?.map(({ type, name, size }) => (
+          <Menu.Item icon={FolderIcon}>
+            <Text style={{ width: 200, textAlign: "left" }}>
+              {name}
+            </Text>
+            <Text style={{ width: 200, textAlign: "left" }}>
+              {size.toLocaleString()} bytes
+            </Text>
+          </Menu.Item>
+        ))}
+      </View>
     </View>
   );
 }

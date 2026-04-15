@@ -12,13 +12,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --primary-color: hsl(210, 85%, 60%);
-  --content-color: hsl(210, 15%, 100%);
-  --panel-color: hsl(210, 15%, 95%);
-  --divider-color: hsl(210, 15%, 88%);
-  --gutter-color: hsl(210, 15%, 83%);
-  --text-color: hsla(210, 0%, 0%, 0.7);
-  --selected-color: hsl(210, 100%, 93%);
   --default-font: 'Open Sans';
 }
 
