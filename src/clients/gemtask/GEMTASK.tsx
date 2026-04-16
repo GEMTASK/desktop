@@ -10,7 +10,7 @@ function SectionHeader({
   ...props
 }: Delegate<object, typeof View<"div">>) {
   return (
-    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" style={{ paddingTop: 16, margin: "-1px 0" }} {...props}>
+    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" style={{ paddingTop: 16, margin: "-1px 0", zIndex: 2 }} {...props}>
       <Text light caps innerStyle={{ fontSize: 11 }}>
         {children}
       </Text>
@@ -133,7 +133,7 @@ function GEMTASK() {
         </Text>
         <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
-      <View border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" style={{ marginBottom: -1, zIndex: 2 }}>
+      <View border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" style={{ marginBottom: -1, zIndex: 3 }}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
