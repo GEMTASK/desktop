@@ -1,5 +1,5 @@
-import { BookIcon } from "lucide-react";
-import { Button, Divider, Icon, Select, Text, View } from "onyx-ui";
+import { BookIcon, CalendarIcon } from "lucide-react";
+import { Avatar, Button, Divider, Icon, Select, Text, View, type Delegate } from "onyx-ui";
 
 function SectionHeader() {
   return (
@@ -11,22 +11,57 @@ function SectionHeader() {
   );
 }
 
+function Chip({
+  light,
+  fillColor,
+  children,
+  ...props
+}: Delegate<{
+  icon?: React.ComponentProps<typeof Icon>["icon"],
+}, typeof Text>) {
+  return (
+    <View horizontal spacing="8px" align="middle left">
+      <Icon icon={CalendarIcon} size={14} style={{ margin: "-2px 0", opacity: light ? 0.6 : undefined }} />
+      <Text light={light} fillColor={fillColor} cornerRadius="2px" {...props} padding={fillColor ? "2px 4px" : undefined} style={{ margin: fillColor ? "-2px 0" : undefined }}>
+        {children}
+      </Text>
+    </View>
+  );
+}
+
 function BacklogItem() {
   return (
-    <View padding="8px 16px" spacing="8px" fillColor="content">
-      <Text fontWeight="600">
-        An application can be filled out to become a Certified Scrum Trainer
-      </Text>
-      <View horizontal spacing="8px" align="middle left">
-        <View horizontal spacing="4px" align="middle left">
-          <Icon icon={BookIcon} size={14} style={{ marginTop: -4, marginBottom: -4 }} />
-          <Text light fontSize="12px" fontWeight="600">
-            ENG-2
-          </Text>
-        </View>
-        <View>
-          <Text fontSize="12px">
+    <View horizontal padding="8px 16px" fillColor="content">
+      <View flex spacing="8px">
+        <Text fontWeight="600">
+          An application can be filled out to become a Certified Scrum Trainer
+        </Text>
+        <View horizontal spacing="12px" align="middle left">
+          <View horizontal spacing="4px" align="middle left">
+            <Icon icon={BookIcon} size={14} style={{ marginTop: -4, marginBottom: -4 }} />
+            <Text light fontSize="12px" fontWeight="600">
+              ENG-2
+            </Text>
+          </View>
+          <Chip light fontSize="12px" fillColor="icon">
             Basic Authentication
+          </Chip>
+          <Chip light fontSize="12px" fontWeight="600" fillColor="highlight">
+            Apr 15
+          </Chip>
+        </View>
+      </View>
+      <View horizontal spacing="12px">
+        <Avatar.Stack>
+          <Avatar imageOnly />
+          <Avatar imageOnly />
+        </Avatar.Stack>
+        <View spacing="8px" align="middle center">
+          <Text fontWeight="600">
+            10
+          </Text>
+          <Text light fontSize="12px">
+            points
           </Text>
         </View>
       </View>
@@ -34,17 +69,33 @@ function BacklogItem() {
   );
 }
 
+const items = [
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+];
+
 function GEMTASK() {
   return (
-    <View flex>
-      <View border="bottom" fillColor="white" style={{ height: 44 }}>
-        {/* Header */}
+    <View flex style={{ minHeight: 0 }}>
+      <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
+        <Text>
+          GEMTASK
+        </Text>
+        <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
       <View border="bottom" padding="8px 16px" spacing="12px" fillColor="panel">
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
-              Engineering – ENG
+              ENG – Engineering
             </Text>
             <Text fontSize="24px">
               Backlog
@@ -59,17 +110,23 @@ function GEMTASK() {
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
       </View>
-      <View flex fillColor="gutter">
+      <View flex fillColor="gutter" style={{ overflow: "scroll" }}>
         <SectionHeader />
         <View padding="0px 16px">
           <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
-            <BacklogItem />
-            <Divider />
-            <BacklogItem />
-            <Divider />
-            <BacklogItem />
+            {items.map(({ title }, index) => (
+              <>
+                {index > 0 && (
+                  <Divider />
+                )}
+                <BacklogItem />
+              </>
+            ))}
           </View>
         </View>
+        <Text padding="16px" align="middle center">
+          The product backlog is a prioritized list of items with the most valuable at the top
+        </Text>
       </View>
     </View>
   );
