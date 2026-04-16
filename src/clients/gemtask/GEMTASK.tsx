@@ -1,11 +1,16 @@
 import { BookIcon, CalendarIcon } from "lucide-react";
 import { Avatar, Button, Divider, Icon, Select, Text, View, type Delegate } from "onyx-ui";
 
-function SectionHeader() {
+import styles from "./GEMTASK.module.scss"
+
+function SectionHeader({
+  children,
+  ...props
+}: Delegate<object, typeof View<"div">>) {
   return (
-    <View sticky padding="8px 16px" fillColor="gutter" style={{ paddingTop: 16 }}>
-      <Text light caps fontSize="12px">
-        Product Backlog
+    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" style={{ paddingTop: 16, margin: "-1px 0" }} {...props}>
+      <Text light caps innerStyle={{ fontSize: 11 }}>
+        {children}
       </Text>
     </View>
   );
@@ -27,6 +32,21 @@ function Chip({
       </Text>
     </View>
   );
+}
+
+function Sprint() {
+  return (
+    <View border="top bottom" className={styles.Sprint}>
+      <View padding="8px 16px" spacing="8px" fillColor="content">
+        <Text>
+          Sprint 1
+        </Text>
+        <Text light fontSize="12px">
+          5 items
+        </Text>
+      </View>
+    </View>
+  )
 }
 
 function BacklogItem() {
@@ -82,6 +102,12 @@ const items = [
   { title: "An application can be filled out to become a Certified Scrum Trainer" },
 ];
 
+const sprints = [
+  { title: "Sprint 1" },
+  { title: "Sprint 2" },
+  { title: "Sprint 3" },
+]
+
 function GEMTASK() {
   return (
     <View flex style={{ minHeight: 0 }}>
@@ -91,7 +117,7 @@ function GEMTASK() {
         </Text>
         <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
-      <View border="bottom" padding="8px 16px" spacing="12px" fillColor="panel">
+      <View border="bottom" padding="8px 16px" spacing="12px" fillColor="panel" style={{ marginBottom: -1, zIndex: 2 }}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
@@ -110,18 +136,33 @@ function GEMTASK() {
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
       </View>
+
       <View flex fillColor="gutter" style={{ overflow: "scroll" }}>
-        <SectionHeader />
-        <View padding="0px 16px">
-          <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
-            {items.map(({ title }, index) => (
-              <>
-                {index > 0 && (
-                  <Divider />
-                )}
-                <BacklogItem />
-              </>
+        <View>
+          <SectionHeader>
+            Active Sprints
+          </SectionHeader>
+          <View>
+            {sprints.map(sprint => (
+              <Sprint />
             ))}
+          </View>
+        </View>
+        <View>
+          <SectionHeader>
+            Product Backlog
+          </SectionHeader>
+          <View padding="0px 16px">
+            <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
+              {items.map(({ title }, index) => (
+                <>
+                  {index > 0 && (
+                    <Divider />
+                  )}
+                  <BacklogItem />
+                </>
+              ))}
+            </View>
           </View>
         </View>
         <Text padding="16px" align="middle center">
