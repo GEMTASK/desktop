@@ -10,7 +10,7 @@ function SectionHeader({
   ...props
 }: Delegate<object, typeof View<"div">>) {
   return (
-    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" style={{ paddingTop: 16, margin: "-1px 0", zIndex: 2 }} {...props}>
+    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: 16, margin: "-1px 0" }} {...props}>
       <Text light caps innerStyle={{ fontSize: 11 }}>
         {children}
       </Text>
@@ -45,7 +45,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35, zIndex: 1, margin: "-1px 0" }} className={styles.Sprint} onClick={handleClick}>
+      <View sticky border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35, margin: "-1px 0" }} className={styles.Sprint} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -110,11 +110,6 @@ const items = [
   { title: "An application can be filled out to become a Certified Scrum Trainer" },
   { title: "An application can be filled out to become a Certified Scrum Trainer" },
   { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
 ];
 
 const sprints = [
@@ -133,7 +128,7 @@ function GEMTASK() {
         </Text>
         <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
-      <View border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" style={{ marginBottom: -1, zIndex: 3 }}>
+      <View border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3} style={{ marginBottom: -1 }}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
@@ -168,7 +163,7 @@ function GEMTASK() {
           <SectionHeader>
             Product Backlog
           </SectionHeader>
-          <View padding="0px 16px">
+          <View padding="16px">
             <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
               {items.map(({ title }, index) => (
                 <>
@@ -181,7 +176,7 @@ function GEMTASK() {
             </View>
           </View>
         </View>
-        <Text padding="16px" align="middle center">
+        <Text padding="16px" align="middle center" style={{ paddingTop: 0 }}>
           The product backlog is a prioritized list of items with the most valuable at the top
         </Text>
       </View>
