@@ -1,5 +1,5 @@
 import { BookIcon } from "lucide-react";
-import { Button, Divider, Icon, Text, View } from "onyx-ui";
+import { Button, Divider, Icon, Select, Text, View } from "onyx-ui";
 
 function SectionHeader() {
   return (
@@ -40,14 +40,23 @@ function GEMTASK() {
       <View border="bottom" fillColor="white" style={{ height: 44 }}>
         {/* Header */}
       </View>
-      <View border="bottom" padding="8px 16px" fillColor="panel">
-        <View horizontal align="middle justify" fillColor="panel">
-          <Text fontSize="24px">
-            Backlog
-          </Text>
+      <View border="bottom" padding="8px 16px" spacing="12px" fillColor="panel">
+        <View horizontal align="top justify" fillColor="panel">
+          <View spacing="8px">
+            <Text light fontSize="12px">
+              Engineering – ENG
+            </Text>
+            <Text fontSize="24px">
+              Backlog
+            </Text>
+          </View>
           <Button solid cornerRadius="max" style={{ minHeight: 32 }}>
             Create Sprint
           </Button>
+        </View>
+        <View horizontal spacing="16px">
+          <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
+          <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
       </View>
       <View flex fillColor="gutter">
