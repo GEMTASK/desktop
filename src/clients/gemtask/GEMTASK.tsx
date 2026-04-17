@@ -1,13 +1,7 @@
 import React, { useState } from "react";
+import { BookIcon, CalendarIcon, SquareDashed, SquareIcon } from "lucide-react";
 
-import { BookIcon, CalendarIcon } from "lucide-react";
-import { Avatar, Button, Divider, Icon, Select, Text, View, type Delegate } from "onyx-ui";
-
-import styles from "./GEMTASK.module.scss";
-
-function List({ children }) {
-
-}
+import { Avatar, Button, Divider, Icon, List, Select, Text, View, type Delegate } from "onyx-ui";
 
 function SectionHeader({
   children,
@@ -59,11 +53,10 @@ function Sprint() {
       </View>
       {isBacklogVisible && (
         <View border="top" padding="16px" fillColor="gutter">
-          <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
+          <List>
             <BacklogItem />
-            <Divider />
             <BacklogItem />
-          </View>
+          </List>
         </View>
       )}
     </View>
@@ -97,6 +90,17 @@ function BacklogItem() {
           <Avatar imageOnly />
           <Avatar imageOnly />
         </Avatar.Stack>
+        <View spacing="8px">
+          <View horizontal spacing="4px" align="middle left">
+            <Icon icon={SquareIcon} size={14} color="primary" fill="currentColor" style={{ margin: "-2px 0" }} />
+            <Text>
+              In Progress
+            </Text>
+          </View>
+          <Text light fontSize="12px" style={{ paddingLeft: 18 }}>
+            2 of 2 done
+          </Text>
+        </View>
         <View spacing="8px" align="middle center">
           <Text bold>
             10
@@ -170,16 +174,11 @@ function GEMTASK() {
             Product Backlog
           </SectionHeader>
           <View padding="16px">
-            <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
+            <List style={{ overflow: "hidden" }}>
               {items.map(({ title }, index) => (
-                <React.Fragment key={index}>
-                  {index > 0 && (
-                    <Divider />
-                  )}
-                  <BacklogItem />
-                </React.Fragment>
+                <BacklogItem key={index} />
               ))}
-            </View>
+            </List>
           </View>
         </View>
         <Text padding="16px" align="middle center" style={{ paddingTop: 0 }}>
