@@ -25,7 +25,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky cursor="pointer" negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} onClick={handleClick}>
+      <View sticky cursor="pointer" border="bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 38 }} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -34,7 +34,7 @@ function Sprint() {
         </Text>
       </View>
       {isBacklogVisible && (
-        <View border="top" padding="16px" fillColor="gutter">
+        <View border="bottom" padding="16px" fillColor="gutter">
           <List>
             <BacklogItem />
             <BacklogItem />
@@ -67,6 +67,7 @@ function BacklogItem() {
           </Chip>
         </View>
       </View>
+      {/*  */}
       <View horizontal spacing="12px">
         <Avatar.Stack>
           <Avatar imageOnly />
