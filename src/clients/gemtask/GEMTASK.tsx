@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon } from "lucide-react";
 
-import { Avatar, Button, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
+import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 
 function SectionHeader({
   children,
@@ -10,24 +10,6 @@ function SectionHeader({
   return (
     <View sticky negativeBorder border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: 16 }} {...props}>
       <Text light caps innerStyle={{ fontSize: 11 }}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function Chip({
-  light,
-  fillColor,
-  children,
-  ...props
-}: Delegate<{
-  icon?: React.ComponentProps<typeof Icon>["icon"],
-}, typeof Text>) {
-  return (
-    <View horizontal spacing="4px" align="middle left">
-      <Icon icon={CalendarIcon} size={14} style={{ margin: "-2px 0", opacity: light ? 0.6 : undefined }} />
-      <Text light={light} fillColor={fillColor} cornerRadius="2px" {...props} padding={fillColor ? "2px 4px" : undefined} style={{ margin: fillColor ? "-2px 0" : undefined }}>
         {children}
       </Text>
     </View>
@@ -80,7 +62,7 @@ function BacklogItem() {
           <Chip light fontSize="12px" fillColor="icon">
             Basic Authentication
           </Chip>
-          <Chip light bold fontSize="12px" fillColor="highlight">
+          <Chip light bold icon={CalendarIcon} fontSize="12px" fillColor="highlight">
             Apr 15
           </Chip>
         </View>
@@ -192,7 +174,7 @@ function ItemOverview() {
               <Chip icon={BookIcon}>
                 ENG-2
               </Chip>
-              <Chip bold fontSize="12px" fillColor="highlight">
+              <Chip bold icon={CalendarIcon} fontSize="12px" fillColor="highlight">
                 Apr 15
               </Chip>
             </View>
