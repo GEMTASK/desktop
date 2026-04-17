@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon } from "lucide-react";
 
-import { Avatar, Button, Divider, Icon, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
+import { Avatar, Button, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 
 function SectionHeader({
   children,
@@ -43,7 +43,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} onClick={handleClick}>
+      <View sticky cursor="pointer" negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -185,7 +185,7 @@ function ItemBacklog() {
 function ItemOverview() {
   return (
     <View flex>
-      <View padding="8px 16px" spacing="16px" border="bottom" fillColor="panel">
+      <View padding="8px 16px" spacing="16px" border="bottom" fillColor="panel" style={{ paddingBottom: 0 }}>
         <View horizontal fillColor="panel" align="top justify">
           <View spacing="8px">
             <View horizontal spacing="12px">
@@ -212,16 +212,43 @@ function ItemOverview() {
         <Text fontSize="18px">
           An application can be filled out to become a Certified Scrum Trainer
         </Text>
+        <View horizontal spacing="16px">
+          <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
+          <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
+        </View>
+        <View horizontal spacing="16px">
+          <Text fontSize="18px" cursor="pointer" negativeBorder border="bottom" borderColor="primary" style={{ paddingBottom: 8 }}>
+            Details
+          </Text>
+          <Text light fontSize="18px" cursor="pointer" style={{ paddingBottom: 8 }} innerStyle={{ opacity: 0.6 }}>
+            Comments
+          </Text>
+          <Text light fontSize="18px" cursor="pointer" style={{ paddingBottom: 8 }} innerStyle={{ opacity: 0.6 }}>
+            Updates
+          </Text>
+        </View>
       </View>
       {/*  */}
-      <View padding="16px">
-        <Text light caps fontSize="12px">
-          Summary
-        </Text>
+      <View padding="16px" style={{ overflow: "auto" }}>
+        <Label label="Summary">
+          <Text>
+            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+            <br />
+            <br />
+            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+            <br />
+            <br />
+            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+          </Text>
+        </Label>
       </View>
     </View>
   );
 }
+
+//
+//
+//
 
 function GEMTASK() {
   return (
