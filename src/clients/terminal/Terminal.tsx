@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
 import { type Delegate, Icon, Text, View } from "onyx-ui";
 import { ChevronRightIcon, LoaderCircleIcon } from "lucide-react";
@@ -70,8 +70,10 @@ class PwdCommand extends KopiValue {
 //
 
 const Input = ({
-  value,
+  value: _value,
   lines,
+  border = true,
+  flush,
   icon,
   changeOnEnter,
   innerStyle,
@@ -80,29 +82,56 @@ const Input = ({
 }: Delegate<{
   value?: string,
   lines?: number,
+  flush?: boolean,
   icon?: React.ComponentProps<typeof Icon>["icon"],
   innerStyle?: React.ComponentProps<"textarea">["style"],
   changeOnEnter?: boolean,
   onValueChange?: (value: string) => void,
 }, typeof View<"div">>) => {
+  const [value, setValue] = useState(_value);
+  const textAreaElementRef = useRef<HTMLTextAreaElement>(null);
+
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     const currentTarget = event.currentTarget;
 
-    if (changeOnEnter && event.key === "Enter") {
+    if (changeOnEnter && event.key === "Enter" && value) {
       event.preventDefault();
 
-      onValueChange?.(event.currentTarget.value);
+      onValueChange?.(value);
 
       currentTarget.value = "";
     }
   };
 
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.currentTarget.value);
+  };
+
+  useLayoutEffect(() => {
+    if (textAreaElementRef.current) {
+      textAreaElementRef.current.style.height = "";
+      textAreaElementRef.current.style.height = `${textAreaElementRef.current.scrollHeight}px`;
+    }
+  });
+
+  const inputClassName = [
+    styles.Input,
+    flush && styles.flush,
+  ].filter(className => className).join(" ");
+
   return (
-    <View horizontal align="middle left" padding="0px 8px" className={styles.Input} {...props}>
+    <View horizontal border={border} align="middle left" padding="4px 8px" className={inputClassName} {...props}>
       {icon && (
         <Icon icon={icon} size={20} style={{ marginLeft: -6 }} />
       )}
-      <textarea defaultValue={value} name="textarea" style={innerStyle} onKeyDown={handleKeyDown} />
+      <textarea
+        ref={textAreaElementRef}
+        value={value}
+        name="textarea"
+        style={{ background: "transparent", ...innerStyle }}
+        onKeyDown={handleKeyDown}
+        onChange={handleChange}
+      />
     </View>
   );
 };
@@ -173,9 +202,10 @@ const Terminal = () => {
       <View padding="8px" style={{ paddingBottom: 0 }}>
         {history}
         <Input
+          border="none"
           changeOnEnter
           icon={ChevronRightIcon}
-          padding="0px"
+          padding="4px 0px"
           style={{ marginTop: -4 }}
           innerStyle={{ fontFamily: "JetBrains Mono" }}
           onValueChange={handleInputValueChange}

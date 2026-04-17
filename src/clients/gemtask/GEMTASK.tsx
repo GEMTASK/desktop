@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon } from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
+import { Input } from "../terminal/Terminal";
 
 function SectionHeader({
   children,
@@ -192,9 +193,12 @@ function ItemOverview() {
             </Button>
           </Menu>
         </View>
-        <Text fontSize="18px">
-          An application can be filled out to become a Certified Scrum Trainer
-        </Text>
+        <Input
+          flush
+          border="none"
+          value="An application can be filled out to become a Certified Scrum Trainer"
+          innerStyle={{ fontSize: 18 }}
+        />
         <View horizontal spacing="16px">
           <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />

@@ -13,7 +13,18 @@
 }
 
 .Input {
-  min-height: 26px;
+  &.flush {
+    padding-left: 0;
+    margin: -9px 0 -7px 0;
+
+    &:focus-within {
+      margin-bottom: -8px;
+    }
+  }
+
+  &:focus-within {
+    border-bottom: 1px solid var(--primary-color);
+  }
 }
 
 textarea {
@@ -27,6 +38,6 @@ textarea {
   outline: none;
   width: 100%;
   resize: none;
-  margin-top: -1;
+  // margin-top: -1;
   color: var(--text-color);
 }

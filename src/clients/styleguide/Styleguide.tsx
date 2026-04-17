@@ -149,7 +149,7 @@ function Styleguide() {
             Menu
           </Button>
         </Menu>
-        <Input border cornerRadius="2px" value={"Hello"} />
+        <Input cornerRadius="2px" value={"Hello"} />
       </View>
 
       <View>
