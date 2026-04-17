@@ -10,7 +10,7 @@ function SectionHeader({
   ...props
 }: Delegate<object, typeof View<"div">>) {
   return (
-    <View sticky border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: 16, margin: "-1px 0" }} {...props}>
+    <View sticky negativeBorder border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: 16 }} {...props}>
       <Text light caps innerStyle={{ fontSize: 11 }}>
         {children}
       </Text>
@@ -45,7 +45,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35, margin: "-1px 0" }} className={styles.Sprint} onClick={handleClick}>
+      <View sticky negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} className={styles.Sprint} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -128,7 +128,7 @@ function GEMTASK() {
         </Text>
         <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
-      <View border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3} style={{ marginBottom: -1 }}>
+      <View border="bottom" negativeBorder padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">

@@ -159,7 +159,7 @@ function Window({
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
       <Frame onStart={handleFrameResizeStart} onUpdate={handleFrameUpdate} />
       <View horizontal border="bottom" borderColor="divider" fillColor="icon" align="middle justify" style={{
-        borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32, marginBottom: -1, zIndex: 1,
+        borderTopLeftRadius: 4, borderTopRightRadius: 4, minHeight: 32,
       }}>
         <View horizontal>
           <Button
