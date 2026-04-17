@@ -67,7 +67,7 @@ function BacklogItem() {
   return (
     <View horizontal padding="8px 16px" fillColor="content">
       <View flex spacing="8px">
-        <Text bold innerStyle={{ lineHeight: "16px" }}>
+        <Text bold style={{ marginBottom: 4 }} innerStyle={{ lineHeight: "16px" }}>
           An application can be filled out to become a Certified Scrum Trainer
         </Text>
         <View horizontal spacing="12px" align="middle left">
@@ -93,7 +93,7 @@ function BacklogItem() {
         <View spacing="8px">
           <View horizontal spacing="4px" align="middle left">
             <Icon icon={SquareIcon} size={14} color="primary" fill="currentColor" style={{ margin: "-2px 0" }} />
-            <Text>
+            <Text bold>
               In Progress
             </Text>
           </View>
@@ -141,7 +141,7 @@ function ItemBacklog() {
               Backlog
             </Text>
           </View>
-          <Button solid cornerRadius="max" style={{ minHeight: 32 }}>
+          <Button solid cornerRadius="max" style={{ minHeight: 30 }}>
             Create Sprint
           </Button>
         </View>
@@ -204,7 +204,7 @@ function ItemOverview() {
             <Menu.Item icon={FlagIcon} title="Flag Item" />,
             <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
           ]}>
-            <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 32 }}>
+            <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 30 }}>
               Actions
             </Button>
           </Menu>
