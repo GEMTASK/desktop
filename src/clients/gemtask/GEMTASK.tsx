@@ -1,9 +1,13 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 import { BookIcon, CalendarIcon } from "lucide-react";
 import { Avatar, Button, Divider, Icon, Select, Text, View, type Delegate } from "onyx-ui";
 
 import styles from "./GEMTASK.module.scss";
+
+function List({ children }) {
+
+}
 
 function SectionHeader({
   children,
@@ -45,7 +49,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} className={styles.Sprint} onClick={handleClick}>
+      <View sticky negativeBorder border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 35 }} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -56,6 +60,8 @@ function Sprint() {
       {isBacklogVisible && (
         <View border="top" padding="16px" fillColor="gutter">
           <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
+            <BacklogItem />
+            <Divider />
             <BacklogItem />
           </View>
         </View>
@@ -128,7 +134,7 @@ function GEMTASK() {
         </Text>
         <Avatar name="Sarah Connor" label="Quality Assurance" />
       </View>
-      <View border="bottom" negativeBorder padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
+      <View negativeBorder border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
@@ -154,8 +160,8 @@ function GEMTASK() {
             Active Sprints
           </SectionHeader>
           <View>
-            {sprints.map(sprint => (
-              <Sprint />
+            {sprints.map((sprint, index) => (
+              <Sprint key={index} />
             ))}
           </View>
         </View>
@@ -166,12 +172,12 @@ function GEMTASK() {
           <View padding="16px">
             <View border cornerRadius="4px" style={{ overflow: "hidden" }}>
               {items.map(({ title }, index) => (
-                <>
+                <React.Fragment key={index}>
                   {index > 0 && (
                     <Divider />
                   )}
                   <BacklogItem />
-                </>
+                </React.Fragment>
               ))}
             </View>
           </View>
