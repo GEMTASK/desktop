@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { BookIcon, CalendarIcon, SquareDashed, SquareIcon } from "lucide-react";
+import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon } from "lucide-react";
 
-import { Avatar, Button, Divider, Icon, List, Select, Text, View, type Delegate } from "onyx-ui";
+import { Avatar, Button, Divider, Icon, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 
 function SectionHeader({
   children,
@@ -25,7 +25,7 @@ function Chip({
   icon?: React.ComponentProps<typeof Icon>["icon"],
 }, typeof Text>) {
   return (
-    <View horizontal spacing="8px" align="middle left">
+    <View horizontal spacing="4px" align="middle left">
       <Icon icon={CalendarIcon} size={14} style={{ margin: "-2px 0", opacity: light ? 0.6 : undefined }} />
       <Text light={light} fillColor={fillColor} cornerRadius="2px" {...props} padding={fillColor ? "2px 4px" : undefined} style={{ margin: fillColor ? "-2px 0" : undefined }}>
         {children}
@@ -67,7 +67,7 @@ function BacklogItem() {
   return (
     <View horizontal padding="8px 16px" fillColor="content">
       <View flex spacing="8px">
-        <Text bold>
+        <Text bold innerStyle={{ lineHeight: "16px" }}>
           An application can be filled out to become a Certified Scrum Trainer
         </Text>
         <View horizontal spacing="12px" align="middle left">
@@ -128,16 +128,9 @@ const sprints = [
   { title: "Sprint 3" },
 ];
 
-function GEMTASK() {
+function ItemBacklog() {
   return (
     <View flex style={{ minHeight: 0 }}>
-
-      <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
-        <Text>
-          GEMTASK
-        </Text>
-        <Avatar name="Sarah Connor" label="Quality Assurance" />
-      </View>
       <View negativeBorder border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
@@ -157,7 +150,7 @@ function GEMTASK() {
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
       </View>
-
+      {/*  */}
       <View flex fillColor="gutter" style={{ overflow: "scroll" }}>
         <View>
           <SectionHeader>
@@ -185,7 +178,66 @@ function GEMTASK() {
           The product backlog is a prioritized list of items with the most valuable at the top
         </Text>
       </View>
+    </View>
+  );
+}
 
+function ItemOverview() {
+  return (
+    <View flex>
+      <View padding="8px 16px" spacing="16px" border="bottom" fillColor="panel">
+        <View horizontal fillColor="panel" align="top justify">
+          <View spacing="8px">
+            <View horizontal spacing="12px">
+              <Chip icon={BookIcon}>
+                ENG-2
+              </Chip>
+              <Chip bold fontSize="12px" fillColor="highlight">
+                Apr 15
+              </Chip>
+            </View>
+            <Text light fontSize="12px">
+              Updated Sat, Mar 21, 2026
+            </Text>
+          </View>
+          <Menu items={[
+            <Menu.Item icon={FlagIcon} title="Flag Item" />,
+            <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
+          ]}>
+            <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 32 }}>
+              Actions
+            </Button>
+          </Menu>
+        </View>
+        <Text fontSize="18px">
+          An application can be filled out to become a Certified Scrum Trainer
+        </Text>
+      </View>
+      {/*  */}
+      <View padding="16px">
+        <Text light caps fontSize="12px">
+          Summary
+        </Text>
+      </View>
+    </View>
+  );
+}
+
+function GEMTASK() {
+  return (
+    <View flex style={{ minHeight: 0 }}>
+      {/*  */}
+      <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
+        <Text>
+          GEMTASK
+        </Text>
+        <Avatar name="Sarah Connor" label="Quality Assurance" />
+      </View>
+      <View flex horizontal style={{ minHeight: 0 }}>
+        <ItemBacklog />
+        <Divider />
+        <ItemOverview />
+      </View>
     </View>
   );
 }
