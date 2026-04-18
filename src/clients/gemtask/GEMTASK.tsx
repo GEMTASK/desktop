@@ -26,7 +26,7 @@ function Sprint() {
 
   return (
     <View>
-      <View sticky cursor="pointer" border="bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 38 }} onClick={handleClick}>
+      <View sticky cursor="pointer" border="top bottom" padding="8px 16px" spacing="8px" fillColor="content" style={{ top: 36, marginBottom: -1 }} onClick={handleClick}>
         <Text bold>
           Sprint 1
         </Text>
@@ -245,9 +245,14 @@ function GEMTASK() {
     <View flex style={{ minHeight: 0 }}>
       {/*  */}
       <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
-        <Text flex>
-          GEMTASK
-        </Text>
+        <View flex spacing="8px">
+          <Text>
+            GEMTASK
+          </Text>
+          <Text light fontSize="12px">
+            Agile, simplified
+          </Text>
+        </View>
         <View style={{ flexBasis: "100%", maxWidth: 300 }}>
           <Input icon={SearchIcon} fillColor="gutter" cornerRadius="max" />
         </View>
