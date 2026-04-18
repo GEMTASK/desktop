@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon } from "lucide-react";
+import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
@@ -184,14 +184,17 @@ function ItemOverview() {
               Updated Sat, Mar 21, 2026
             </Text>
           </View>
-          <Menu items={[
-            <Menu.Item icon={FlagIcon} title="Flag Item" />,
-            <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
-          ]}>
-            <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 30 }}>
-              Actions
-            </Button>
-          </Menu>
+          <View horizontal spacing="8px" fillColor="panel" todo align="middle left">
+            <Menu items={[
+              <Menu.Item icon={FlagIcon} title="Flag Item" />,
+              <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
+            ]}>
+              <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 30 }}>
+                Actions
+              </Button>
+            </Menu>
+            <Button icon={XIcon} cornerRadius="max" style={{ minHeight: 30 }} />
+          </View>
         </View>
         <Input
           flush
