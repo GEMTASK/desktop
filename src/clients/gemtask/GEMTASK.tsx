@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
+import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SearchIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
@@ -245,10 +245,15 @@ function GEMTASK() {
     <View flex style={{ minHeight: 0 }}>
       {/*  */}
       <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
-        <Text>
+        <Text flex>
           GEMTASK
         </Text>
-        <Avatar name="Sarah Connor" label="Quality Assurance" />
+        <View style={{ flexBasis: "100%", maxWidth: 300 }}>
+          <Input icon={SearchIcon} fillColor="gutter" cornerRadius="max" />
+        </View>
+        <View flex align="right">
+          <Avatar name="Sarah Connor" label="Quality Assurance" />
+        </View>
       </View>
       <View flex horizontal style={{ minHeight: 0 }}>
         <ItemBacklog />

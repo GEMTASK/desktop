@@ -120,9 +120,9 @@ const Input = ({
   ].filter(className => className).join(" ");
 
   return (
-    <View horizontal border={border} align="middle left" padding="4px 8px" className={inputClassName} {...props}>
+    <View horizontal border={border} align="middle left" padding="4px 8px" spacing="4px" className={inputClassName} {...props}>
       {icon && (
-        <Icon icon={icon} size={20} style={{ marginLeft: -6 }} />
+        <Icon icon={icon} size={20} />
       )}
       <textarea
         ref={textAreaElementRef}
@@ -204,7 +204,7 @@ const Terminal = () => {
         <Input
           border="none"
           changeOnEnter
-          icon={ChevronRightIcon}
+          icon={props => <ChevronRightIcon {...props} style={{ margin: "0 -4px 0 -6px" }} />}
           padding="4px 0px"
           style={{ marginTop: -4 }}
           innerStyle={{ fontFamily: "JetBrains Mono" }}

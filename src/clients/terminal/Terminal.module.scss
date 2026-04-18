@@ -23,7 +23,7 @@
   }
 
   &:focus-within {
-    border-bottom: 1px solid var(--primary-color);
+    border-color: var(--primary-color);
   }
 }
 
