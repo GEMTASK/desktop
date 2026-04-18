@@ -174,8 +174,8 @@ function App() {
     setWindows(windows => windows.map(window => window.id !== id || window.position ? window : {
       ...window,
       position: {
-        x: (document.body.offsetWidth - element.offsetWidth) / 2,
-        y: (document.body.offsetHeight - element.offsetHeight) / 2,
+        x: (document.body.offsetWidth - element.offsetWidth - 240) / 2,
+        y: (document.body.offsetHeight - element.offsetHeight - 32) / 2,
       },
     }));
   };

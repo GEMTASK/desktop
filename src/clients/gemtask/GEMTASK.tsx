@@ -46,9 +46,9 @@ function Sprint() {
   );
 }
 
-function BacklogItem() {
+function BacklogItem({ selected }: { selected?: boolean }) {
   return (
-    <View horizontal padding="8px 16px" fillColor="content">
+    <View horizontal padding="8px 16px" fillColor={selected ? "selected" : "content"}>
       <View flex spacing="8px">
         <Text bold style={{ marginBottom: 4 }} innerStyle={{ lineHeight: "16px" }}>
           An application can be filled out to become a Certified Scrum Trainer
@@ -170,7 +170,7 @@ function ItemBacklog() {
           <View padding="16px">
             <List style={{ overflow: "hidden" }}>
               {items.map(({ title }, index) => (
-                <BacklogItem key={index} />
+                <BacklogItem key={index} selected={index === 0} />
               ))}
             </List>
           </View>
