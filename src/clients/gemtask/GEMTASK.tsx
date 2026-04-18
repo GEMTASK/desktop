@@ -35,7 +35,7 @@ function Sprint() {
         </Text>
       </View>
       {isBacklogVisible && (
-        <View border="bottom" padding="16px" fillColor="gutter">
+        <View padding="16px" fillColor="gutter">
           <List>
             <BacklogItem />
             <BacklogItem />
