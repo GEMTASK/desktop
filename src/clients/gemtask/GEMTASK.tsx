@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BookIcon, BookmarkIcon, CalendarIcon, ChevronDownIcon, FlagIcon, SearchIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
+import { BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon, SettingsIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
@@ -113,6 +113,23 @@ const sprints = [
 ];
 
 function ItemBacklog() {
+  const itemTypeSelectOptions = [
+    {
+      options: [
+        { label: "Any", value: undefined },
+      ],
+    },
+    {
+      options: [
+        { icon: BookIcon, label: "Story", value: "STORY" },
+        { icon: SettingsIcon, label: "Chore", value: "BACKLOG" },
+        { icon: BugIcon, label: "Defect", value: "TO_DO" },
+        { icon: ClockIcon, label: "Spike", value: "IN_PROGRESS" },
+        { icon: LayersIcon, label: "Epic", value: "IN_REVIEW" },
+      ],
+    },
+  ];
+
   return (
     <View flex style={{ minHeight: 0 }}>
       <View negativeBorder border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
@@ -130,7 +147,7 @@ function ItemBacklog() {
           </Button>
         </View>
         <View horizontal spacing="16px">
-          <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
+          <Select label="Type" value={"STORY"} options={itemTypeSelectOptions} />
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
       </View>
@@ -184,7 +201,7 @@ function ItemOverview() {
               Updated Sat, Mar 21, 2026
             </Text>
           </View>
-          <View horizontal spacing="8px" fillColor="panel" todo align="middle left">
+          <View horizontal spacing="8px" fillColor="panel" /* TODO */ align="middle left">
             <Menu items={[
               <Menu.Item icon={FlagIcon} title="Flag Item" />,
               <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,

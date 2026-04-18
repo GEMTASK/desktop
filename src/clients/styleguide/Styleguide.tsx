@@ -14,7 +14,7 @@ const CheckboxField = Form.Field.withComponent(Checkbox);
 function Styleguide() {
   const [itemFilters, setItemFilters] = useState<{
     itemType: undefined | "TO_DO",
-    sendSpam: boolean
+    sendSpam: boolean,
   }>({
     itemType: "TO_DO",
     sendSpam: true,
@@ -156,7 +156,7 @@ function Styleguide() {
         <Form fields={itemFilters} spacing="16px" onFieldChange={handleItemFiltersUpdate}>
           <View horizontal spacing="16px">
             <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
-            <SelectField label="Status" name="status" options={itemTypeSelectOptions} />
+            <SelectField label="Status" name="status" options={itemStatusSelectOptions} />
           </View>
 
           <View spacing="8px">

@@ -125,7 +125,7 @@ const clients: Record<string, Client> = {
     icon: BrainCircuitIcon, title: "Virtual Machine", size: { width: 435, height: 870 }, client: <IFrame name="virtual-machine" />,
   },
   "gemtask": {
-    icon: GemIcon, title: "GEMTASK", size: { width: 1600, height: 900 }, client: <GEMTASK />,
+    icon: GemIcon, title: "GEMTASK Mock", size: { width: 1600, height: 900 }, client: <GEMTASK />,
   },
 } as const;
 

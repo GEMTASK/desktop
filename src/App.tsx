@@ -52,7 +52,7 @@ const programsMenuItems = [
   <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" />,
   <Menu.Item title="Vector Draw" value="vector-draw" />,
   <Menu.Item title="Virtual Machine" value="virtual-machine" />,
-  <Menu.Item title="GEMTASK" value="gemtask" />,
+  <Menu.Item title="GEMTASK Mock" value="gemtask" />,
   <Menu.Divider />,
   <Menu.Group label="Games & Visuals" />,
   <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
