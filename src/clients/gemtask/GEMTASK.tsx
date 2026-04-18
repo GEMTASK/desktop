@@ -35,12 +35,24 @@ function Sprint() {
         </Text>
       </View>
       {isBacklogVisible && (
-        <View padding="16px" fillColor="gutter">
-          <List>
-            <BacklogItem />
-            <BacklogItem />
-          </List>
-        </View>
+        <>
+          <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="panel">
+            <View>
+              <Chip light fontSize="12px" fillColor="icon">
+                Basic Authentication
+              </Chip>
+            </View>
+            <Button cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 30 }}>
+              Actions
+            </Button>
+          </View>
+          <View padding="16px" fillColor="gutter">
+            <List>
+              <BacklogItem />
+              <BacklogItem />
+            </List>
+          </View>
+        </>
       )}
     </View>
   );
@@ -55,7 +67,7 @@ function BacklogItem({ selected }: { selected?: boolean }) {
         </Text>
         <View horizontal spacing="12px" align="middle left">
           <View horizontal spacing="4px" align="middle left">
-            <Icon icon={BookIcon} size={14} style={{ marginTop: -4, marginBottom: -4 }} />
+            <Icon icon={BookIcon} size={14} style={{ marginTop: -4, marginBottom: -4, color: "#748ffc" }} />
             <Text light bold fontSize="12px">
               ENG-2
             </Text>
@@ -76,7 +88,7 @@ function BacklogItem({ selected }: { selected?: boolean }) {
         </Avatar.Stack>
         <View spacing="8px">
           <View horizontal spacing="4px" align="middle left">
-            <Icon icon={SquareIcon} size={14} color="primary" fill="currentColor" style={{ margin: "-2px 0" }} />
+            <Icon icon={SquareIcon} size={14} color="primary" fill="currentColor" style={{ margin: "-2px 0", color: "#a5d8ff" }} />
             <Text bold>
               In Progress
             </Text>
