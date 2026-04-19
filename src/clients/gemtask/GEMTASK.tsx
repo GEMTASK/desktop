@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
   BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon,
-  SettingsIcon, SquareIcon, XIcon, ZapIcon
+  SettingsIcon, SquareIcon, XIcon, ZapIcon,
 } from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
@@ -246,7 +246,7 @@ function ItemOverview() {
           flush
           border="none"
           value="An application can be filled out to become a Certified Scrum Trainer"
-          innerStyle={{ fontSize: 18 }}
+          innerStyle={{ fontSize: 18, height: 22 }}
         />
         <View horizontal spacing="16px">
           <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />

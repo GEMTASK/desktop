@@ -15,10 +15,11 @@
 .Input {
   &.flush {
     padding-left: 0;
-    margin: -9px 0 -7px 0;
+    margin: -8px 0 -8px 0;
 
     &:focus-within {
-      margin-bottom: -8px;
+      border-bottom: 1px solid var(--primary-color);
+      margin-bottom: -9px;
     }
   }
 
@@ -38,6 +39,5 @@ textarea {
   outline: none;
   width: 100%;
   resize: none;
-  // margin-top: -1;
   color: var(--text-color);
 }
