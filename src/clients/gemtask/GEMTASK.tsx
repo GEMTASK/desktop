@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon, SettingsIcon, SquareDashed, SquareIcon, XIcon } from "lucide-react";
+import {
+  BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon,
+  SettingsIcon, SquareIcon, XIcon, ZapIcon
+} from "lucide-react";
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
@@ -161,6 +164,20 @@ function ItemBacklog() {
         <View horizontal spacing="16px">
           <Select label="Type" value={"STORY"} options={itemTypeSelectOptions} />
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
+        </View>
+        <View horizontal spacing="16px">
+          <View horizontal spacing="4px" align="middle left" style={{ marginBottom: -2 }}>
+            <Icon icon={FlagIcon} size={14} />
+            <Text>
+              Flagged Items
+            </Text>
+          </View>
+          <View horizontal spacing="4px" align="middle left" style={{ marginBottom: -2 }}>
+            <Icon icon={ZapIcon} size={14} />
+            <Text>
+              Unpointed Items
+            </Text>
+          </View>
         </View>
       </View>
       {/*  */}
