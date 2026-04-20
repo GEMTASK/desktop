@@ -241,12 +241,14 @@ function ItemOverview() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   const handleTabSelect = (index: number) => {
-    setSelectedTabIndex(index);
+    document.querySelector(`#${overviewTabs[index]?.id}`)?.scrollIntoView();
   };
 
-  useLayoutEffect(() => {
-    document.querySelector(`#${overviewTabs[selectedTabIndex]?.id}`)?.scrollIntoView();
-  }, [selectedTabIndex]);
+  const handleScrollEnd = (event: React.UIEvent) => {
+    setSelectedTabIndex(
+      Math.round(event.currentTarget.scrollLeft / (event.currentTarget.scrollWidth - event.currentTarget.clientWidth) * 2),
+    );
+  };
 
   return (
     <View flex>
@@ -327,13 +329,13 @@ function ItemOverview() {
         </View>
       </View>
       {/*  */}
-      <View flex horizontal style={{ overflowX: "auto", scrollSnapType: "x mandatory" }}>
+      <View flex horizontal style={{ overflowX: "auto", scrollSnapType: "x mandatory" }} onScrollEnd={handleScrollEnd}>
         <View id="item-overview-details" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
           {selectedTabIndex === 0 && (
             <Label label="Summary">
               <Text>
                 But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 Asdf
               </Text>
             </Label>
@@ -345,7 +347,7 @@ function ItemOverview() {
             <Label label="Comments">
               <Text>
                 But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 Asdf
               </Text>
             </Label>
@@ -357,7 +359,7 @@ function ItemOverview() {
             <Label label="Updates">
               <Text>
                 But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
                 Asdf
               </Text>
             </Label>
