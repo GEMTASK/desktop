@@ -166,7 +166,7 @@ function ItemBacklog() {
 
   return (
     <View flex style={{ minHeight: 0 }}>
-      <View negativeBorder border="bottom" padding="8px 16px" spacing="16px" fillColor="panel" zIndex={3}>
+      <View negativeBorder border="bottom" padding="16px" spacing="16px" fillColor="panel" zIndex={3} style={{ paddingBottom: 8 }}>
         <View horizontal align="top justify" fillColor="panel">
           <View spacing="8px">
             <Text light fontSize="12px">
@@ -237,6 +237,8 @@ const overviewTabs = [
   { id: "item-overview-updates", title: "Updates" },
 ];
 
+const summary = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.";
+
 function ItemOverview() {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
@@ -252,7 +254,7 @@ function ItemOverview() {
 
   return (
     <View flex>
-      <View padding="8px 16px" spacing="16px" border="bottom" fillColor="panel" style={{ paddingBottom: 0 }}>
+      <View padding="16px" spacing="16px" border="bottom" fillColor="panel" style={{ paddingBottom: 0 }}>
         <View horizontal fillColor="panel" align="top justify">
           <View spacing="8px">
             <View horizontal spacing="12px">
@@ -332,13 +334,11 @@ function ItemOverview() {
       <View flex horizontal style={{ overflowX: "auto", scrollSnapType: "x mandatory" }} onScrollEnd={handleScrollEnd}>
         <View id="item-overview-details" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
           {selectedTabIndex === 0 && (
-            <Label label="Summary">
-              <Text>
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                Asdf
-              </Text>
-            </Label>
+            <View spacing="16px">
+              <Input flush label="Summary" border="none" value={summary} />
+              <Input flush label="Criteria" border="none" value="But I must explain to you" />
+              <Input flush label="Out of Scope" border="none" value="" />
+            </View>
           )}
         </View>
         <Divider />

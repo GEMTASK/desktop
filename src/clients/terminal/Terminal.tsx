@@ -1,6 +1,6 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
 import { ListObjectsV2Command, S3Client } from "@aws-sdk/client-s3";
-import { type Delegate, Icon, Text, View } from "onyx-ui";
+import { type Delegate, Icon, Label, Text, View } from "onyx-ui";
 import { ChevronRightIcon, LoaderCircleIcon } from "lucide-react";
 
 import Clock from "../clock";
@@ -70,6 +70,7 @@ class PwdCommand extends KopiValue {
 //
 
 const Input = ({
+  label,
   value: _value,
   lines,
   border = true,
@@ -80,6 +81,7 @@ const Input = ({
   onValueChange,
   ...props
 }: Delegate<{
+  label?: React.ComponentProps<typeof Label>["label"],
   value?: string,
   lines?: number,
   flush?: boolean,
@@ -120,19 +122,21 @@ const Input = ({
   ].filter(className => className).join(" ");
 
   return (
-    <View horizontal border={border} align="middle left" padding="4px 8px" spacing="4px" className={inputClassName} {...props}>
-      {icon && (
-        <Icon icon={icon} size={20} />
-      )}
-      <textarea
-        ref={textAreaElementRef}
-        value={value}
-        name="textarea"
-        style={{ background: "transparent", ...innerStyle }}
-        onKeyDown={handleKeyDown}
-        onChange={handleChange}
-      />
-    </View>
+    <Label label={label}>
+      <View horizontal border={border} align="middle left" padding="4px 8px" spacing="4px" className={inputClassName} {...props}>
+        {icon && (
+          <Icon icon={icon} size={20} />
+        )}
+        <textarea
+          ref={textAreaElementRef}
+          value={value}
+          name="textarea"
+          style={{ background: "transparent", ...innerStyle }}
+          onKeyDown={handleKeyDown}
+          onChange={handleChange}
+        />
+      </View>
+    </Label>
   );
 };
 
