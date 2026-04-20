@@ -137,10 +137,29 @@ function ItemBacklog() {
     {
       options: [
         { icon: BookIcon, label: "Story", value: "STORY" },
-        { icon: SettingsIcon, label: "Chore", value: "BACKLOG" },
+        { icon: SettingsIcon, label: "Chore", value: "CHORE" },
         { icon: BugIcon, label: "Defect", value: "TO_DO" },
-        { icon: ClockIcon, label: "Spike", value: "IN_PROGRESS" },
-        { icon: LayersIcon, label: "Epic", value: "IN_REVIEW" },
+        { icon: ClockIcon, label: "Spike", value: "SPIKE" },
+        { icon: LayersIcon, label: "Epic", value: "EPIC" },
+      ],
+    },
+  ];
+
+  const itemStatusSelectOptions = [
+    {
+      options: [
+        { label: "Any", value: undefined },
+        { label: "None", value: null },
+      ],
+    },
+    {
+      options: [
+        { icon: BookIcon, label: "Conceptual", value: "STORY" },
+        { icon: SettingsIcon, label: "Backlog", value: "BACKLOG" },
+        { icon: BugIcon, label: "To Do", value: "TO_DO" },
+        { icon: ClockIcon, label: "In Progress", value: "IN_PROGRESS" },
+        { icon: LayersIcon, label: "In Review", value: "IN_REVIEW" },
+        { icon: LayersIcon, label: "Done", value: "DONE" },
       ],
     },
   ];
@@ -163,7 +182,7 @@ function ItemBacklog() {
         </View>
         <View horizontal spacing="16px">
           <Select label="Type" value={"STORY"} options={itemTypeSelectOptions} />
-          <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
+          <Select label="Status" value={"BACKLOG"} options={itemStatusSelectOptions} />
         </View>
         <View horizontal spacing="16px">
           <View horizontal spacing="4px" align="middle left" cursor="pointer" style={{ marginBottom: -2 }}>
