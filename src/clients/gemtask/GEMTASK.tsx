@@ -166,13 +166,13 @@ function ItemBacklog() {
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
         <View horizontal spacing="16px">
-          <View horizontal spacing="4px" align="middle left" style={{ marginBottom: -2 }}>
+          <View horizontal spacing="4px" align="middle left" cursor="pointer" style={{ marginBottom: -2 }}>
             <Icon icon={FlagIcon} size={14} />
             <Text>
               Flagged Items
             </Text>
           </View>
-          <View horizontal spacing="4px" align="middle left" style={{ marginBottom: -2 }}>
+          <View horizontal spacing="4px" align="middle left" cursor="pointer" style={{ marginBottom: -2 }}>
             <Icon icon={ZapIcon} size={14} />
             <Text>
               Unpointed Items
