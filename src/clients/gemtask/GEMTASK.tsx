@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon,
   SettingsIcon, SquareIcon, XIcon, ZapIcon,
@@ -231,7 +231,23 @@ function ItemBacklog() {
   );
 }
 
+const overviewTabs = [
+  { id: "item-overview-details", title: "Details" },
+  { id: "item-overview-comments", title: "Comments" },
+  { id: "item-overview-updates", title: "Updates" },
+];
+
 function ItemOverview() {
+  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
+
+  const handleTabSelect = (index: number) => {
+    setSelectedTabIndex(index);
+  };
+
+  useLayoutEffect(() => {
+    document.querySelector(`#${overviewTabs[selectedTabIndex]?.id}`)?.scrollIntoView();
+  }, [selectedTabIndex]);
+
   return (
     <View flex>
       <View padding="8px 16px" spacing="16px" border="bottom" fillColor="panel" style={{ paddingBottom: 0 }}>
@@ -272,30 +288,81 @@ function ItemOverview() {
           <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
         </View>
         <View horizontal spacing="16px">
-          <Text fontSize="18px" cursor="pointer" negativeBorder border="bottom" borderColor="primary" style={{ paddingBottom: 8 }}>
+          <Text
+            light={selectedTabIndex !== 0}
+            fontSize="18px"
+            cursor="pointer"
+            negativeBorder
+            border="bottom"
+            borderColor={selectedTabIndex === 0 ? "primary" : undefined}
+            style={{ paddingBottom: 8 }}
+            onClick={() => handleTabSelect(0)}
+          >
             Details
           </Text>
-          <Text light fontSize="18px" cursor="pointer" style={{ paddingBottom: 8 }} innerStyle={{ opacity: 0.6 }}>
+          <Text
+            light={selectedTabIndex !== 1}
+            fontSize="18px"
+            cursor="pointer"
+            negativeBorder
+            border="bottom"
+            borderColor={selectedTabIndex === 1 ? "primary" : undefined}
+            style={{ paddingBottom: 8 }}
+            onClick={() => handleTabSelect(1)}
+          >
             Comments
           </Text>
-          <Text light fontSize="18px" cursor="pointer" style={{ paddingBottom: 8 }} innerStyle={{ opacity: 0.6 }}>
+          <Text
+            light={selectedTabIndex !== 2}
+            fontSize="18px"
+            cursor="pointer"
+            negativeBorder
+            border="bottom"
+            borderColor={selectedTabIndex === 2 ? "primary" : undefined}
+            style={{ paddingBottom: 8 }}
+            onClick={() => handleTabSelect(2)}
+          >
             Updates
           </Text>
         </View>
       </View>
       {/*  */}
-      <View padding="16px" style={{ overflow: "auto" }}>
-        <Label label="Summary">
-          <Text>
-            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-            <br />
-            <br />
-            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-            <br />
-            <br />
-            But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-          </Text>
-        </Label>
+      <View flex horizontal style={{ overflowX: "auto", scrollSnapType: "x mandatory" }}>
+        <View id="item-overview-details" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
+          {selectedTabIndex === 0 && (
+            <Label label="Summary">
+              <Text>
+                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                Asdf
+              </Text>
+            </Label>
+          )}
+        </View>
+        <Divider />
+        <View id="item-overview-comments" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
+          {selectedTabIndex === 1 && (
+            <Label label="Comments">
+              <Text>
+                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                Asdf
+              </Text>
+            </Label>
+          )}
+        </View>
+        <Divider />
+        <View id="item-overview-updates" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
+          {selectedTabIndex === 2 && (
+            <Label label="Updates">
+              <Text>
+                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+                Asdf
+              </Text>
+            </Label>
+          )}
+        </View>
       </View>
     </View>
   );
