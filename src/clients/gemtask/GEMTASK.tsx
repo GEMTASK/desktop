@@ -6,6 +6,7 @@ import {
 
 import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
+import CommentsTab from "./CommentsTab";
 
 function SectionHeader({
   children,
@@ -342,15 +343,9 @@ function ItemOverview() {
           )}
         </View>
         <Divider />
-        <View id="item-overview-comments" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
+        <View id="item-overview-comments" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
           {selectedTabIndex === 1 && (
-            <Label label="Comments">
-              <Text>
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                Asdf
-              </Text>
-            </Label>
+            <CommentsTab />
           )}
         </View>
         <Divider />

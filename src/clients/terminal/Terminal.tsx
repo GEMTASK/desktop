@@ -76,6 +76,7 @@ const Input = ({
   border = true,
   flush,
   icon,
+  placeholder,
   changeOnEnter,
   innerStyle,
   onValueChange,
@@ -86,6 +87,7 @@ const Input = ({
   lines?: number,
   flush?: boolean,
   icon?: React.ComponentProps<typeof Icon>["icon"],
+  placeholder?: React.ComponentProps<"input">["placeholder"],
   innerStyle?: React.ComponentProps<"textarea">["style"],
   changeOnEnter?: boolean,
   onValueChange?: (value: string) => void,
@@ -122,7 +124,7 @@ const Input = ({
   ].filter(className => className).join(" ");
 
   return (
-    <Label label={label}>
+    <Label flex label={label}>
       <View horizontal border={border} align="middle left" padding="4px 8px" spacing="4px" className={inputClassName} {...props}>
         {icon && (
           <Icon icon={icon} size={20} />
@@ -131,6 +133,7 @@ const Input = ({
           ref={textAreaElementRef}
           value={value}
           name="textarea"
+          placeholder={placeholder}
           style={{ background: "transparent", ...innerStyle }}
           onKeyDown={handleKeyDown}
           onChange={handleChange}
