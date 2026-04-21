@@ -8,10 +8,12 @@ function SectionHeader({
   ...props
 }: Delegate<object, typeof View<"div">>) {
   return (
-    <View sticky negativeBorder border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: 16 }} {...props}>
-      <Text light caps innerStyle={{ fontSize: 11 }}>
-        {children}
-      </Text>
+    <View sticky negativeBorder border="top bottom" padding="8px 16px" fillColor="gutter" zIndex={2} style={{ paddingTop: children ? 16 : 0 }} {...props}>
+      {children && (
+        <Text light caps innerStyle={{ fontSize: 11 }}>
+          {children}
+        </Text>
+      )}
     </View>
   );
 }
@@ -62,7 +64,7 @@ function Comment({ replies }: { replies: string[] }) {
 
 function CommentsTab() {
   return (
-    <View fillColor="gutter" style={{ overflowY: "auto" }}>
+    <View flex style={{ overflowY: "auto" }}>
       <View horizontal padding="8px 16px" border="bottom" align="bottom left" fillColor="content">
         <Input flex border="none" padding="4px 0px" placeholder="Add a comment..." />
         <Button primary cornerRadius="max">
@@ -72,12 +74,12 @@ function CommentsTab() {
       <SectionHeader>
         All Comments
       </SectionHeader>
-      <View spacing="8px">
+      <View spacing="8px" fillColor="gutter">
         <Comment replies={["One", "Two"]} />
         <Comment replies={[]} />
       </View>
-      <SectionHeader>
-      </SectionHeader>
+      <SectionHeader />
+      <View flex fillColor="content" />
     </View>
   );
 }
