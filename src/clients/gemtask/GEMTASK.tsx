@@ -3,10 +3,13 @@ import {
   BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon,
   SettingsIcon, SquareIcon, XIcon, ZapIcon,
 } from "lucide-react";
+import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, Tabs, type Delegate, Form } from "onyx-ui";
 
-import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, type Delegate } from "onyx-ui";
 import { Input } from "../terminal/Terminal";
+
+import DetailsTab from "./DetailsTab";
 import CommentsTab from "./CommentsTab";
+import UpdatesTab from "./UpdatesTab";
 
 function SectionHeader({
   children,
@@ -253,6 +256,11 @@ function ItemOverview() {
     );
   };
 
+  const actionsMenuItems = [
+    <Menu.Item icon={FlagIcon} title="Flag Item" />,
+    <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
+  ];
+
   return (
     <View flex>
       <View padding="16px" spacing="16px" border="bottom" fillColor="panel" style={{ paddingBottom: 0 }}>
@@ -271,75 +279,33 @@ function ItemOverview() {
             </Text>
           </View>
           <View horizontal spacing="8px" fillColor="panel" /* TODO */ align="middle left">
-            <Menu items={[
-              <Menu.Item icon={FlagIcon} title="Flag Item" />,
-              <Menu.Item icon={BookmarkIcon} title="Bookmark Item" />,
-            ]}>
-              <Button solid cornerRadius="max" rightIcon={ChevronDownIcon} style={{ minHeight: 30 }}>
-                Actions
-              </Button>
-            </Menu>
+            <Button.Menu solid items={actionsMenuItems} cornerRadius="max">
+              Actions
+            </Button.Menu>
             <Button icon={XIcon} cornerRadius="max" style={{ minHeight: 30 }} />
           </View>
         </View>
-        <Input
-          flush
-          border="none"
-          value="An application can be filled out to become a Certified Scrum Trainer"
-          innerStyle={{ fontSize: 18, height: 22 }}
-        />
-        <View horizontal spacing="16px">
-          <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
-          <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
-        </View>
-        <View horizontal spacing="16px">
-          <Text
-            light={selectedTabIndex !== 0}
-            fontSize="18px"
-            cursor="pointer"
-            negativeBorder
-            border="bottom"
-            borderColor={selectedTabIndex === 0 ? "primary" : undefined}
-            style={{ paddingBottom: 8 }}
-            onClick={() => handleTabSelect(0)}
-          >
-            Details
-          </Text>
-          <Text
-            light={selectedTabIndex !== 1}
-            fontSize="18px"
-            cursor="pointer"
-            negativeBorder
-            border="bottom"
-            borderColor={selectedTabIndex === 1 ? "primary" : undefined}
-            style={{ paddingBottom: 8 }}
-            onClick={() => handleTabSelect(1)}
-          >
-            Comments
-          </Text>
-          <Text
-            light={selectedTabIndex !== 2}
-            fontSize="18px"
-            cursor="pointer"
-            negativeBorder
-            border="bottom"
-            borderColor={selectedTabIndex === 2 ? "primary" : undefined}
-            style={{ paddingBottom: 8 }}
-            onClick={() => handleTabSelect(2)}
-          >
-            Updates
-          </Text>
-        </View>
+        <Form fields={{}} spacing="16px">
+          <Input
+            flush
+            border="none"
+            value="An application can be filled out to become a Certified Scrum Trainer"
+            innerStyle={{ fontSize: 18, height: 22 }}
+          />
+          <View horizontal spacing="16px">
+            <Select label="Type" value={"STORY"} options={[{ value: "STORY", label: "Story" }]} />
+            <Select label="Status" value={"BACKLOG"} options={[{ value: "BACKLOG", label: "Backlog" }]} />
+          </View>
+        </Form>
+        <Tabs selectedTabIndex={selectedTabIndex} onTabSelect={index => handleTabSelect(index)}>
+          {overviewTabs}
+        </Tabs>
       </View>
       {/*  */}
       <View flex horizontal style={{ overflowX: "auto", scrollSnapType: "x mandatory" }} onScrollEnd={handleScrollEnd}>
         <View id="item-overview-details" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
           {selectedTabIndex === 0 && (
-            <View spacing="16px">
-              <Input flush label="Summary" border="none" value={summary} />
-              <Input flush label="Criteria" border="none" value="But I must explain to you" />
-              <Input flush label="Out of Scope" border="none" value="" />
-            </View>
+            <DetailsTab />
           )}
         </View>
         <Divider />
@@ -351,13 +317,7 @@ function ItemOverview() {
         <Divider />
         <View id="item-overview-updates" padding="16px" style={{ flexShrink: 0, flexBasis: "100%", overflowY: "auto", scrollSnapAlign: "start" }}>
           {selectedTabIndex === 2 && (
-            <Label label="Updates">
-              <Text>
-                But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.
-                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-                Asdf
-              </Text>
-            </Label>
+            <UpdatesTab />
           )}
         </View>
       </View>
@@ -372,7 +332,6 @@ function ItemOverview() {
 function GEMTASK() {
   return (
     <View flex style={{ minHeight: 0 }}>
-      {/*  */}
       <View horizontal border="bottom" padding="8px 16px" align="middle justify" fillColor="white">
         <View flex spacing="8px">
           <Text>
