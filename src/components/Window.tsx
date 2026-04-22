@@ -153,7 +153,7 @@ function Window({
   }, [minimized]);
 
   return (
-    <View id="window" ref={windowElementRef} absolute shadow cornerRadius="4px" className={styles.element} style={{
+    <View id="window" ref={windowElementRef} absolute shadow="heavy" cornerRadius="4px" className={styles.element} style={{
       left: position?.x, top: position?.y, width: size.width, height: size.height, zIndex: order,
     }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, top: 30, pointerEvents: "none" }} />
