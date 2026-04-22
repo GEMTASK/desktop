@@ -79,7 +79,6 @@ function CommentsTab() {
         <Comment replies={[]} />
       </View>
       <SectionHeader />
-      <View flex fillColor="content" />
     </View>
   );
 }
