@@ -1,11 +1,9 @@
 import React, { useLayoutEffect, useState } from "react";
 import {
   BookIcon, BookmarkIcon, BugIcon, CalendarIcon, ChevronDownIcon, ClockIcon, FlagIcon, LayersIcon, SearchIcon,
-  SettingsIcon, SquareIcon, XIcon, ZapIcon,
+  SettingsIcon, SquareIcon, TrashIcon, XIcon, ZapIcon,
 } from "lucide-react";
-import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, Tabs, type Delegate, Form } from "onyx-ui";
-
-import { Input } from "../terminal/Terminal";
+import { Avatar, Button, Chip, Divider, Icon, Label, List, Menu, Select, Text, View, Tabs, type Delegate, Form, Input } from "onyx-ui";
 
 import DetailsTab from "./DetailsTab";
 import CommentsTab from "./CommentsTab";
@@ -65,9 +63,21 @@ function Sprint() {
   );
 }
 
-function BacklogItem({ selected }: { selected?: boolean }) {
+function BacklogItem({
+  teamKeySeqId,
+  selected,
+  onItemSelect,
+}: {
+  teamKeySeqId: string,
+  selected: boolean,
+  onItemSelect: (teamKeySeqId: string) => void,
+}) {
+  const handleClick = () => {
+    onItemSelect(teamKeySeqId);
+  };
+
   return (
-    <View horizontal padding="8px 16px" fillColor={selected ? "selected" : "content"}>
+    <View horizontal padding="8px 16px" fillColor={selected ? "selected" : "content"} onClick={handleClick}>
       <View flex spacing="8px">
         <Text bold style={{ marginBottom: 4 }} innerStyle={{ lineHeight: "16px" }}>
           An application can be filled out to become a Certified Scrum Trainer
@@ -85,6 +95,7 @@ function BacklogItem({ selected }: { selected?: boolean }) {
           <Chip light bold icon={CalendarIcon} fontSize="12px" fillColor="highlight">
             Apr 15
           </Chip>
+          <Icon light icon={TrashIcon} size={14} />
         </View>
       </View>
       {/*  */}
@@ -118,11 +129,11 @@ function BacklogItem({ selected }: { selected?: boolean }) {
 }
 
 const items = [
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
-  { title: "An application can be filled out to become a Certified Scrum Trainer" },
+  { teamKeySeqId: "ENG-0", title: "ENG-0" },
+  { teamKeySeqId: "ENG-1", title: "ENG-1" },
+  { teamKeySeqId: "ENG-2", title: "ENG-2" },
+  { teamKeySeqId: "ENG-3", title: "ENG-3" },
+  { teamKeySeqId: "ENG-4", title: "ENG-4" },
 ];
 
 const sprints = [
@@ -132,6 +143,12 @@ const sprints = [
 ];
 
 function ItemBacklog() {
+  const [selectedTeamKeySeqId, setSelectedTeamKeySeqId] = useState<string | null>(null);
+
+  const handleItemSelect = (teamKeySeqId: string) => {
+    setSelectedTeamKeySeqId(teamKeySeqId);
+  };
+
   const itemTypeSelectOptions = [
     {
       options: [
@@ -169,68 +186,72 @@ function ItemBacklog() {
   ];
 
   return (
-    <View flex style={{ minHeight: 0 }}>
-      <View negativeBorder border="bottom" padding="16px" spacing="16px" fillColor="panel" zIndex={3} style={{ paddingBottom: 8 }}>
-        <View horizontal align="top justify" fillColor="panel">
-          <View spacing="8px">
-            <Text light fontSize="12px">
-              ENG – Engineering
-            </Text>
-            <Text fontSize="24px">
-              Backlog
-            </Text>
+    <View flex horizontal style={{ minHeight: 0 }}>
+      <View flex>
+        <View negativeBorder border="bottom" padding="16px" spacing="16px" fillColor="panel" zIndex={3} style={{ paddingBottom: 8 }}>
+          <View horizontal align="top justify" fillColor="panel">
+            <View spacing="8px">
+              <Text light fontSize="12px">
+                ENG – Engineering
+              </Text>
+              <Text fontSize="24px">
+                Backlog
+              </Text>
+            </View>
+            <Button solid cornerRadius="max" style={{ minHeight: 30 }}>
+              Create Sprint
+            </Button>
           </View>
-          <Button solid cornerRadius="max" style={{ minHeight: 30 }}>
-            Create Sprint
-          </Button>
-        </View>
-        <View horizontal spacing="16px">
-          <Select label="Type" value={"STORY"} options={itemTypeSelectOptions} />
-          <Select label="Status" value={"BACKLOG"} options={itemStatusSelectOptions} />
-        </View>
-        <View horizontal spacing="16px">
-          <View horizontal spacing="4px" align="middle left" cursor="pointer">
-            <Icon icon={FlagIcon} size={14} />
-            <Text>
-              Flagged Items
-            </Text>
+          <View horizontal spacing="16px">
+            <Select label="Type" value={"STORY"} options={itemTypeSelectOptions} />
+            <Select label="Status" value={"BACKLOG"} options={itemStatusSelectOptions} />
           </View>
-          <View horizontal spacing="4px" align="middle left" cursor="pointer">
-            <Icon icon={ZapIcon} size={14} />
-            <Text>
-              Unpointed Items
-            </Text>
+          <View horizontal spacing="16px">
+            <View horizontal spacing="4px" align="middle left" cursor="pointer">
+              <Icon icon={FlagIcon} size={14} />
+              <Text>
+                Flagged Items
+              </Text>
+            </View>
+            <View horizontal spacing="4px" align="middle left" cursor="pointer">
+              <Icon icon={ZapIcon} size={14} />
+              <Text>
+                Unpointed Items
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
-      {/*  */}
-      <View flex fillColor="gutter" style={{ overflow: "scroll" }}>
-        <View>
-          <SectionHeader>
-            Active Sprints
-          </SectionHeader>
+        {/*  */}
+        <View flex fillColor="gutter" style={{ overflow: "scroll" }}>
           <View>
-            {sprints.map((sprint, index) => (
-              <Sprint key={index} />
-            ))}
-          </View>
-        </View>
-        <View>
-          <SectionHeader>
-            Product Backlog
-          </SectionHeader>
-          <View padding="16px">
-            <List style={{ overflow: "hidden" }}>
-              {items.map(({ title }, index) => (
-                <BacklogItem key={index} selected={index === 0} />
+            <SectionHeader>
+              Active Sprints
+            </SectionHeader>
+            <View>
+              {sprints.map((sprint, index) => (
+                <Sprint key={index} />
               ))}
-            </List>
+            </View>
           </View>
+          <View>
+            <SectionHeader>
+              Product Backlog
+            </SectionHeader>
+            <View padding="16px">
+              <List style={{ overflow: "hidden" }}>
+                {items.map(({ teamKeySeqId, title }, index) => (
+                  <BacklogItem key={index} teamKeySeqId={teamKeySeqId} selected={teamKeySeqId === selectedTeamKeySeqId} onItemSelect={handleItemSelect} />
+                ))}
+              </List>
+            </View>
+          </View>
+          <Text padding="16px" align="middle center" style={{ paddingTop: 0 }}>
+            The product backlog is a prioritized list of items with the most valuable at the top
+          </Text>
         </View>
-        <Text padding="16px" align="middle center" style={{ paddingTop: 0 }}>
-          The product backlog is a prioritized list of items with the most valuable at the top
-        </Text>
       </View>
+      <Divider />
+      <ItemOverview title={items.find(item => item.teamKeySeqId === selectedTeamKeySeqId)?.title} />
     </View>
   );
 }
@@ -243,7 +264,7 @@ const overviewTabs = [
 
 const summary = "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.";
 
-function ItemOverview() {
+function ItemOverview({ title }: { title: string }) {
   const [selectedTabIndex, setSelectedTabIndex] = useState(0);
 
   const handleTabSelect = (index: number) => {
@@ -288,8 +309,9 @@ function ItemOverview() {
         <Form fields={{}} spacing="16px">
           <Input
             flush
+            key={title}
             border="none"
-            value="An application can be filled out to become a Certified Scrum Trainer"
+            value={title}
             innerStyle={{ fontSize: 18, height: 22 }}
           />
           <View horizontal spacing="16px">
@@ -350,8 +372,8 @@ function GEMTASK() {
       </View>
       <View flex horizontal style={{ minHeight: 0 }}>
         <ItemBacklog />
-        <Divider />
-        <ItemOverview />
+        {/* <Divider />
+        <ItemOverview title={selected} /> */}
       </View>
     </View>
   );
