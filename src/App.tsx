@@ -184,16 +184,16 @@ function App() {
     <View id="window" style={{ height: "100vh", overflow: "hidden" }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
-        <Menu onSelect={handleMenuSelect} items={desktopMenuItems}>
+        <Menu onItemSelect={handleMenuSelect} items={desktopMenuItems}>
           <Menu.Item title="Desktop" fontWeight="700" padding="8px" />
         </Menu>
-        <Menu onSelect={handleMenuSelect} items={utilitiesMenuItems}>
+        <Menu onItemSelect={handleMenuSelect} items={utilitiesMenuItems}>
           <Menu.Item title="Utilities" padding="8px" />
         </Menu>
-        <Menu onSelect={handleMenuSelect} items={programsMenuItems}>
+        <Menu onItemSelect={handleMenuSelect} items={programsMenuItems}>
           <Menu.Item title="Programs" padding="8px" />
         </Menu>
-        <Menu onSelect={handleLinksMenuSelect} items={[
+        <Menu onItemSelect={handleLinksMenuSelect} items={[
           <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" />,
           <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" />,
           <Menu.Item icon={ExternalLinkIcon} title="Learning React" value="https://codepen.io/collection/dbOKez" />,

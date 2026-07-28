@@ -8,6 +8,7 @@ class KopiNumberConstructor extends KopiValue {
 
     console.log(thatConstructorSymbol);
 
+    // @ts-expect-error foo
     return environment[thatConstructorSymbol][KopiNumberConstructor.symbol](thatArg);
   }
 

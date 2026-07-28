@@ -211,6 +211,7 @@ const Terminal = () => {
         <Input
           border="none"
           changeOnEnter
+          // @ts-expect-error foo
           icon={props => <ChevronRightIcon {...props} style={{ margin: "0 -4px 0 -6px" }} />}
           padding="4px 0px"
           style={{ marginTop: -4 }}

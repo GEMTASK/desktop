@@ -53,8 +53,8 @@ function Sprint() {
           </View>
           <View padding="16px" fillColor="gutter">
             <List>
-              <BacklogItem />
-              <BacklogItem />
+              <BacklogItem teamKeySeqId="ENG-1" />
+              <BacklogItem teamKeySeqId="ENG-2" />
             </List>
           </View>
         </>
@@ -69,11 +69,11 @@ function BacklogItem({
   onItemSelect,
 }: {
   teamKeySeqId: string,
-  selected: boolean,
-  onItemSelect: (teamKeySeqId: string) => void,
+  selected?: boolean,
+  onItemSelect?: (teamKeySeqId: string) => void,
 }) {
   const handleClick = () => {
-    onItemSelect(teamKeySeqId);
+    onItemSelect?.(teamKeySeqId);
   };
 
   return (
@@ -251,7 +251,7 @@ function ItemBacklog() {
         </View>
       </View>
       <Divider />
-      <ItemOverview title={items.find(item => item.teamKeySeqId === selectedTeamKeySeqId)?.title} />
+      <ItemOverview title={items.find(item => item.teamKeySeqId === selectedTeamKeySeqId)?.title ?? ""} />
     </View>
   );
 }
