@@ -39,7 +39,7 @@ function Browser({
         </View>
       )}
       <View flex>
-        <View horizontal border="bottom" padding="8px" spacing="8px" align="middle left" fillColor="panel">
+        <View horizontal border="bottom" padding="8px" spacing="8px" align="middle left" fillColor="panel" style={{ paddingRight: 16 }}>
           <View horizontal>
             <Button hover solid={isLeftPanelOpen} icon={isLeftPanelOpen ? PanelLeftCloseIcon : PanelLeftOpenIcon} style={{ minHeight: 32, padding: "8px 10px" }} onClick={() => setIsLeftPanelOpen(isLeftPanelOpen => !isLeftPanelOpen)} />
             <Button hover icon={HomeIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
