@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ChevronRightIcon, ExternalLinkIcon, Minimize2 } from "lucide-react";
 import { View, Button, Menu, Icon } from "onyx-ui";
 
 import Window from "./components/Window";
-import clients from "./clients.tsx";
+import clients, { startClient } from "./clients.tsx";
 
 import "./App.css";
 
@@ -76,7 +76,7 @@ const programsMenuItems = [
 //
 
 function App() {
-  const [windows, setWindows] = useState(startupClients.map(client => ({
+  const [windows, setWindows] = useState(location.pathname !== "/" ? [] : startupClients.map(client => ({
     id: crypto.randomUUID(),
     ...client,
   })));
@@ -87,7 +87,7 @@ function App() {
 
     setWindows(windows => [
       ...windows,
-      { id, ...client, position: { x: 0, y: 0 } },
+      { id, ...client },
     ]);
 
     setOrderedWindowIds(orderedWindowIds => [
@@ -179,6 +179,35 @@ function App() {
       },
     }));
   };
+
+  useEffect(() => {
+    const handleWindowMessage = (event: MessageEvent) => {
+      const client = startClient(event.data.client, event.data.args);
+
+      if (client) {
+        addWindow(client);
+      }
+    };
+
+    window.addEventListener("message", handleWindowMessage);
+
+    setTimeout(() => {
+      const args = new URLSearchParams(window.location.search);
+
+      const jsonObject = Object.fromEntries(args.entries());
+      const jsonString = JSON.stringify(jsonObject);
+
+      const client = startClient(location.pathname.slice(1), jsonObject);
+
+      if (client) {
+        addWindow(client);
+      }
+    });
+
+    return () => {
+      window.removeEventListener("message", handleWindowMessage);
+    };
+  }, []);
 
   return (
     <View id="window" style={{ height: "100vh", overflow: "hidden" }}>

@@ -51,6 +51,14 @@ type Client = {
   minimized?: boolean,
 };
 
+function startClient(client: string, args?: Record<string, string>) {
+  switch (client) {
+    case "browser": return {
+      icon: GlobeIcon, title: "Browser", size: { width: 1500, height: 1100 }, client: <Browser args={args} />,
+    };
+  }
+}
+
 const clients: Record<string, Client> = {
   "about": {
     icon: CircleQuestionMarkIcon, title: "About", size: { width: 500, height: 255 }, client: <About />,
@@ -130,3 +138,7 @@ const clients: Record<string, Client> = {
 } as const;
 
 export default clients;
+
+export {
+  startClient,
+};

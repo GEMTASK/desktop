@@ -4,8 +4,20 @@ import { BookmarkIcon, CalendarsIcon, HistoryIcon, HomeIcon, MenuIcon, PlusIcon 
 
 import { Input } from "../terminal/Terminal";
 
-function Browser() {
-  const [url, setUrl] = useState("https://gemtask.github.io");
+function Browser({
+  args,
+}: {
+  args?: Record<string, string>,
+}) {
+  const [url, setUrl] = useState(args?.url ?? "https://gemtask.github.io");
+
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      setUrl((event.target as HTMLInputElement).value);
+    }
+  };
 
   return (
     <View flex horizontal>
@@ -26,7 +38,7 @@ function Browser() {
       <View flex>
         <View horizontal border="bottom" padding="8px" spacing="8px" align="middle left" fillColor="panel">
           <Button hover icon={HomeIcon} style={{ minHeight: 32, padding: "8px 10px" }} />
-          <Input flex border value={url} fillColor="content" cornerRadius="2px" style={{ minHeight: 32 }} />
+          <Input flex border value={url} fillColor="content" cornerRadius="2px" style={{ minHeight: 32 }} onKeyDown={handleInputKeyDown} />
         </View>
         <View flex as="iframe" src={url} />
       </View>
