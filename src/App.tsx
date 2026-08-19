@@ -5,6 +5,7 @@ import { View, Button, Menu, Icon } from "onyx-ui";
 import Window from "./components/Window";
 import clients, { startClient } from "./clients.tsx";
 
+import wallpaperImage from "./assets/wallpaper.jpg";
 import "./App.css";
 
 //
@@ -192,15 +193,17 @@ function App() {
     window.addEventListener("message", handleWindowMessage);
 
     setTimeout(() => {
-      const args = new URLSearchParams(window.location.search);
+      const clientName = location.pathname.slice(1).split("/").at(-1);
 
-      const jsonObject = Object.fromEntries(args.entries());
-      const jsonString = JSON.stringify(jsonObject);
+      if (clientName) {
+        const args = new URLSearchParams(window.location.search);
+        const argsObject = Object.fromEntries(args.entries());
 
-      const client = startClient(location.pathname.slice(1), jsonObject);
+        const client = startClient(clientName, argsObject);
 
-      if (client) {
-        addWindow(client);
+        if (client) {
+          addWindow(client);
+        }
       }
     });
 
@@ -230,7 +233,7 @@ function App() {
           <Menu.Item title="Links" padding="8px" />
         </Menu>
       </View>
-      <View flex fillColor="panel" style={{ background: "url('/wallpaper.jpg') center center / cover" }}>
+      <View flex fillColor="panel" style={{ background: `url('${wallpaperImage}') center center / cover` }}>
         <View
           absolute
           style={{
