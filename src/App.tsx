@@ -105,7 +105,7 @@ function App() {
   };
 
   const handleWindowFocus = (id: string) => {
-    setOrderedWindowIds(orderedWindowIds => [
+    setOrderedWindowIds(orderedWindowIds => orderedWindowIds.at(-1) === id ? orderedWindowIds : [
       ...orderedWindowIds.filter(windowId => windowId !== id),
       id,
     ]);
@@ -183,10 +183,21 @@ function App() {
 
   useEffect(() => {
     const handleWindowMessage = (event: MessageEvent) => {
-      const client = startClient(event.data.client, event.data.args);
+      if (event.data.action === "START_CLIENT") {
+        const client = startClient(event.data.client, event.data.args);
 
-      if (client) {
-        addWindow(client);
+        if (client) {
+          addWindow(client);
+        }
+      } else if (event.data.action === "WINDOW_TO_FRONT") {
+        const iframes = Array.from(document.querySelectorAll("iframe"));
+
+        const sourceIFrame = iframes.find(iframe => iframe.contentWindow === event.source);
+        const windowId = sourceIFrame?.closest("#window")?.getAttribute("data-window-id");
+
+        if (windowId) {
+          handleWindowFocus(windowId);
+        }
       }
     };
 

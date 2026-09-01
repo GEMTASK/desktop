@@ -7856,7 +7856,7 @@ var Bc = {
 //#endregion
 //#region src/components/Window.tsx
 function Vc(e) {
-	let t = (0, Ee.c)(70), { id: n, title: r, children: i, position: a, size: o, order: s, minimized: c, onLayout: d, onUpdate: f, onFocus: p, onSendToBack: m, onRequestClose: h, onRequestMinimize: g } = e, _ = u(null), v = u(null), y = u(null), b;
+	let t = (0, Ee.c)(71), { id: n, title: r, children: i, position: a, size: o, order: s, minimized: c, onLayout: d, onUpdate: f, onFocus: p, onSendToBack: m, onRequestClose: h, onRequestMinimize: g } = e, _ = u(null), v = u(null), y = u(null), b;
 	t[0] !== n || t[1] !== p ? (b = (e) => {
 		e.currentTarget.setPointerCapture(e.pointerId), y.current && (_.current = {
 			clientX: e.clientX,
@@ -8038,8 +8038,9 @@ function Vc(e) {
 		children: i
 	}), t[64] = i, t[65] = ye);
 	let be;
-	return t[66] !== ee || t[67] !== ge || t[68] !== ye ? (be = /* @__PURE__ */ (0, Q.jsxs)(K, {
+	return t[66] !== n || t[67] !== ee || t[68] !== ge || t[69] !== ye ? (be = /* @__PURE__ */ (0, Q.jsxs)(K, {
 		id: "window",
+		"data-window-id": n,
 		ref: y,
 		absolute: !0,
 		shadow: "heavy",
@@ -8052,7 +8053,7 @@ function Vc(e) {
 			ge,
 			ye
 		]
-	}), t[66] = ee, t[67] = ge, t[68] = ye, t[69] = be) : be = t[69], be;
+	}), t[66] = n, t[67] = ee, t[68] = ge, t[69] = ye, t[70] = be) : be = t[70], be;
 }
 //#endregion
 //#region src/clients/about/About.tsx
@@ -20371,7 +20372,7 @@ function Iw() {
 	}, e[4] = u) : u = e[4];
 	let f = u, p;
 	e[5] === Symbol.for("react.memo_cache_sentinel") ? (p = (e) => {
-		o((t) => [...t.filter((t) => t !== e), e]);
+		o((t) => t.at(-1) === e ? t : [...t.filter((t) => t !== e), e]);
 	}, e[5] = p) : p = e[5];
 	let m = p, h;
 	e[6] === Symbol.for("react.memo_cache_sentinel") ? (h = (e) => {
@@ -20420,8 +20421,13 @@ function Iw() {
 	let D = E, O, k;
 	e[12] === Symbol.for("react.memo_cache_sentinel") ? (O = () => {
 		let e = (e) => {
-			let t = kw(e.data.client, e.data.args);
-			t && l(t);
+			if (e.data.action === "START_CLIENT") {
+				let t = kw(e.data.client, e.data.args);
+				t && l(t);
+			} else if (e.data.action === "WINDOW_TO_FRONT") {
+				let t = Array.from(document.querySelectorAll("iframe")).find((t) => t.contentWindow === e.source)?.closest("#window")?.getAttribute("data-window-id");
+				t && m(t);
+			}
 		};
 		return window.addEventListener("message", e), setTimeout(() => {
 			let e = location.pathname.slice(1).split("/").at(-1);
