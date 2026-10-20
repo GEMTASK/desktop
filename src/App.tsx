@@ -46,7 +46,7 @@ const utilitiesMenuItems = [
   <Menu.Item title="Styleguide" value="styleguide" />,
 ];
 
-const programsMenuItems = [
+const buildProgramsMenuItems = (handleMenuSelect: any) => [
   <Menu.Group label="Applications" />,
   <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" />,
   <Menu.Item title="Stereo System" value="virtual-stereo" />,
@@ -63,7 +63,7 @@ const programsMenuItems = [
   <Menu.Item title="Line Segments" value="p5-segments" />,
   <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
   <Menu.Divider />,
-  <Menu noPortal anchor="top right" items={[
+  <Menu noPortal anchor="top right" onItemSelect={handleMenuSelect} items={[
     <Menu.Item title="Let's Code!" value="p5-lets-code" />,
     <Menu.Item title="Asteroids" value="p5-asteroids" />,
     <Menu.Item title="Fountain" value="p5-fountain" />,
@@ -233,7 +233,7 @@ function App() {
         <Menu onItemSelect={handleMenuSelect} items={utilitiesMenuItems}>
           <Menu.Item title="Utilities" padding="8px" />
         </Menu>
-        <Menu onItemSelect={handleMenuSelect} items={programsMenuItems}>
+        <Menu onItemSelect={handleMenuSelect} items={buildProgramsMenuItems(handleMenuSelect)}>
           <Menu.Item title="Programs" padding="8px" />
         </Menu>
         <Menu onItemSelect={handleLinksMenuSelect} items={[
