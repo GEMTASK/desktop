@@ -7929,7 +7929,8 @@ function Vc(e) {
 	t[33] === Symbol.for("react.memo_cache_sentinel") ? (U = {
 		borderTopLeftRadius: 4,
 		borderTopRightRadius: 4,
-		minHeight: 32
+		paddingTop: 2,
+		paddingBottom: 1
 	}, t[33] = U) : U = t[33];
 	let ie;
 	t[34] === Symbol.for("react.memo_cache_sentinel") ? (ie = {
@@ -20271,7 +20272,7 @@ var Aw = {
 		title: "Styleguide",
 		value: "styleguide"
 	})
-], Fw = [
+], Fw = (e) => [
 	/* @__PURE__ */ (0, Q.jsx)(J.Group, { label: "Applications" }),
 	/* @__PURE__ */ (0, Q.jsx)(J.Item, {
 		title: "Bestest Movies Ever",
@@ -20327,6 +20328,7 @@ var Aw = {
 	/* @__PURE__ */ (0, Q.jsx)(J, {
 		noPortal: !0,
 		anchor: "top right",
+		onItemSelect: e,
 		items: [
 			/* @__PURE__ */ (0, Q.jsx)(J.Item, {
 				title: "Let's Code!",
@@ -20481,7 +20483,7 @@ function Iw() {
 	let I;
 	e[19] === Symbol.for("react.memo_cache_sentinel") ? (I = /* @__PURE__ */ (0, Q.jsx)(J, {
 		onItemSelect: v,
-		items: Fw,
+		items: Fw(v),
 		children: /* @__PURE__ */ (0, Q.jsx)(J.Item, {
 			title: "Programs",
 			padding: "8px"
