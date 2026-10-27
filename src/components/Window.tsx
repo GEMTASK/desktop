@@ -186,9 +186,7 @@ function Window({
           <Menu items={[
             <Menu.Item title="Send to Back" onClick={handleSendToBackButtonClick} />,
           ]}>
-            <Button hover icon={EllipsisVerticalIcon} style={{ padding: 6, marginRight: 4 }}
-              onClick={handleMinimizeButtonClick}
-            />
+            <Button hover icon={EllipsisVerticalIcon} style={{ padding: 6, marginRight: 4 }} />
           </Menu>
           <Button
             hover
