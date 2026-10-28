@@ -14,7 +14,7 @@ type Client = {
     minimized?: boolean;
 };
 declare function startClient(client: string, args?: Record<string, string>): {
-    icon: import('react').ForwardRefExoticComponent<Omit<import('lucide-react').LucideProps, "ref"> & import('react').RefAttributes<SVGSVGElement>>;
+    icon: import('lucide-react').LucideIcon;
     title: string;
     size: {
         width: number;
