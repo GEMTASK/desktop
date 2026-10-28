@@ -56,6 +56,9 @@ function startClient(client: string, args?: Record<string, string>) {
     case "browser": return {
       icon: GlobeIcon, title: "Browser", size: { width: 1500, height: 1100 }, client: <Browser args={args} />,
     };
+    case "clock": return {
+      icon: ClockIcon, title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />,
+    };
   }
 }
 
