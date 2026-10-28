@@ -31,44 +31,44 @@ const startupClients: Client[] = [
 ];
 
 const desktopMenuItems = [
-  <Menu.Item title="About Desktop" value="about" />,
+  <Menu.Item title="About Desktop" value="about" fontWeight="500" />,
 ];
 
 const utilitiesMenuItems = [
-  <Menu.Item title="Clock" value="clock" />,
-  <Menu.Item title="Calendar" value="calendar" />,
-  <Menu.Item title="Calculator" value="calculator" />,
-  <Menu.Item title="Terminal" value="terminal" />,
-  <Menu.Item title="Browser" value="browser" />,
-  <Menu.Item title="Markdown" value="markdown" />,
-  <Menu.Item title="Eyes" value="eyes" />,
+  <Menu.Item title="Clock" value="clock" fontWeight="500" />,
+  <Menu.Item title="Calendar" value="calendar" fontWeight="500" />,
+  <Menu.Item title="Calculator" value="calculator" fontWeight="600" />,
+  <Menu.Item title="Terminal" value="terminal" fontWeight="500" />,
+  <Menu.Item title="Browser" value="browser" fontWeight="500" />,
+  <Menu.Item title="Markdown" value="markdown" fontWeight="500" />,
+  <Menu.Item title="Eyes" value="eyes" fontWeight="500" />,
   <Menu.Divider />,
-  <Menu.Item title="Styleguide" value="styleguide" />,
+  <Menu.Item title="Styleguide" value="styleguide" fontWeight="500" />,
 ];
 
-const buildProgramsMenuItems = (handleMenuSelect: any) => [
+const buildProgramsMenuItems = (handleMenuSelect: (value?: string) => void) => [
   <Menu.Group label="Applications" />,
-  <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" />,
-  <Menu.Item title="Stereo System" value="virtual-stereo" />,
-  <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" />,
-  <Menu.Item title="Vector Draw" value="vector-draw" />,
-  <Menu.Item title="Virtual Machine" value="virtual-machine" />,
-  <Menu.Item title="GEMTASK Mock" value="gemtask" />,
+  <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" fontWeight="500" />,
+  <Menu.Item title="Stereo System" value="virtual-stereo" fontWeight="500" />,
+  <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" fontWeight="500" />,
+  <Menu.Item title="Vector Draw" value="vector-draw" fontWeight="500" />,
+  <Menu.Item title="Virtual Machine" value="virtual-machine" fontWeight="500" />,
+  <Menu.Item title="GEMTASK Mock" value="gemtask" fontWeight="500" />,
   <Menu.Divider />,
   <Menu.Group label="Games & Visuals" />,
-  <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" />,
-  <Menu.Item title="React Asteroids" value="react-asteroids" />,
-  <Menu.Item title="Snakey Snake" value="p5-snake" />,
-  <Menu.Item title="Bouncy Bounce" value="p5-bounce" />,
-  <Menu.Item title="Line Segments" value="p5-segments" />,
-  <Menu.Item title="Imploding Sphere" value="imploding-sphere" />,
+  <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" fontWeight="500" />,
+  <Menu.Item title="React Asteroids" value="react-asteroids" fontWeight="500" />,
+  <Menu.Item title="Snakey Snake" value="p5-snake" fontWeight="500" />,
+  <Menu.Item title="Bouncy Bounce" value="p5-bounce" fontWeight="500" />,
+  <Menu.Item title="Line Segments" value="p5-segments" fontWeight="500" />,
+  <Menu.Item title="Imploding Sphere" value="imploding-sphere" fontWeight="500" />,
   <Menu.Divider />,
   <Menu noPortal anchor="top right" onItemSelect={handleMenuSelect} items={[
-    <Menu.Item title="Let's Code!" value="p5-lets-code" />,
-    <Menu.Item title="Asteroids" value="p5-asteroids" />,
-    <Menu.Item title="Fountain" value="p5-fountain" />,
+    <Menu.Item title="Let's Code!" value="p5-lets-code" fontWeight="500" />,
+    <Menu.Item title="Asteroids" value="p5-asteroids" fontWeight="500" />,
+    <Menu.Item title="Fountain" value="p5-fountain" fontWeight="500" />,
   ]}>
-    <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} />
+    <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} fontWeight="500" />
   </Menu>,
 ];
 
@@ -228,18 +228,18 @@ function App() {
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
         <Menu onItemSelect={handleMenuSelect} items={desktopMenuItems}>
-          <Menu.Item title="Desktop" fontWeight="700" padding="8px" />
+          <Menu.Item title="Desktop" padding="8px" fontWeight="700" />
         </Menu>
         <Menu onItemSelect={handleMenuSelect} items={utilitiesMenuItems}>
-          <Menu.Item title="Utilities" padding="8px" />
+          <Menu.Item title="Utilities" padding="8px" fontWeight="500" />
         </Menu>
         <Menu onItemSelect={handleMenuSelect} items={buildProgramsMenuItems(handleMenuSelect)}>
-          <Menu.Item title="Programs" padding="8px" />
+          <Menu.Item title="Programs" padding="8px" fontWeight="500" />
         </Menu>
         <Menu onItemSelect={handleLinksMenuSelect} items={[
-          <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" />,
-          <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" />,
-          <Menu.Item icon={ExternalLinkIcon} title="Learning React" value="https://codepen.io/collection/dbOKez" />,
+          <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" fontWeight="500" />,
+          <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" fontWeight="500" />,
+          <Menu.Item icon={ExternalLinkIcon} title="Learning React" value="https://codepen.io/collection/dbOKez" fontWeight="500" />,
         ]}>
           <Menu.Item title="Links" padding="8px" />
         </Menu>
