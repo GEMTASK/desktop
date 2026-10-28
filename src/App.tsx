@@ -238,8 +238,9 @@ function App() {
         </Menu>
         <Menu onItemSelect={handleLinksMenuSelect} items={[
           <Menu.Item icon={ExternalLinkIcon} title="My GitHub Repos" value="https://github.com/mikeaustin" fontWeight="500" />,
-          <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" fontWeight="500" />,
+          <Menu.Item icon={ExternalLinkIcon} title="Older React Desktop" value="https://mike-austin.com/react-desktop" fontWeight="500" />,
           <Menu.Item icon={ExternalLinkIcon} title="Learning React" value="https://codepen.io/collection/dbOKez" fontWeight="500" />,
+          <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" fontWeight="500" />,
         ]}>
           <Menu.Item title="Links" padding="8px" />
         </Menu>

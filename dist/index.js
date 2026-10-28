@@ -20546,14 +20546,20 @@ function Iw() {
 					}),
 					/* @__PURE__ */ (0, Q.jsx)(J.Item, {
 						icon: A,
-						title: "My Old Resume (2017)",
-						value: "https://mike-austin.com",
+						title: "Older React Desktop",
+						value: "https://mike-austin.com/react-desktop",
 						fontWeight: "500"
 					}),
 					/* @__PURE__ */ (0, Q.jsx)(J.Item, {
 						icon: A,
 						title: "Learning React",
 						value: "https://codepen.io/collection/dbOKez",
+						fontWeight: "500"
+					}),
+					/* @__PURE__ */ (0, Q.jsx)(J.Item, {
+						icon: A,
+						title: "My Old Resume (2017)",
+						value: "https://mike-austin.com",
 						fontWeight: "500"
 					})
 				],
