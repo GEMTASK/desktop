@@ -130,7 +130,7 @@ const clients: Record<string, Client> = {
   },
 } as const;
 
-function startClient(clientName: string, args?: Record<string, string>) {
+function startClient(clientName: string, args?: Record<string, string>): Client {
   const client = clients[clientName];
 
   if (client) {
@@ -141,6 +141,8 @@ function startClient(clientName: string, args?: Record<string, string>) {
       }),
     };
   }
+
+  throw new Error("Client does not exist");
 }
 
 export default clients;

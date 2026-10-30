@@ -21,6 +21,20 @@ function Desktop(clients: Client[], startupClients?: Client[]) {
   })));
   const [orderedWindowIds, setOrderedWindowIds] = useState<string[]>(windows.map(window => window.id));
 
+  const addWindow = (client: Client) => {
+    const id = crypto.randomUUID();
+
+    setWindows(windows => [
+      ...windows,
+      { id, ...client },
+    ]);
+
+    setOrderedWindowIds(orderedWindowIds => [
+      ...orderedWindowIds,
+      id,
+    ]);
+  };
+
   return (
     <View id="window" style={{ height: "100vh", overflow: "hidden" }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
