@@ -97,6 +97,8 @@ function App() {
     ]);
   };
 
+  //
+
   const handleWindowUpdate = (id: string, x: number, y: number) => {
     setWindows(windows => windows.map(window => window.id !== id ? window : ({
       ...window,
@@ -123,20 +125,10 @@ function App() {
       return;
     }
 
-    const client = clients[value];
+    const client = startClient(value);
 
     if (client) {
-      const id = crypto.randomUUID();
-
-      setWindows(windows => [
-        ...windows,
-        { id, ...client },
-      ]);
-
-      setOrderedWindowIds(orderedWindowIds => [
-        ...orderedWindowIds,
-        id,
-      ]);
+      addWindow(client);
     }
   };
 
@@ -180,6 +172,8 @@ function App() {
       },
     }));
   };
+
+  //
 
   useEffect(() => {
     const handleWindowMessage = (event: MessageEvent) => {

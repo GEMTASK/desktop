@@ -1,3 +1,4 @@
+import React from "react";
 import {
   BrainCircuitIcon, CalculatorIcon, CalendarIcon, CarIcon, CircleQuestionMarkIcon, ClockIcon, CodeIcon, EyeIcon,
   FilmIcon, FolderIcon, Gamepad2Icon, GemIcon, GlobeIcon, GpuIcon, MusicIcon, PaletteIcon, PenIcon, PenToolIcon, TerminalIcon,
@@ -47,20 +48,9 @@ type Client = {
   title: string,
   position?: { x: number, y: number },
   size: { width?: number, height?: number },
-  client: React.ReactElement,
+  client: React.ReactElement<{ args?: Record<string, string> }>,
   minimized?: boolean,
 };
-
-function startClient(client: string, args?: Record<string, string>) {
-  switch (client) {
-    case "browser": return {
-      icon: GlobeIcon, title: "Browser", size: { width: 1500, height: 1100 }, client: <Browser args={args} />,
-    };
-    case "clock": return {
-      icon: ClockIcon, title: "Clock", size: { width: 300, height: 330 }, client: <AnalogClock />,
-    };
-  }
-}
 
 const clients: Record<string, Client> = {
   "about": {
@@ -106,7 +96,7 @@ const clients: Record<string, Client> = {
     icon: Gamepad2Icon, title: "React Asteroids", size: { width: 1400, height: 900 }, client: <IFrame name="react-asteroids" />,
   },
   "browser": {
-    icon: GlobeIcon, title: "Browser", size: { width: 1200, height: 900 }, client: <Browser />,
+    icon: GlobeIcon, title: "Browser", size: { width: 1500, height: 1100 }, client: <Browser />,
   },
   "p5-lets-code": {
     icon: CodeIcon, title: "p5 Let's Code!", size: { width: 1680, height: 1100 }, client: <IFrame name="lets-code" />,
@@ -139,6 +129,19 @@ const clients: Record<string, Client> = {
     icon: GemIcon, title: "GEMTASK Mock", size: { width: 1600, height: 900 }, client: <GEMTASK />,
   },
 } as const;
+
+function startClient(clientName: string, args?: Record<string, string>) {
+  const client = clients[clientName];
+
+  if (client) {
+    return {
+      ...client,
+      client: React.cloneElement(client?.client, {
+        args,
+      }),
+    };
+  }
+}
 
 export default clients;
 
