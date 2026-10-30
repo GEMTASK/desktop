@@ -19,11 +19,11 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1009.0",
-    "lucide-react": "^1.27.0",
+    "lucide-react": "^1.1",
     "onyx-ui": "github:GEMTASK/intuition",
     "peggy": "^5.1.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2",
+    "react-dom": "^19.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
