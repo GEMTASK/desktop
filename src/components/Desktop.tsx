@@ -183,7 +183,7 @@ function Desktop({
   useEffect(() => {
     const handleWindowMessage = (event: MessageEvent) => {
       if (event.data.action === "START_CLIENT") {
-        const client = startClient(event.data.client, event.data.args);
+        const client = startClient(clients, event.data.client, event.data.args);
 
         if (client) {
           addWindow(client);

@@ -8436,7 +8436,7 @@ function Qc(e) {
 	t[14] === n ? (M = t[15], N = t[16]) : (M = () => {
 		let e = (e) => {
 			if (e.data.action === "START_CLIENT") {
-				let t = Zc(e.data.client, e.data.args);
+				let t = Zc(n, e.data.client, e.data.args);
 				t && p(t);
 			} else if (e.data.action === "WINDOW_TO_FRONT") {
 				let t = Array.from(document.querySelectorAll("iframe")).find((t) => t.contentWindow === e.source)?.closest("#window")?.getAttribute("data-window-id");
