@@ -47,9 +47,9 @@ function Window({
   order: number,
   minimized: boolean,
   onLayout?: (id: string, element: HTMLElement) => void,
-  onUpdate: (id: string, x: number, y: number) => void,
-  onFocus: (id: string) => void,
-  onSendToBack: (id: string) => void,
+  onUpdate?: (id: string, x: number, y: number) => void,
+  onFocus?: (id: string) => void,
+  onSendToBack?: (id: string) => void,
   onRequestClose?: (id: string) => void,
   onRequestMinimize?: (id: string) => void,
 }, typeof View<"div">>) {
@@ -74,7 +74,7 @@ function Window({
       windowElementRef.current.style.willChange = "left, top";
     }
 
-    onFocus(id);
+    onFocus?.(id);
   };
 
   const handleTitlebarPointerMove = (event: React.PointerEvent<HTMLElement>) => {
@@ -96,7 +96,7 @@ function Window({
       windowElementRef.current.style.left = `${Math.round(windowElementRef.current.offsetLeft / 15) * 15}px`;
       windowElementRef.current.style.top = `${Math.round(windowElementRef.current.offsetTop / 15) * 15}px`;
 
-      onUpdate(id,
+      onUpdate?.(id,
         windowElementRef.current.offsetLeft,
         windowElementRef.current.offsetTop,
       );

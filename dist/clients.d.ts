@@ -1,5 +1,5 @@
-import { Icon } from 'onyx-ui';
 import { default as React } from 'react';
+import { Icon } from 'onyx-ui';
 type Client = {
     icon?: React.ComponentProps<typeof Icon>["icon"];
     title: string;
