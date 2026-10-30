@@ -1,4 +1,3 @@
 import "./index.css";
 
-export { default as Desktop } from "./App";
-
+export { default as Desktop } from "./components/Desktop";

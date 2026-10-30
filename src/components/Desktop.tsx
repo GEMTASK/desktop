@@ -1,6 +1,6 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Icon, Menu, View } from "onyx-ui";
-import { Minimize2Icon } from "lucide-react";
+import { ChevronRightIcon, ExternalLinkIcon, Minimize2Icon } from "lucide-react";
 
 import wallpaperImage from "../assets/wallpaper.jpg";
 import Window from "./Window";
@@ -14,7 +14,72 @@ type Client = {
   minimized?: boolean,
 };
 
-function Desktop(clients: Client[], startupClients?: Client[]) {
+const desktopMenuItems = [
+  <Menu.Item title="About Desktop" value="about" fontWeight="500" />,
+];
+
+const utilitiesMenuItems = [
+  <Menu.Item title="Clock" value="clock" fontWeight="500" />,
+  <Menu.Item title="Calendar" value="calendar" fontWeight="500" />,
+  <Menu.Item title="Calculator" value="calculator" fontWeight="600" />,
+  <Menu.Item title="Terminal" value="terminal" fontWeight="500" />,
+  <Menu.Item title="Browser" value="browser" fontWeight="500" />,
+  <Menu.Item title="Markdown" value="markdown" fontWeight="500" />,
+  <Menu.Item title="Eyes" value="eyes" fontWeight="500" />,
+  <Menu.Divider />,
+  <Menu.Item title="Styleguide" value="styleguide" fontWeight="500" />,
+];
+
+const buildProgramsMenuItems = (handleMenuSelect: (value?: string) => void) => [
+  <Menu.Group label="Applications" />,
+  <Menu.Item title="Bestest Movies Ever" value="bestest-movies-ever" fontWeight="500" />,
+  <Menu.Item title="Stereo System" value="virtual-stereo" fontWeight="500" />,
+  <Menu.Item title="FT86 Part Picker" value="ft86-part-picker" fontWeight="500" />,
+  <Menu.Item title="Vector Draw" value="vector-draw" fontWeight="500" />,
+  <Menu.Item title="Virtual Machine" value="virtual-machine" fontWeight="500" />,
+  <Menu.Item title="GEMTASK Mock" value="gemtask" fontWeight="500" />,
+  <Menu.Divider />,
+  <Menu.Group label="Games & Visuals" />,
+  <Menu.Item title="Strategic Asteroids" value="strategic-asteroids" fontWeight="500" />,
+  <Menu.Item title="React Asteroids" value="react-asteroids" fontWeight="500" />,
+  <Menu.Item title="Snakey Snake" value="p5-snake" fontWeight="500" />,
+  <Menu.Item title="Bouncy Bounce" value="p5-bounce" fontWeight="500" />,
+  <Menu.Item title="Line Segments" value="p5-segments" fontWeight="500" />,
+  <Menu.Item title="Imploding Sphere" value="imploding-sphere" fontWeight="500" />,
+  <Menu.Divider />,
+  <Menu noPortal anchor="top right" onItemSelect={handleMenuSelect} items={[
+    <Menu.Item title="Let's Code!" value="p5-lets-code" fontWeight="500" />,
+    <Menu.Item title="Asteroids" value="p5-asteroids" fontWeight="500" />,
+    <Menu.Item title="Fountain" value="p5-fountain" fontWeight="500" />,
+  ]}>
+    <Menu.Item title="p5 Tutorials" rightIcon={ChevronRightIcon} fontWeight="500" />
+  </Menu>,
+];
+
+function startClient(clients: Record<string, Client>, clientName: string, args?: Record<string, string>) {
+  const client = clients[clientName];
+
+  if (client) {
+    return {
+      ...client,
+      client: React.cloneElement(client?.client, {
+        args,
+      }),
+    };
+  }
+
+  throw new Error("Client does not exist");
+}
+
+//
+// Desktop
+//
+
+function Desktop({
+  clients, startupClients,
+}: {
+  clients: Record<string, Client>, startupClients?: Client[],
+}) {
   const [windows, setWindows] = useState(location.pathname !== "/" || !startupClients ? [] : startupClients.map(client => ({
     id: crypto.randomUUID(),
     ...client,
@@ -35,11 +100,133 @@ function Desktop(clients: Client[], startupClients?: Client[]) {
     ]);
   };
 
+  //
+
+  const handleMenuSelect = (value?: string) => {
+    if (typeof value !== "string") {
+      return;
+    }
+
+    const client = startClient(clients, value);
+
+    if (client) {
+      addWindow(client);
+    }
+  };
+
+  const handleLinksMenuSelect = (value?: string) => {
+    if (typeof value !== "string") {
+      return;
+    }
+
+    window.open(value);
+  };
+
+  //
+
+  const handleWindowUpdate = (id: string, x: number, y: number) => {
+    setWindows(windows => windows.map(window => window.id !== id ? window : ({
+      ...window,
+      position: { x, y },
+    })));
+  };
+
+  const handleWindowFocus = (id: string) => {
+    setOrderedWindowIds(orderedWindowIds => orderedWindowIds.at(-1) === id ? orderedWindowIds : [
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+      id,
+    ]);
+  };
+
+  const handleWindowSendToBack = (id: string) => {
+    setOrderedWindowIds(orderedWindowIds => [
+      id,
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+    ]);
+  };
+
+  const handleWindowRequestClose = (id: string) => {
+    setWindows(windows => windows.filter(window => window.id !== id));
+    setOrderedWindowIds(windowIds => windowIds.filter(windowId => windowId !== id));
+  };
+
+  const handleWindowRequestMinimize = (id: string) => {
+    setWindows(windows => windows.map(window => window.id !== id ? window : {
+      ...window,
+      minimized: true,
+    }));
+  };
+
+  const handleWindowWindowSelect = (id: string) => {
+    setWindows(windows => windows.map(window => window.id !== id ? window : {
+      ...window,
+      minimized: false,
+    }));
+    setOrderedWindowIds(orderedWindowIds => [
+      ...orderedWindowIds.filter(windowId => windowId !== id),
+      id,
+    ]);
+  };
+
+  const handleWindowLayout = (id: string, element: HTMLElement) => {
+    setWindows(windows => windows.map(window => window.id !== id || window.position ? window : {
+      ...window,
+      position: {
+        x: (document.body.offsetWidth - element.offsetWidth - 240) / 2,
+        y: (document.body.offsetHeight - element.offsetHeight - 32) / 2,
+      },
+    }));
+  };
+
+  //
+
+  useEffect(() => {
+    const handleWindowMessage = (event: MessageEvent) => {
+      if (event.data.action === "START_CLIENT") {
+        const client = startClient(event.data.client, event.data.args);
+
+        if (client) {
+          addWindow(client);
+        }
+      } else if (event.data.action === "WINDOW_TO_FRONT") {
+        const iframes = Array.from(document.querySelectorAll("iframe"));
+
+        const sourceIFrame = iframes.find(iframe => iframe.contentWindow === event.source);
+        const windowId = sourceIFrame?.closest("#window")?.getAttribute("data-window-id");
+
+        if (windowId) {
+          handleWindowFocus(windowId);
+        }
+      }
+    };
+
+    window.addEventListener("message", handleWindowMessage);
+
+    setTimeout(() => {
+      const clientName = location.pathname.slice(1).split("/").at(-1);
+
+      if (clientName) {
+        const args = new URLSearchParams(window.location.search);
+        const argsObject = Object.fromEntries(args.entries());
+
+        const client = startClient(clients, clientName, argsObject);
+
+        if (client) {
+          addWindow(client);
+        }
+      }
+    });
+
+    return () => {
+      window.removeEventListener("message", handleWindowMessage);
+    };
+  }, [clients]);
+
   return (
     <View id="window" style={{ height: "100vh", overflow: "hidden" }}>
       <View id="overlay" absolute style={{ zIndex: 1000, inset: 0, pointerEvents: "none" }} />
       <View horizontal shadow padding="0px 8px" fillColor="content" style={{ zIndex: 2, minHeight: 32 }}>
-        {/* <Menu onItemSelect={handleMenuSelect} items={desktopMenuItems}>
+        <Menu onItemSelect={handleMenuSelect} items={desktopMenuItems}>
           <Menu.Item title="Desktop" padding="8px" fontWeight="700" />
         </Menu>
         <Menu onItemSelect={handleMenuSelect} items={utilitiesMenuItems}>
@@ -55,7 +242,7 @@ function Desktop(clients: Client[], startupClients?: Client[]) {
           <Menu.Item icon={ExternalLinkIcon} title="My Old Resume (2017)" value="https://mike-austin.com" fontWeight="500" />,
         ]}>
           <Menu.Item title="Links" padding="8px" />
-        </Menu> */}
+        </Menu>
       </View>
       <View flex fillColor="panel" style={{ background: `url('${wallpaperImage}') center center / cover` }}>
         <View
@@ -77,7 +264,7 @@ function Desktop(clients: Client[], startupClients?: Client[]) {
                 rightIcon={window.minimized ? Minimize2Icon : undefined}
                 align="left"
                 cornerRadius="0px"
-              // onClick={() => handleWindowWindowSelect(window.id)}
+                onClick={() => handleWindowWindowSelect(window.id)}
               >
                 {window.title}
               </Button>
@@ -93,12 +280,12 @@ function Desktop(clients: Client[], startupClients?: Client[]) {
             size={size}
             order={orderedWindowIds.indexOf(id)}
             minimized={!!minimized}
-          // onUpdate={handleWindowUpdate}
-          // onFocus={handleWindowFocus}
-          // onSendToBack={handleWindowSendToBack}
-          // onRequestClose={handleWindowRequestClose}
-          // onRequestMinimize={handleWindowRequestMinimize}
-          // onLayout={handleWindowLayout}
+            onUpdate={handleWindowUpdate}
+            onFocus={handleWindowFocus}
+            onSendToBack={handleWindowSendToBack}
+            onRequestClose={handleWindowRequestClose}
+            onRequestMinimize={handleWindowRequestMinimize}
+            onLayout={handleWindowLayout}
           >
             {client}
           </Window>

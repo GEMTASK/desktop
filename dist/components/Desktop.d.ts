@@ -1,3 +1,4 @@
+import { default as React } from 'react';
 import { Icon } from 'onyx-ui';
 type Client = {
     icon?: React.ComponentProps<typeof Icon>["icon"];
@@ -15,5 +16,8 @@ type Client = {
     }>;
     minimized?: boolean;
 };
-declare function Desktop(clients: Client[], startupClients?: Client[]): import("react").JSX.Element;
+declare function Desktop({ clients, startupClients, }: {
+    clients: Record<string, Client>;
+    startupClients?: Client[];
+}): React.JSX.Element;
 export default Desktop;
